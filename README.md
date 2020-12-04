@@ -2,10 +2,13 @@
 
 Welcome to the _Santiago_ Data Analysis _R_-Package.
 
-This Repository provides a number of plots that can be used with the outputs of _Santiago_ and is updated ongoing. There are three _R_ Scripts:
-* Santiago-Data-Prep.R --> Reads in CSVs and prepares Data Frames
-* Santiago-Data-Helpers.R --> Helper functions and variables (colours, labels etc.)
-* Santiago-Data-Plots.R --> The actual plots that can be used after running the two scripts above
+## General  
+
+This Repository provides a number of plots that can be used with the outputs of _Santiago_ and is updated ongoing. There are three _R_ Scripts:  
+
+* _Santiago-Data-Prep.R_ --> Reads in CSVs and prepares Data Frames
+* _Santiago-Data-Helpers.R_ --> Helper functions and variables (colours, labels etc.)
+* _Santiago-Data-Plots.R_ --> The actual plots that can be used after running the two scripts above
 
 ## Available Plots (2020/Dec/04)
 * p3.2 --> Recovery Potentials - A scatter and boxplot per template, colored by source.
