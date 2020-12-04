@@ -1,4 +1,4 @@
-# Santiago-data-analysis
+# Santiago Data Analysis with R
 
 Welcome to the _Santiago_ Data Analysis _R_-Package.
 
