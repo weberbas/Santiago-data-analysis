@@ -12,6 +12,7 @@ This Repository provides a number of plots that can be used with the outputs of 
 
 ## Available Plots (2020/Dec/04)
 * p3.2 --> Recovery Potentials - A scatter and boxplot per template, colored by source.
+* p1.1.3 --> Recovery Ratios - A Density plot for recovery ratios
 
 ## Usage:
 ### Preparation - Export CSV Files in _Santiago_:
@@ -99,7 +100,7 @@ props <- read.csv("..._allSys_R-Export.csv", TRUE, ",")
 ## read in selectedSystems
 selectedSystems <- read.csv("...selectedSys_R-Export.csv", TRUE, ",")
 ```
-After this, you should be able to run both of the scripts _Santiago-Data-Prep.R_ and _Santiago-Data-Helpers.R_ (the scripts are also called in the script _Santiago-Data-Plots.R_).
+After this, you should be able to run both of the scripts _Santiago-Data-Prep.R_ and _Santiago-Data-Helpers.R_ (the scripts are also called in the script _Santiago-Data-Plots.R_, but you have to change `source("Santiago-R-Plots-YYMMDD")` accordingly).
 
 ### Plot Data
 Once you prepared your data, you can go ahead and run the preimplemented plots in _Santiago-Data-Plots.R_. The plots are calculated and stored as a variable (e.g. "p3.2x") and in a later step exported as PDF. Use `view(p.3.2x)` to view the plot in your Editor. 
