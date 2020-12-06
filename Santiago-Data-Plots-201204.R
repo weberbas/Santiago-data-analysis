@@ -224,7 +224,7 @@ p1.1.3h2om <- ggplot(props, aes(x=recovered_water_mean)) +
                 scale_x_continuous(labels = scientific) +
                 ggtitle("Water Recovery Mass")
 
-## ---- Accumulated Balanced Recovery Ratio Density Plot ----
+  ## ---- Accumulated Balanced Recovery Ratio Density Plot ----
 
 p1.1.3acc <- ggplot(props, aes(x=recovery_ratio_accumulated_balanced_mean)) + 
             geom_density(fill = "#6F6F6E", colour = "#6F6F6E")+
@@ -254,4 +254,138 @@ ggsave(file.path(plotdir, "p1_1_3_recovery_densityplot_accumulated.pdf"), p1.1.3
 
 
 
+
+
+# # ---- 1.2.1 Recovery Ratio - Density Plot by Source ----------
+
+# General Label
+labstxt1.2.1<- expression(paste(""))
+
+  ## ---- Phosphor Recovery Ratio Density Plot by Source ----
+
+p1.2.1p <- ggplot(props, aes(x=recovery_ratio_phosphor_mean)) + 
+  geom_density(aes(fill=source), size=0.25, alpha=.6)+
+  scale_fill_manual(values = source_cols, labstxt1.2.1)+
+  scale_x_continuous(breaks = seq(0, 1, 0.2))+
+  guides(color = guide_legend(nrow = 2))+
+  theme_minimal()+
+  theme(
+    panel.grid =   element_line(colour = "#ECECEC", size=0.25),
+    plot.title = element_text(size = 9, face = "bold"),
+    axis.title.x=element_text(size=7, colour="#B1B1B1"), axis.title.y=element_text(size=7, colour="#B1B1B1"),
+    axis.text.x = element_text(size=7, colour="#B1B1B1"), axis.text.y = element_text(size=7, colour="#B1B1B1"),
+    strip.text = element_text(size=8, face="bold"),
+    legend.text=element_text(size=8, colour="#B1B1B1"), legend.position= "bottom",       
+    legend.title = element_text(size=9, face = "bold"), legend.key.size = unit(1,"line"))+
+  xlim(0,1)+
+  labs(x="Ratio [-]", y= "Density") +
+  ggtitle("Phosphorus Recovery")
+
+  ## ---- Nitrogen Recovery Ratio Density Plot by Source ----
+
+p1.2.1n <- ggplot(props, aes(x=recovery_ratio_nitrogen_mean)) + 
+  geom_density(aes(fill=source),  size=0.25, alpha=.6)+
+  scale_fill_manual(values = source_cols,  labstxt1.2.1)+
+  scale_x_continuous(breaks = seq(0, 1, 0.2))+
+  theme_minimal()+
+  theme(
+    panel.grid =   element_line(colour = "#ECECEC", size=0.25),
+    plot.title = element_text(size = 9, face = "bold"),
+    axis.title.x=element_text(size=7, colour="#B1B1B1"), axis.title.y=element_text(size=7, colour="#B1B1B1"),
+    axis.text.x = element_text(size=7, colour="#B1B1B1"), axis.text.y = element_text(size=7, colour="#B1B1B1"),
+    strip.text = element_text(size=8, face="bold"),
+    legend.text=element_text(size=8, colour="#B1B1B1"), legend.position= "bottom",       
+    legend.title = element_text(size=9, face = "bold"), legend.key.size = unit(1,"line"))+
+  xlim(0,1)+
+  labs(x="Ratio [-]", y= "Density") +
+  ggtitle("Nitrogen Recovery")
+
+  ## ---- Total Solids Recovery Ratio Density Plot by Source ----
+
+p1.2.1ts <- ggplot(props, aes(x=recovery_ratio_totalsolids_mean)) + 
+  geom_density(aes(fill=source),  size=0.25, alpha=.6)+
+  scale_fill_manual(values = source_cols,  labstxt1.2.1)+
+  scale_x_continuous(breaks = seq(0, 1, 0.2))+
+  theme_minimal()+
+  theme(
+    panel.grid =   element_line(colour = "#ECECEC", size=0.25),
+    plot.title = element_text(size = 9, face = "bold"),
+    axis.title.x=element_text(size=7, colour="#B1B1B1"), axis.title.y=element_text(size=7, colour="#B1B1B1"),
+    axis.text.x = element_text(size=7, colour="#B1B1B1"), axis.text.y = element_text(size=7, colour="#B1B1B1"),
+    strip.text = element_text(size=8, face="bold"),
+    legend.text=element_text(size=8, colour="#B1B1B1"), legend.position= "bottom",       
+    legend.title = element_text(size=9, face = "bold"), legend.key.size = unit(1,"line"))+
+  xlim(0,1)+
+  labs(x="Ratio [-]", y= "Density") +
+  ggtitle("Total solids Recovery")
+
+  ## ---- Water Recovery Ratio Density Plot by Source ----
+
+p1.2.1h2o <- ggplot(props, aes(x=recovery_ratio_water_mean)) + 
+  geom_density(aes(fill=source), size=0.25,  alpha=.6)+
+  scale_fill_manual(values = source_cols,  labstxt1.2.1)+
+  scale_x_continuous(breaks = seq(0, 1, 0.2))+
+  theme_minimal()+
+  theme(
+    panel.grid =   element_line(colour = "#ECECEC", size=0.25),
+    plot.title = element_text(size = 9, face = "bold"),
+    axis.title.x=element_text(size=7, colour="#B1B1B1"), axis.title.y=element_text(size=7, colour="#B1B1B1"),
+    axis.text.x = element_text(size=7, colour="#B1B1B1"), axis.text.y = element_text(size=7, colour="#B1B1B1"),
+    strip.text = element_text(size=8, face="bold"),
+    legend.text=element_text(size=8, colour="#B1B1B1"), legend.position= "bottom",       
+    legend.title = element_text(size=9, face = "bold"), legend.key.size = unit(1,"line"))+
+  xlim(0,1)+
+  labs(x="Ratio [-]", y= "Density") +
+  ggtitle("Water Recovery")
+
+  ## ---- Water Recovery Volume Density Plot by Source ----
+
+p1.2.1h2om <- ggplot(props, aes(x=recovered_water_mean)) + 
+  geom_density(aes(fill=source),  size=0.25, alpha=.6)+
+  scale_y_sqrt()+
+  scale_fill_manual(values = source_cols,  labstxt1.2.1)+
+  theme_minimal()+
+  theme(
+    panel.grid =   element_line(colour = "#ECECEC", size=0.25),
+    plot.title = element_text(size = 9, face = "bold"),
+    axis.title.x=element_text(size=7, colour="#B1B1B1"), axis.title.y=element_text(size=7, colour="#B1B1B1"),
+    axis.text.x = element_text(size=7, colour="#B1B1B1"), axis.text.y = element_text(size=7, colour="#B1B1B1"),
+    strip.text = element_text(size=8, face="bold"),
+    legend.text=element_text(size=8, colour="#B1B1B1"), legend.position= "bottom",       
+    legend.title = element_text(size=9, face = "bold"), legend.key.size = unit(1,"line"))+
+  xlim(0,max(props$recovered_water_mean))+
+  labs(x=expression(paste("kg/year*person")), y= "Density") +
+  ggtitle("Water Recovery")
+
+  ## ---- Accumulated Balanced Recovery Ratio Density Plot by Source ----
+
+p1.2.1acc <- ggplot(props, aes(x=recovery_ratio_accumulated_balanced_mean)) + 
+  geom_density(aes(fill=source),  size=0.25, alpha=.6)+
+  scale_fill_manual(values = source_cols,  labstxt1.2.1)+
+  scale_x_continuous(breaks = seq(0, 1, 0.2))+
+  theme_minimal()+
+  theme(
+    panel.grid =   element_line(colour = "#ECECEC", size=0.25),
+    plot.title = element_text(size = 9, face = "bold"),
+    axis.title.x=element_text(size=7, colour="#B1B1B1"), axis.title.y=element_text(size=7, colour="#B1B1B1"),
+    axis.text.x = element_text(size=7, colour="#B1B1B1"), axis.text.y = element_text(size=7, colour="#B1B1B1"),
+    strip.text = element_text(size=8, face="bold"),
+    legend.text=element_text(size=8, colour="#B1B1B1"), legend.position= "bottom",       
+    legend.title = element_text(size=9, face = "bold"), legend.key.size = unit(1,"line"))+
+  xlim(0,1)+
+  labs(x="Ratio [-]", y= "Density") +
+  ggtitle("Accumulated Balanced Recovery")
+
+
+
+  ## ---- Save Plots as PDF ----
+
+
+
+ggsave(file.path(plotdir, "p1_2_1_recovery_densityplot_phosphor.pdf"), p1.2.1p, unit="cm", width=19, height = 10, dpi=1000, device="pdf")
+ggsave(file.path(plotdir, "p1_2_1_recovery_densityplot_nitrogen.pdf"), p1.2.1n, unit="cm", width=19, height = 10, dpi=1000, device="pdf")
+ggsave(file.path(plotdir, "p1_2_1_recovery_densityplot_totalsolids.pdf"), p1.2.1ts, unit="cm", width=19, height = 10, dpi=1000, device="pdf")
+ggsave(file.path(plotdir, "p1_2_1_recovery_densityplot_h2o_ratio.pdf"), p1.2.1h2o, unit="cm", width=19, height = 10, dpi=1000, device="pdf")
+ggsave(file.path(plotdir, "p1_2_1_recovery_densityplot_h2o_mass.pdf"), p1.2.1h2om, unit="cm", width=19, height = 10, dpi=1000, device="pdf")
+ggsave(file.path(plotdir, "p1_2_1_recovery_densityplot_accumulated.pdf"), p1.2.1acc, unit="cm", width=19, height = 10, dpi=1000, device="pdf")
 
