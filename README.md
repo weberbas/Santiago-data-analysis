@@ -106,6 +106,6 @@ After this, you should be able to run both of the scripts _Santiago-Data-Prep.R_
 Once you prepared your data, you can go ahead and run the preimplemented plots in _Santiago-Data-Plots.R_. The plots are calculated and stored as a variable (e.g. "p3.2x") and in a later step exported as PDF. Use `view(p.3.2x)` to view the plot in your Editor. 
 
 
-This Repository is in the making and constantly updated (check dates for latest version: _Santiago-Data-Preps-YYMMDD.R_)
+This Repository is in the making and constantly updated (check dates for latest version)
 
 Have Fun!
