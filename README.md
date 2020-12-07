@@ -12,8 +12,9 @@ This Repository provides a number of plots that can be used with the outputs of 
 
 ## Available Plots (2020/Dec/04)
 * p3.2 --> Recovery Potentials - A scatter and boxplot per template, colored by source.
-* p1.1.3 --> Recovery Ratios - A Density plot for recovery ratios
-* p1.2.1 --> Revovery Ratios - A Density plot for recovery ratios, grouped by source
+* p1.1.3 --> Recovery Potentials - A Density plot for recovery ratios
+* p1.2.1 --> Recovery Potentials - A Density plot for recovery ratios, grouped by source
+* p1.3.3 --> Recovery Potentials and Losses - Boxplot Grouped by Source
 
 ## Usage:
 ### Preparation - Export CSV Files in _Santiago_:
