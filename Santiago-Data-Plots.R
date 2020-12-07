@@ -454,7 +454,7 @@ ggsave(file.path(plotdir, "p1_3_3_sourceboxplot_ratio_h2om.pdf"), p1.3.3, unit="
 
   p4.1p <- ggplot(data=props, aes(x=ntechs, y=recovery_ratio_phosphor_mean))+
     geom_point(aes(color=template), position = "jitter", alpha=0.8, size=1.1)+
-    scale_colour_manual(values = template_cols, labels = str_wrap(props$template, 25), labstxt4.1)+
+    scale_colour_manual(values = template_cols, labels = str_wrap(template_names, 25), labstxt4.1)+
     geom_boxplot(aes(group=ntechs), varwidth=TRUE, alpha=0, lwd=0.25)+
     ylim(0,1)+
     labs(x=xtxt4.1, y= "Recovery ratio [-]") +
@@ -469,7 +469,7 @@ ggsave(file.path(plotdir, "p1_3_3_sourceboxplot_ratio_h2om.pdf"), p1.3.3, unit="
   
   p4.1n <- ggplot(data=props, aes(x=ntechs, y=recovery_ratio_nitrogen_mean))+
     geom_point(aes(color=template), position = "jitter", alpha=0.8, size=1.1)+
-    scale_colour_manual(values = template_cols, labels = str_wrap(props$template, 25), labstxt4.1)+
+    scale_colour_manual(values = template_cols, labels = str_wrap(template_names, 25), labstxt4.1)+
     geom_boxplot(aes(group=ntechs), varwidth=TRUE, alpha=0, lwd=0.25)+
     ylim(0,1)+
     labs(x=xtxt4.1, y= "Recovery ratio [-]") +
@@ -483,7 +483,7 @@ ggsave(file.path(plotdir, "p1_3_3_sourceboxplot_ratio_h2om.pdf"), p1.3.3, unit="
   
   p4.1ts<- ggplot(data=props, aes(x=ntechs, y=recovery_ratio_totalsolids_mean))+
     geom_point(aes(color=template), position = "jitter", alpha=0.8, size=1.1)+
-    scale_colour_manual(values = template_cols, labels = str_wrap(props$template, 25), labstxt4.1)+
+    scale_colour_manual(values = template_cols, labels = str_wrap(template_names, 25), labstxt4.1)+
     geom_boxplot(aes(group=ntechs), varwidth=TRUE, alpha=0, lwd=0.25)+
     ylim(0,1)+
     labs(x=xtxt4.1, y= "Recovery ratio [-]") +
@@ -497,7 +497,7 @@ ggsave(file.path(plotdir, "p1_3_3_sourceboxplot_ratio_h2om.pdf"), p1.3.3, unit="
   
   p4.1h2o <- ggplot(data=props, aes(x=ntechs, y=recovery_ratio_water_mean))+
     geom_point(aes(color=template), position = "jitter", alpha=0.8, size=1.1)+
-    scale_colour_manual(values = template_cols, labels = str_wrap(props$template, 25), labstxt4.1)+
+    scale_colour_manual(values = template_cols, labels = str_wrap(template_names, 25), labstxt4.1)+
     geom_boxplot(aes(group=ntechs), varwidth=TRUE, alpha=0, lwd=0.25)+
     ylim(0,1)+
     labs(x=xtxt4.1, y= "Recovery ratio [-]") +
@@ -513,7 +513,7 @@ ggsave(file.path(plotdir, "p1_3_3_sourceboxplot_ratio_h2om.pdf"), p1.3.3, unit="
   p4.1h2om <- ggplot(data=props, aes(x=ntechs, y=recovered_water_mean))+
     geom_point(aes(color=template), position = "jitter", alpha=0.8, size=1.1)+
     geom_boxplot(aes(group=ntechs), varwidth=TRUE, alpha=0, lwd=0.25)+
-    scale_colour_manual(values = template_cols, labels = str_wrap(props$template, 25), labstxt4.1)+
+    scale_colour_manual(values = template_cols, labels = str_wrap(template_names, 25), labstxt4.1)+
     labs(x=xtxt4.1, y= "Recovered water mean [kg/year*person]") +
     theme_minimal()+
     guides(colour = guide_legend(override.aes = list(size=4, alpha= 1)))+
