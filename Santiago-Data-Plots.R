@@ -130,6 +130,7 @@ ggsave(file.path(plotdir, "p3_2_template_boxplot_accumulated.pdf"), p3.2acc, uni
 
 
 
+
 # # ---- 1.13 Recovery Ratio - Density Plot ----
 
 ## General Labels
@@ -252,6 +253,7 @@ ggsave(file.path(plotdir, "p1_1_3_recovery_densityplot_totalsolids.pdf"), p1.1.3
 ggsave(file.path(plotdir, "p1_1_3_recovery_densityplot_h2o_ratio.pdf"), p1.1.3h2o, unit="cm", width=19, height = 10, dpi=1000, device="pdf")
 ggsave(file.path(plotdir, "p1_1_3_recovery_densityplot_h2o_mass.pdf"), p1.1.3h2om, unit="cm", width=19, height = 10, dpi=1000, device="pdf")
 ggsave(file.path(plotdir, "p1_1_3_recovery_densityplot_accumulated.pdf"), p1.1.3acc, unit="cm", width=19, height = 10, dpi=1000, device="pdf")
+
 
 
 
@@ -394,6 +396,7 @@ ggsave(file.path(plotdir, "p1_2_1_recovery_densityplot_accumulated.pdf"), p1.2.1
 
 
 
+
 # # ---- 1.3.3 Recovery Ratio - Boxplot grouped by Sources ----- -----
 
 ## Preparation for Plots: Melt dataframe and factor
@@ -438,3 +441,98 @@ p1.3.3 <- ggplot(data=dtmelt_source_absolute3, aes(x= source, y= value))+
 
 ggsave(file.path(plotdir, "p1_3_3_sourceboxplot_ratio_h2om.pdf"), p1.3.3, unit="cm", width=19, height = 16, dpi=1000, device="pdf")
 
+
+
+# # ---- 4.1 Recovery Ratio - Boxplots for Number of Technologies, grouped by System Templates --------
+
+
+## General Labels
+
+  xtxt4.1 <- expression(paste("Number of technologies in SanSys"))
+  labstxt4.1 <- expression(paste("System Template"))
+  
+
+  p4.1p <- ggplot(data=props, aes(x=ntechs, y=recovery_ratio_phosphor_mean))+
+    geom_point(aes(color=template), position = "jitter", alpha=0.8, size=1.1)+
+    scale_colour_manual(values = template_cols, labels = str_wrap(props$template, 25), labstxt4.1)+
+    geom_boxplot(aes(group=ntechs), varwidth=TRUE, alpha=0, lwd=0.25)+
+    ylim(0,1)+
+    labs(x=xtxt4.1, y= "Recovery ratio [-]") +
+    theme_minimal()+
+    guides(colour = guide_legend(override.aes = list(size=4, alpha= 1)))+
+    theme(axis.title.x=element_text(size=8), 
+          plot.title = element_text(size = 8),
+          legend.key.size = unit(1,"line"), 
+          legend.position= "bottom")+
+    ggtitle("TP Recovery")
+  
+  
+  p4.1n <- ggplot(data=props, aes(x=ntechs, y=recovery_ratio_nitrogen_mean))+
+    geom_point(aes(color=template), position = "jitter", alpha=0.8, size=1.1)+
+    scale_colour_manual(values = template_cols, labels = str_wrap(props$template, 25), labstxt4.1)+
+    geom_boxplot(aes(group=ntechs), varwidth=TRUE, alpha=0, lwd=0.25)+
+    ylim(0,1)+
+    labs(x=xtxt4.1, y= "Recovery ratio [-]") +
+    theme_minimal()+
+    guides(colour = guide_legend(override.aes = list(size=4, alpha= 1)))+
+    theme(axis.title.x=element_text(size=8), 
+          plot.title = element_text(size = 8),
+          legend.key.size = unit(1,"line"), 
+          legend.position= "bottom")+
+    ggtitle("TN Recovery")
+  
+  p4.1ts<- ggplot(data=props, aes(x=ntechs, y=recovery_ratio_totalsolids_mean))+
+    geom_point(aes(color=template), position = "jitter", alpha=0.8, size=1.1)+
+    scale_colour_manual(values = template_cols, labels = str_wrap(props$template, 25), labstxt4.1)+
+    geom_boxplot(aes(group=ntechs), varwidth=TRUE, alpha=0, lwd=0.25)+
+    ylim(0,1)+
+    labs(x=xtxt4.1, y= "Recovery ratio [-]") +
+    theme_minimal()+
+    guides(colour = guide_legend(override.aes = list(size=4, alpha= 1)))+
+    theme(axis.title.x=element_text(size=8), 
+          plot.title = element_text(size = 8),
+          legend.key.size = unit(1,"line"), 
+          legend.position= "bottom")+
+    ggtitle("TS Recovery")
+  
+  p4.1h2o <- ggplot(data=props, aes(x=ntechs, y=recovery_ratio_water_mean))+
+    geom_point(aes(color=template), position = "jitter", alpha=0.8, size=1.1)+
+    scale_colour_manual(values = template_cols, labels = str_wrap(props$template, 25), labstxt4.1)+
+    geom_boxplot(aes(group=ntechs), varwidth=TRUE, alpha=0, lwd=0.25)+
+    ylim(0,1)+
+    labs(x=xtxt4.1, y= "Recovery ratio [-]") +
+    theme_minimal()+
+    guides(colour = guide_legend(override.aes = list(size=4, alpha= 1)))+
+    theme(axis.title.x=element_text(size=8),
+          plot.title = element_text(size = 8),
+          legend.key.size = unit(1,"line"), 
+          legend.position= "bottom")+
+    ggtitle("H2O Recovery")
+  
+  
+  p4.1h2om <- ggplot(data=props, aes(x=ntechs, y=recovered_water_mean))+
+    geom_point(aes(color=template), position = "jitter", alpha=0.8, size=1.1)+
+    geom_boxplot(aes(group=ntechs), varwidth=TRUE, alpha=0, lwd=0.25)+
+    scale_colour_manual(values = template_cols, labels = str_wrap(props$template, 25), labstxt4.1)+
+    labs(x=xtxt4.1, y= "Recovered water mean [kg/year*person]") +
+    theme_minimal()+
+    guides(colour = guide_legend(override.aes = list(size=4, alpha= 1)))+
+    theme(axis.title.x=element_text(size=8), 
+          plot.title = element_text(size = 8),
+          legend.key.size = unit(1,"line"), 
+          legend.position= "bottom")+
+    ggtitle("H2O Recovery")
+
+  ## ---- Create one plot with shared legend from multiple Plots ---- 
+  
+    p4.1 <- grid_arrange_shared_legend(p4.1p, p4.1n,  p4.1ts, p4.1h2o, nrow=2, ncol=2)
+    p4.1_h2om <- grid_arrange_shared_legend(p4.1p, p4.1n,  p4.1ts, p4.1h2om, nrow=2, ncol=2)
+  
+  ## ---- Save Plots as PDF ----
+  
+    ggsave(file.path(plotdir, "p4_1_ntech_templates_substance.pdf"), p4.1, unit="cm", width=19, height = 19, dpi=1000, device="pdf")
+    ggsave(file.path(plotdir, "p4_1_ntech_templates_substance_h20m.pdf"), p4.1_h2om, unit="cm", width=19, height = 19, dpi=1000, device="pdf")
+  
+  
+  
+  
