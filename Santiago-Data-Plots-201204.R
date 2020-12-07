@@ -5,9 +5,10 @@ library(stringr)
 library(scales)
 library(gridExtra)
 library(grid)
+library(reshape2)
 
-source("Santiago-Data-Prep-JF.R")
-source("Santiago-Data-Helpers-JF.R")
+source("Santiago-Data-Prep-201204.R")
+source("Santiago-Data-Helpers-201204.R")
 
 
 # # ---- 3.2 Boxplot per template coloured by source - Recovery Potentials ----
@@ -123,6 +124,7 @@ ggsave(file.path(plotdir, "p3_2_template_boxplot_totalsolids.pdf"), p3.2ts, unit
 ggsave(file.path(plotdir, "p3_2_template_boxplot_h2o_ratio.pdf"), p3.2h2o, unit="cm", width=19, height = 24, dpi=1000, device="pdf")
 ggsave(file.path(plotdir, "p3_2_template_boxplot_h2o_mass.pdf"), p3.2h2om, unit="cm", width=19, height = 24, dpi=1000, device="pdf")
 ggsave(file.path(plotdir, "p3_2_template_boxplot_accumulated.pdf"), p3.2acc, unit="cm", width=19, height = 24, dpi=1000, device="pdf")
+
 
 
 
@@ -250,6 +252,7 @@ ggsave(file.path(plotdir, "p1_1_3_recovery_densityplot_totalsolids.pdf"), p1.1.3
 ggsave(file.path(plotdir, "p1_1_3_recovery_densityplot_h2o_ratio.pdf"), p1.1.3h2o, unit="cm", width=19, height = 10, dpi=1000, device="pdf")
 ggsave(file.path(plotdir, "p1_1_3_recovery_densityplot_h2o_mass.pdf"), p1.1.3h2om, unit="cm", width=19, height = 10, dpi=1000, device="pdf")
 ggsave(file.path(plotdir, "p1_1_3_recovery_densityplot_accumulated.pdf"), p1.1.3acc, unit="cm", width=19, height = 10, dpi=1000, device="pdf")
+
 
 
 
@@ -388,4 +391,50 @@ ggsave(file.path(plotdir, "p1_2_1_recovery_densityplot_totalsolids.pdf"), p1.2.1
 ggsave(file.path(plotdir, "p1_2_1_recovery_densityplot_h2o_ratio.pdf"), p1.2.1h2o, unit="cm", width=19, height = 10, dpi=1000, device="pdf")
 ggsave(file.path(plotdir, "p1_2_1_recovery_densityplot_h2o_mass.pdf"), p1.2.1h2om, unit="cm", width=19, height = 10, dpi=1000, device="pdf")
 ggsave(file.path(plotdir, "p1_2_1_recovery_densityplot_accumulated.pdf"), p1.2.1acc, unit="cm", width=19, height = 10, dpi=1000, device="pdf")
+
+
+
+# # ---- 1.3.3 Recovery Ratio - Boxplot grouped by Sources ----- -----
+
+## Preparation for Plots: Melt dataframe and factor
+
+dt_source_absolute3 <- props[, c("source", "recovery_ratio_phosphor_mean", "lost_phosphor_air.loss_mean", "lost_phosphor_water.loss_mean", "lost_phosphor_soil.loss_mean", 
+                                 "recovery_ratio_nitrogen_mean", "lost_nitrogen_air.loss_mean", "lost_nitrogen_water.loss_mean", "lost_nitrogen_soil.loss_mean",
+                                 "recovery_ratio_totalsolids_mean", "lost_totalsolids_air.loss_mean", "lost_totalsolids_water.loss_mean", "lost_totalsolids_soil.loss_mean",
+                                 "recovered_water_mean", "lost_water_air.loss_mean", "lost_water_water.loss_mean", "lost_water_soil.loss_mean")]
+dtmelt_source_absolute3 <- melt(dt_source_absolute3, id=c("source"))
+dtmelt_source_absolute3$variable <- factor(dtmelt_source_absolute3$variable , labels = c("TP~recovered~('%')","TP~lost~to~air~('%')","TP~lost~to~water~('%')","TP~lost~to~soil~('%')",
+                                                                                         "TN~recovered~('%')","TN~lost~to~air~('%')","TN~lost~to~water~('%')","TN~lost~to~soil~('%')",
+                                                                                         "TS~recovered~('%')","TS~lost~to~air~('%')","TS~lost~to~water~('%')","TS~lost~to~soil~('%')",
+                                                                                         "H2O~recovered~( kg/y/pers)","H2O~lost~to~air~( kg/y/pers)","H2O~lost~to~water~( kg/y/pers)","H2O~lost~to~soil~( kg/y/pers)"))
+## Preparation: Calculate Median
+
+dataMedian <- summarise(group_by(dtmelt_source_absolute3, source, variable), MD = round(median(value),2))
+
+## Preparation: Add General Labels
+
+xtxt1.3.3 <- expression(paste(""))
+labstxt1.3.3 <- expression(paste("Source Technology"))
+
+p1.3.3 <- ggplot(data=dtmelt_source_absolute3, aes(x= source, y= value))+
+  geom_point(aes(colour= factor(source)), alpha=0.5, size=0.5, position = position_jitter())+
+  scale_colour_manual(values = source_cols) +
+  geom_boxplot(varwidth= FALSE, alpha=0.5, lwd=0.25, fill = "#6F6F6E", colour = "#6F6F6E", width=0.5)+
+  geom_text(data = dataMedian, aes(source, MD, label = MD),size = 2, position = position_dodge(width = 0.8), vjust = -0.75)+
+  facet_wrap(~variable, labeller = label_parsed, scale="free_y")+
+  labs(color=labstxt1.3.3, x= xtxt1.3.3, y ="substance recoverd/lost")+
+  guides(colour = guide_legend(override.aes = list(size=4, alpha= 1)))+
+  theme_minimal()+
+  theme(
+        panel.grid =   element_line(colour = "#ECECEC", size=0.25),
+        plot.title = element_text(size = 9, face = "bold"),
+        axis.title.x=element_text(size=7, colour="#B1B1B1"), axis.title.y=element_text(size=7, colour="#B1B1B1"),
+        axis.text.x = element_text(size=7, colour="#B1B1B1", angle = 90), axis.text.y = element_text(size=7, colour="#B1B1B1"),
+        strip.text = element_text(size=8, face="bold"),
+        legend.text=element_text(size=7, colour="#B1B1B1"), legend.position= "bottom",       
+        legend.title = element_text(size=9, face = "bold"), legend.key.size = unit(1,"line"))
+
+  ## ---- Save Plot as PDF -----
+
+ggsave(file.path(plotdir, "p1_3_3_sourceboxplot_ratio_h2om.pdf"), p1.3.3, unit="cm", width=19, height = 16, dpi=1000, device="pdf")
 

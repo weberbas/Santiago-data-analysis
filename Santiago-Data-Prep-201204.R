@@ -5,19 +5,19 @@ rm(list=ls())
 library(stringr)
 
 ## Set the working directory to the directory with your export files from Santiago
-setwd("C:/Temp/R_Analysis/R_Files_Modified")
+setwd("C:/Temp/R_Analysis/Santiago Data Analysis")
 
 ## Create an output folder for plots and save corresponding directory as variable
-dir.create(file.path(getwd(), "Santiago-R-Plots"))
+dir.create(file.path(getwd(), "Santiago-R-Plots"), showWarnings = FALSE)
 
 plotdir=(file.path(getwd(),"Santiago-R-Plots"))
 
 ## read data 
 ## read in allSys
-props <- read.csv("TEST_mysystems_all_R-Export_exampleFiles.csv", TRUE, ",")
+props <- read.csv("test/TEST_mysystems_all_R-Export_exampleFiles.csv", TRUE, ",")
 
 ## read in selectedSystems
-selectedSystems <- read.csv("TEST_mysystems_selected_R-Export_exampleFiles.csv", TRUE, ",")
+selectedSystems <- read.csv("test/TEST_mysystems_selected_R-Export_exampleFiles.csv", TRUE, ",")
 
 ## Add column "selected" with boolean expression checking if system is in selectedSystems
 props$selected <- props$ID %in% selectedSystems$ID
