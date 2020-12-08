@@ -8,6 +8,7 @@ library(grid)
 library(reshape2)
 library(doBy)
 library(randomcoloR)
+library(ggrepel)
 
 source("Santiago-Data-Prep.R")
 source("Santiago-Data-Helpers.R")
@@ -738,8 +739,7 @@ ggsave(file.path(plotdir, "p1_3_3_sourceboxplot_ratio_h2om.pdf"), p1.3.3, unit="
       theme(axis.title.x=element_blank())+
       scale_x_discrete(labels=str_wrap(template_names,18)) +
       ggtitle("system Appropriateness Score (SAS) [-]") 
-    p5.3
-    
+
     ## ---- Save Plot as PDF ----
     ggsave(file.path(plotdir, "p5_3_SAS_template.pdf"), p5.3, unit="cm", width=19, height = 14, dpi=1000, device="pdf")
     
