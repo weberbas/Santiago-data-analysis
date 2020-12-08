@@ -576,7 +576,7 @@ ggsave(file.path(plotdir, "p1_3_3_sourceboxplot_ratio_h2om.pdf"), p1.3.3, unit="
     
 # # ---- 5.1  Recovery Ratio - SAS, Substance Recoveries & Selected Systems ----
     
-    p5.1.p <- ggplot(data=props, aes(x=sysappscore, y= recovery_ratio_phosphor_mean)) +
+    p5.1p <- ggplot(data=props, aes(x=sysappscore, y= recovery_ratio_phosphor_mean)) +
       geom_point(alpha=0.5, size=1.2, position = position_jitter(), color="#B1B1B1")+
       geom_point(data = props[props$selected,], aes(fill= template), size=3.5, shape=21, stroke=0, show.legend = TRUE)+
       scale_fill_manual(values=template_cols, labels = str_wrap(template_names, 25), str_wrap("Templates of Selected Systems", 20)) +
@@ -599,7 +599,7 @@ ggsave(file.path(plotdir, "p1_3_3_sourceboxplot_ratio_h2om.pdf"), p1.3.3, unit="
       labs(x = "System Appropriateness Score (SAS)", y="ratio [-]")+
       ggtitle("Phosphorus Recovery")
     
-    p5.1.n <- ggplot(data=props, aes(x=sysappscore, y=recovery_ratio_nitrogen_mean )) +
+    p5.1n <- ggplot(data=props, aes(x=sysappscore, y=recovery_ratio_nitrogen_mean )) +
       geom_point(alpha=0.5, size=1.2, position = position_jitter(), color="#B1B1B1")+
       geom_point(data = props[props$selected,], aes(fill= template), size=3.5, shape=21, stroke=0, show.legend = TRUE)+
       scale_fill_manual(values=template_cols, labels = str_wrap(template_names, 25), str_wrap("Templates of selected systems", 20)) +
@@ -622,7 +622,7 @@ ggsave(file.path(plotdir, "p1_3_3_sourceboxplot_ratio_h2om.pdf"), p1.3.3, unit="
       labs(x = "System Appropriateness Score (SAS)", y="ratio [-]")+
       ggtitle("Nitrogen Recovery")
     
-    p5.1.ts <- ggplot(data=props, aes(x=sysappscore, y=recovery_ratio_totalsolids_mean )) +
+    p5.1ts <- ggplot(data=props, aes(x=sysappscore, y=recovery_ratio_totalsolids_mean )) +
       geom_point(alpha=0.5, size=1.2, position = position_jitter(), color="#B1B1B1")+
       geom_point(data = props[props$selected,], aes(fill= template), size=3.5, shape=21, stroke=0, show.legend = TRUE)+
       scale_fill_manual(values=template_cols, labels = str_wrap(template_names, 25), str_wrap("Templates of selected systems", 20)) +
@@ -645,7 +645,7 @@ ggsave(file.path(plotdir, "p1_3_3_sourceboxplot_ratio_h2om.pdf"), p1.3.3, unit="
       labs(x = "System Appropriateness Score (SAS)", y="ratio [-]")+
       ggtitle("Total Solids Recovery")
     
-    p5.1.h2o <- ggplot(data=props, aes(x=sysappscore, y=recovery_ratio_water_mean )) +
+    p5.1h2o <- ggplot(data=props, aes(x=sysappscore, y=recovery_ratio_water_mean )) +
       geom_point(alpha=0.5, size=1.2, position = position_jitter(), color="#B1B1B1")+
       geom_point(data = props[props$selected,], aes(fill= template), size=3.5, shape=21, stroke=0, show.legend = TRUE)+
       scale_fill_manual(values=template_cols, labels = str_wrap(template_names, 25), str_wrap("Templates of selected systems", 20)) +
@@ -668,7 +668,7 @@ ggsave(file.path(plotdir, "p1_3_3_sourceboxplot_ratio_h2om.pdf"), p1.3.3, unit="
       labs(x = "System Appropriateness Score (SAS)", y="ratio [-]")+
       ggtitle("Water Recovery Ratio")
     
-    p5.1.h2om <- ggplot(data=props, aes(x=sysappscore, y=recovered_water_mean )) +
+    p5.1h2om <- ggplot(data=props, aes(x=sysappscore, y=recovered_water_mean )) +
       geom_point(alpha=0.5, size=1.2, position = position_jitter(), color="#B1B1B1")+
       geom_point(data = props[props$selected,], aes(fill= template), size=3.5, shape=21, stroke=0, show.legend = TRUE)+
       scale_fill_manual(values=template_cols, labels = str_wrap(template_names, 25), str_wrap("Templates of selected systems", 20)) +
@@ -694,8 +694,8 @@ ggsave(file.path(plotdir, "p1_3_3_sourceboxplot_ratio_h2om.pdf"), p1.3.3, unit="
     ## ---- Create one Plot with shared legends from all plots ---- 
     ## Use `p5.1` if you want to plot water recovery ratios
     ## If you want to plot water recovery volumes use `p5.1_h2om`
-    #p5.1 <-  grid_arrange_shared_legend(p5.1.p, p5.1.n, p5.1.ts, p5.1.h2o, ncol= 2, nrow=2, position="bottom")
-    p5.1_h2om <-  grid_arrange_shared_legend(p5.1.p, p5.1.n, p5.1.ts, p5.1.h2om, ncol= 2, nrow=2, position="bottom")
+    #p5.1 <-  grid_arrange_shared_legend(p5.1p, p5.1n, p5.1ts, p5.1h2o, ncol= 2, nrow=2, position="bottom")
+    p5.1_h2om <-  grid_arrange_shared_legend(p5.1p, p5.1n, p5.1ts, p5.1h2om, ncol= 2, nrow=2, position="bottom")
     
     ## ---- Save Plot as PDF ----
     ggsave(file.path(plotdir, "p5_1_SAS_recovery.pdf"), p5.1_h2om, unit="cm", width=19, height = 14, dpi=1000, device="pdf")
