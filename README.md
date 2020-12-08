@@ -18,7 +18,8 @@ This Repository provides a number of plots that can be used with the outputs of 
 * p4.1 --> Recovery Potentials - Boxplots for Number of Technologies for every Substance,               grouped by System Templates
 * p4.3.1 --> Recovery Potentials - Boxplot for Number of Technologies for accumulated                   balanced Recovery, grouped by System Templates
 * p5.1 --> Recovery Potentials - SAS, Substance Recoveries and Selected Systems
-* p5.3 --> 5.3 Recovery Potentials - SAS Boxplot per Template colored by Source
+* p5.3 --> Recovery Potentials - SAS Boxplot per Template colored by Source
+* p9.5 --> Standard Deviation against Recovery colored by System Template
 
 ## Usage:
 ### Preparation - Export CSV Files in _Santiago_:
