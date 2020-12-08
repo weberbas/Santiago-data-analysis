@@ -7,6 +7,7 @@ library(gridExtra)
 library(grid)
 library(reshape2)
 library(doBy)
+library(randomcoloR)
 
 source("Santiago-Data-Prep.R")
 source("Santiago-Data-Helpers.R")
@@ -254,6 +255,7 @@ ggsave(file.path(plotdir, "p1_1_3_recovery_densityplot_totalsolids.pdf"), p1.1.3
 ggsave(file.path(plotdir, "p1_1_3_recovery_densityplot_h2o_ratio.pdf"), p1.1.3h2o, unit="cm", width=19, height = 10, dpi=1000, device="pdf")
 ggsave(file.path(plotdir, "p1_1_3_recovery_densityplot_h2o_mass.pdf"), p1.1.3h2om, unit="cm", width=19, height = 10, dpi=1000, device="pdf")
 ggsave(file.path(plotdir, "p1_1_3_recovery_densityplot_accumulated.pdf"), p1.1.3acc, unit="cm", width=19, height = 10, dpi=1000, device="pdf")
+
 
 
 
@@ -735,7 +737,6 @@ ggsave(file.path(plotdir, "p1_3_3_sourceboxplot_ratio_h2om.pdf"), p1.3.3, unit="
             legend.key.size = unit(1,"line"))+
       theme(axis.title.x=element_blank())+
       scale_x_discrete(labels=str_wrap(template_names,18)) +
-      #ylim(0.7,0.9)+
       ggtitle("system Appropriateness Score (SAS) [-]") 
     p5.3
     
