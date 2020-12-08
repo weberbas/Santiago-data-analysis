@@ -814,9 +814,10 @@ ggsave(file.path(plotdir, "p1_3_3_sourceboxplot_ratio_h2om.pdf"), p1.3.3, unit="
             legend.text=element_text(size=8, colour="#B1B1B1"), legend.position= "right",       
             legend.title = element_text(size=9, face = "bold"), legend.key.size = unit(1,"line"))
     
-    
+    ## ---- Create one Plot with shared legends from all plots ---- 
     p9.5 <- grid_arrange_shared_legend(p9.5p, p9.5n, p9.5ts, p9.5h2om, nrow=2, ncol=2)
     
+    ## ---- Save Plots as PDF ----
     ggsave(file.path(plotdir, "p9_5_SD_ratio.pdf"), p9.5, unit="cm", width=19, height = 14, dpi=1000, device="pdf")
 
 
