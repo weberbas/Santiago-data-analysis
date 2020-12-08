@@ -744,3 +744,81 @@ ggsave(file.path(plotdir, "p1_3_3_sourceboxplot_ratio_h2om.pdf"), p1.3.3, unit="
     ggsave(file.path(plotdir, "p5_3_SAS_template.pdf"), p5.3, unit="cm", width=19, height = 14, dpi=1000, device="pdf")
     
     
+# # ---- 9.5 SD against Recovery colored by System Template ----
+    
+    ## Select upper limit of y-axis by maximum value (+0.01) of standart deviation:
+    ylim9.5 <- 0.01 + max(props$recovery_ratio_nitrogen_sd, 
+                   props$recovery_ratio_phosphor_sd, 
+                   props$recovery_ratio_totalsolids_sd)
+    
+
+    p9.5p <- ggplot(data=props, aes(x=recovery_ratio_phosphor_mean, y=recovery_ratio_phosphor_sd))+
+      geom_point(aes(colour=template), alpha=0.5, size=0.6, position = position_jitter())+
+      scale_colour_manual(values=template_cols, labels = template_names, "System templates")+
+      labs(x="Ratio [-]",y="Standard Deviation [-]")+
+      xlim(0,1)+
+      ylim(0,ylim9.5)+
+      ggtitle("Phosphorus Recovery")+
+      theme_minimal()+
+      theme(
+            plot.title = element_text(size = 9, face = "bold"),
+            axis.title.x=element_text(size=7, colour="#6F6F6E"), axis.title.y=element_text(size=7, colour="#6F6F6E"),
+            axis.text.x = element_text(size=7, colour="#6F6F6E"), axis.text.y = element_text(size=7, colour="#6F6F6E"),
+            strip.text = element_text(size=8, face="bold"),
+            legend.text=element_text(size=8, colour="#B1B1B1"), legend.position= "right",       
+            legend.title = element_text(size=9, face = "bold"), legend.key.size = unit(1,"line"))
+    
+    p9.5n <- ggplot(data=props, aes(x=recovery_ratio_nitrogen_mean, y=recovery_ratio_nitrogen_sd))+
+      geom_point(aes(colour=template), alpha=0.5, size=0.6, position = position_jitter())+
+      scale_colour_manual(values=template_cols, labels = template_names, "System templates")+
+      labs(x="Ratio [-]",y="Standard Deviation [-]")+
+      xlim(0,1)+
+      ylim(0,ylim9.5)+
+      ggtitle("Nitrogen Recovery")+
+      theme_minimal()+
+      theme(
+            plot.title = element_text(size = 9, face = "bold"),
+            axis.title.x=element_text(size=7, colour="#6F6F6E"), axis.title.y=element_text(size=7, colour="#6F6F6E"),
+            axis.text.x = element_text(size=7, colour="#6F6F6E"), axis.text.y = element_text(size=7, colour="#6F6F6E"),
+            strip.text = element_text(size=8, face="bold"),
+            legend.text=element_text(size=8, colour="#B1B1B1"), legend.position= "right",       
+            legend.title = element_text(size=9, face = "bold"), legend.key.size = unit(1,"line"))
+    
+    p9.5ts <- ggplot(data=props, aes(x=recovery_ratio_totalsolids_mean, y=recovery_ratio_totalsolids_sd))+
+      geom_point(aes(colour=template), alpha=0.5, size=0.6, position = position_jitter())+
+      scale_colour_manual(values=template_cols, labels = template_names, "System templates")+
+      labs(x="Ratio [-]",y="Standard Deviation [-]")+
+      xlim(0,1)+
+      ylim(0,ylim9.5)+
+      ggtitle("Total Solids Recovery")+
+      theme_minimal()+
+      theme(
+            plot.title = element_text(size = 9, face = "bold"),
+            axis.title.x=element_text(size=7, colour="#6F6F6E"), axis.title.y=element_text(size=7, colour="#6F6F6E"),
+            axis.text.x = element_text(size=7, colour="#6F6F6E"), axis.text.y = element_text(size=7, colour="#6F6F6E"),
+            strip.text = element_text(size=8, face="bold"),
+            legend.text=element_text(size=8, colour="#B1B1B1"), legend.position= "right",       
+            legend.title = element_text(size=9, face = "bold"), legend.key.size = unit(1,"line"))
+    
+    p9.5h2om <- ggplot(data=props, aes(x=recovered_water_mean, y=recovered_water_sd))+
+      geom_point(aes(colour=template), alpha=0.5, size=0.6, position = position_jitter())+
+      scale_colour_manual(values=template_cols, labels = template_names, "System templates")+
+      labs(x="kg/person*year",y="Standard Deviation [kg/person*year]")+
+      ggtitle("Water Recovery Volume")+
+      theme_minimal()+
+      theme(
+            plot.title = element_text(size = 9, face = "bold"),
+            axis.title.x=element_text(size=7, colour="#6F6F6E"), axis.title.y=element_text(size=7, colour="#6F6F6E"),
+            axis.text.x = element_text(size=7, colour="#6F6F6E"), axis.text.y = element_text(size=7, colour="#6F6F6E"),
+            strip.text = element_text(size=8, face="bold"),
+            legend.text=element_text(size=8, colour="#B1B1B1"), legend.position= "right",       
+            legend.title = element_text(size=9, face = "bold"), legend.key.size = unit(1,"line"))
+    
+    
+    p9.5 <- grid_arrange_shared_legend(p9.5p, p9.5n, p9.5ts, p9.5h2om, nrow=2, ncol=2)
+    
+    ggsave(file.path(plotdir, "p9_5_SD_ratio.pdf"), p9.5, unit="cm", width=19, height = 14, dpi=1000, device="pdf")
+
+
+    
+    
