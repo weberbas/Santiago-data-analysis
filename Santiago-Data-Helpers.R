@@ -14,6 +14,7 @@ template_cols <- template_names <- unique(props$template)
 for (i in 1:length(template_cols)) {
     template_cols[i]<-randomColor()
 }
+remove(i)
 
 ## Function for multiple plots with shared ledgend ------------------
   grid_arrange_shared_legend <- function(..., ncol = length(list(...)), nrow = 1, position = c("bottom", "right")) {

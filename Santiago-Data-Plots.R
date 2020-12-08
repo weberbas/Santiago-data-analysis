@@ -6,6 +6,7 @@ library(scales)
 library(gridExtra)
 library(grid)
 library(reshape2)
+library(doBy)
 
 source("Santiago-Data-Prep.R")
 source("Santiago-Data-Helpers.R")
@@ -131,7 +132,7 @@ ggsave(file.path(plotdir, "p3_2_template_boxplot_accumulated.pdf"), p3.2acc, uni
 
 
 
-# # ---- 1.13 Recovery Ratio - Density Plot ----
+# # ---- 1.1.3 Recovery Ratio - Density Plot ----
 
 ## General Labels
 labstxt1.1.3<- expression(paste("Substance"))
@@ -253,6 +254,7 @@ ggsave(file.path(plotdir, "p1_1_3_recovery_densityplot_totalsolids.pdf"), p1.1.3
 ggsave(file.path(plotdir, "p1_1_3_recovery_densityplot_h2o_ratio.pdf"), p1.1.3h2o, unit="cm", width=19, height = 10, dpi=1000, device="pdf")
 ggsave(file.path(plotdir, "p1_1_3_recovery_densityplot_h2o_mass.pdf"), p1.1.3h2om, unit="cm", width=19, height = 10, dpi=1000, device="pdf")
 ggsave(file.path(plotdir, "p1_1_3_recovery_densityplot_accumulated.pdf"), p1.1.3acc, unit="cm", width=19, height = 10, dpi=1000, device="pdf")
+
 
 
 
@@ -695,4 +697,49 @@ ggsave(file.path(plotdir, "p1_3_3_sourceboxplot_ratio_h2om.pdf"), p1.3.3, unit="
     ## ---- Save Plot as PDF ----
     ggsave(file.path(plotdir, "p5_1_SAS_recovery.pdf"), p5.1_h2om, unit="cm", width=19, height = 14, dpi=1000, device="pdf")
 
+    
+    
+    
+# # ---- 5.3 Recovery Ratio - SAS Boxplot per Template colored by Source ----
+
+    ## Calculate Median of System Appropriateness Score
+    dataMedian_sysappscore <- summaryBy(sysappscore ~ template, data = props, FUN = list(median))
+    dataMedian_sysappscore$sysappscore.median <- round(dataMedian_sysappscore$sysappscore.median,2)
+    
+    ## Comment: You might have run this plot a few times to get a position of labels without overlap
+    p5.3 <- ggplot(data=props, aes(x=template, y=sysappscore))+
+      geom_point(aes(color=source), alpha=0.5, size=1.2, position = position_jitter())+
+      scale_colour_manual(values=source_cols, labels = source_labs, "Source", 
+                          guide=guide_legend(override.aes = list(size=2, alpha= 1), nrow=4,byrow=FALSE))+
+      geom_boxplot(aes(group=template), varwidth= FALSE, alpha=0.5, lwd=0.25, outlier.size = 0.5, fill = "#6F6F6E", colour = "#6F6F6E", width=0.5)+
+      geom_text(data = dataMedian_sysappscore, aes(template, sysappscore.median, label = sysappscore.median), size = 3, 
+                position = position_dodge(width = 0.2), vjust = -0.75, check_overlap = TRUE)+
+      geom_point(data = props[props$selected,], aes(fill= template), size=3.5, shape=21, stroke=0, show.legend = TRUE, alpha=0.7)+
+      scale_fill_manual(values=template_cols, labels = str_wrap(template_names, 25), str_wrap("Templates of selected systems", 20), 
+                        guide=guide_legend(override.aes = list(size=2, alpha= 1), nrow=4,byrow=FALSE)) +
+      geom_text_repel(data = props[props$selected,], aes(label=ID),position = "jitter", segment.size = 0.2, 
+                      arrow = arrow(length = unit(0.03, "npc"), type = "open", ends = "last"), size=3) +
+      labs(x="Template", y= "SAS") +
+      theme_minimal()+
+      theme(
+            panel.grid =   element_line(colour = "#C5C5C4", size=0.25),
+            plot.title = element_text(size = 10, colour = "#1D1D1B", face = "bold"),
+            axis.title.x=element_text(size=8.5, colour = "#6F6F6E"),
+            axis.title.y=element_text(size=8.5, colour = "#6F6F6E"),
+            axis.text.x = element_text(size=8.5, colour = "#6F6F6E"),
+            axis.text.y = element_text(size=8.5, colour = "#6F6F6E"),
+            strip.text = element_text(size=8.5, face="bold"),
+            legend.position= "bottom",       
+            legend.title = element_text(size = 9, colour = "#1D1D1B", face = "bold"),
+            legend.text=element_text(size=8.5, colour="#6F6F6E"),
+            legend.key.size = unit(1,"line"))+
+      theme(axis.title.x=element_blank())+
+      scale_x_discrete(labels=str_wrap(template_names,18)) +
+      #ylim(0.7,0.9)+
+      ggtitle("system Appropriateness Score (SAS) [-]") 
+    p5.3
+    
+    ## ---- Save Plot as PDF ----
+    ggsave(file.path(plotdir, "p5_3_SAS_template.pdf"), p5.3, unit="cm", width=19, height = 14, dpi=1000, device="pdf")
+    
     
