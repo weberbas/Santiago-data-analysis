@@ -443,7 +443,7 @@ ggsave(file.path(plotdir, "p1_3_3_sourceboxplot_ratio_h2om.pdf"), p1.3.3, unit="
 
 
 
-# # ---- 4.1 Recovery Ratio - Boxplots for Number of Technologies, grouped by System Templates --------
+# # ---- 4.1 Recovery Ratio - Boxplots for Number of Technologies for every Substance, grouped by System Templates --------
 
 
 ## General Labels
@@ -536,3 +536,35 @@ ggsave(file.path(plotdir, "p1_3_3_sourceboxplot_ratio_h2om.pdf"), p1.3.3, unit="
   
   
   
+    
+# # ---- 4.3.1 Recovery Ratio - Boxplots for Number of Technologies for accumulated Recovery, grouped by System Templates----
+    
+    ## General Labels
+    xtxt4.3.1 <- expression(paste("Length (Number of Technologies within the System)"))
+    
+    
+    p4.3.1 <- ggplot(data=props, aes(x=factor(ntechs), y=recovery_ratio_accumulated_balanced_mean))+
+      geom_point(aes(color=template), alpha=0.5, size=1.2, position = position_jitter())+
+      scale_colour_manual(values=template_cols, labels = str_wrap(template_names, 25), "System templates")+
+      geom_boxplot(aes(group=ntechs), varwidth= FALSE, alpha=0.5, lwd=0.25, outlier.size = 0.5, fill = "#6F6F6E", colour = "#6F6F6E", width=0.5)+
+      labs(x=xtxt4.3.1, y= "Accumulated Balanced Recovery Ratio [-]") +
+      guides(colour = guide_legend(override.aes = list(size=4, alpha= 1), nrow=2))+
+      scale_fill_manual(values=template_cols, labels = template_names) +
+      ylim(0,1)+
+      theme_minimal()+
+      theme(
+            plot.title = element_text(size = 9, face = "bold"),
+            axis.title.x=element_text(size=7, colour = "#6F6F6E"), 
+            axis.title.y=element_text(size=7, colour = "#6F6F6E"),
+            axis.text.x = element_text(size=7, colour = "#6F6F6E"), 
+            axis.text.y = element_text(size=7, colour = "#6F6F6E"),
+            strip.text = element_text(size=8, face="bold"),
+            legend.text=element_text(size=8, colour="#B1B1B1"), 
+            legend.position= "bottom",       
+            legend.title = element_text(size=9, face = "bold"), 
+            legend.key.size = unit(1,"line"))
+ 
+    ## ---- Create PDF of Plot ---- 
+    ggsave(file.path(plotdir, "p4_3_1_accumultedrecovery_ntech.pdf"), p4.3.1, unit="cm", width=19, height = 10, dpi=1000, device="pdf")
+
+    
