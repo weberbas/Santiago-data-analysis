@@ -17,10 +17,11 @@ This Repository provides a number of plots that can be used with the outputs of 
 * p1.3.3 --> Recovery Potentials and Losses - Boxplot Grouped by Source 
 * p4.1 --> Recovery Potentials - Boxplots for Number of Technologies for every Substance,               grouped by System Templates
 * p4.3.1 --> Recovery Potentials - Boxplot for Number of Technologies for accumulated                   balanced Recovery, grouped by System Templates
+* p5.1 --> Recovery Potentials - SAS, Substance Recoveries and Selected Systems
 
 ## Usage:
 ### Preparation - Export CSV Files in _Santiago_:
-In order to use the _R_-Scripts we need to output files from _Santiago_. A Massflow-Export.CSV from all Systems generated and from the selected Systems (Not used yet). To export the massflow statistics of all Systems and save them as CSV, use the following code:
+In order to use the _R_-Scripts we need to output files from _Santiago_. A Massflow-Export.CSV from all Systems generated and from the selected Systems. To export the massflow statistics of all Systems and save them as CSV, use the following code:
 
 ```Julia
 df=properties_dataframe(allSys, 
