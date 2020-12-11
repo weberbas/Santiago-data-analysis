@@ -13,126 +13,107 @@ library(ggrepel)
 source("Santiago-Data-Prep.R")
 source("Santiago-Data-Helpers.R")
 
+# # ---- 0.1 Plot Appropriateness Profiles per Functional Group  #### 
 
-# # ---- 3.2 Boxplot per template coloured by source - Recovery Potentials ----
-# 
-## General Labels:
-xtxt3.2 <- expression(paste("System template"))
-labstxt3.2 <- expression(paste("Source"))
-# 
-## Preparation: Calculate Median of recovery ratios per template
-dataMedian_template_p <- summarise(group_by(props, template), MD = round(median(100*recovery_ratio_phosphor_mean),2))
-dataMedian_template_n <- summarise(group_by(props, template), MD = round(median(100*recovery_ratio_nitrogen_mean),2))
-dataMedian_template_ts <- summarise(group_by(props, template), MD = round(median(100*recovery_ratio_totalsolids_mean),2))
-dataMedian_template_h2o <- summarise(group_by(props, template), MD = round(median(100*recovery_ratio_water_mean),2))
-dataMedian_template_h2om <- summarise(group_by(props, template), MD = round(median(recovered_water_mean),2))
-dataMedian_template_acc <- summarise(group_by(props, template), MD = round(median(100*recovery_ratio_accumulated_balanced_mean),2))
-# 
+## General Labels
+xtxt0.1 <- expression(paste("Technology Appropriateness Score ", italic("TAS"), " (first box), followed by Attribute Appropriateness Scores"))
+ytxt0.1 <- expression(paste("score"))
 
-  ## ---- Phosphor Recovery Ratio per Template ----
-  
-  p3.2p <- ggplot(data=props, aes(x=template, y=100*recovery_ratio_phosphor_mean))+
-            geom_point(aes(color=source), alpha=0.5, size=2, position = position_jitter())+
-            scale_colour_manual(values=source_cols, labels = source_labs, labstxt3.2)+
-            geom_boxplot(aes(group=template), varwidth= FALSE, alpha=0.5, lwd=0.25, outlier.size = 0.5, fill = "#6F6F6E", colour = "#6F6F6E", width=0.5)+
-            geom_text(data = dataMedian_template_p, aes(template, MD, label = MD),size = 3, position = position_dodge(width = 0.8), vjust = 1.5)+
-            labs(x=xtxt3.2, y= "Ratio [%]") +
-            theme_minimal()+
-            guides(colour = guide_legend(override.aes = list(size=4, alpha= 1)))+
-            scale_x_discrete(labels = wrap_format(10))+
-            theme(axis.text.x = element_text(size=8),
-                  legend.position = "right")+
-            ggtitle("Phosphorus Recovery")
-  
-  ## ---- Nitrogen Recovery Ratio per Template ----
-  
-  p3.2n <- ggplot(data=props, aes(x=template, y=100*recovery_ratio_nitrogen_mean))+
-            geom_point(aes(color=source), alpha=0.5, size=2, position = position_jitter())+
-            scale_colour_manual(values=source_cols, labels = source_labs, labstxt3.2)+
-            geom_boxplot(aes(group=template), varwidth= FALSE, alpha=0.5, lwd=0.25, outlier.size = 0.5, fill = "#6F6F6E", colour = "#6F6F6E", width=0.5)+
-            geom_text(data = dataMedian_template_n, aes(template, MD, label = MD),size = 3, position = position_dodge(width = 0.8), vjust = 1.5)+
-            labs(x=xtxt3.2, y= "Ratio [%]") +
-            theme_minimal()+
-            guides(colour = guide_legend(override.aes = list(size=4, alpha= 1)))+
-            scale_x_discrete(labels = wrap_format(10))+
-            theme(axis.text.x = element_text(size=8),
-                  legend.position = "right")+
-            ggtitle("Nitrogen Recovery")
-  
-  ## ---- Total Solids Recovery Ratio per Template ---- 
-  
-  p3.2ts <- ggplot(data=props, aes(x=template, y=100*recovery_ratio_totalsolids_mean))+
-            geom_point(aes(color=source), alpha=0.5, size=2, position = position_jitter())+
-            scale_colour_manual(values=source_cols, labels = source_labs, labstxt3.2)+
-            geom_boxplot(aes(group=template), varwidth= FALSE, alpha=0.5, lwd=0.25, outlier.size = 0.5, fill = "#6F6F6E", colour = "#6F6F6E", width=0.5)+
-            geom_text(data = dataMedian_template_ts, aes(template, MD, label = MD),size = 3, position = position_dodge(width = 0.8), vjust = 1.5)+
-            labs(x=xtxt3.2, y= "Ratio [%]") +
-            theme_minimal()+
-            guides(colour = guide_legend(override.aes = list(size=4, alpha= 1)))+
-            scale_x_discrete(labels = wrap_format(10))+
-            theme(axis.text.x = element_text(size=8),
-                  legend.position = "right")+
-            ggtitle("Total Solids Recovery")
-  
-  ## ---- Water Recovery Ratio per Template ---- 
-  
-  p3.2h2o <- ggplot(data=props, aes(x=template, y=100*recovery_ratio_water_mean))+
-              geom_point(aes(color=source), alpha=0.5, size=2, position = position_jitter())+
-              scale_colour_manual(values=source_cols, labels = source_labs, labstxt3.2)+
-              geom_boxplot(aes(group=template), varwidth= FALSE, alpha=0.5, lwd=0.25, outlier.size = 0.5, fill = "#6F6F6E", colour = "#6F6F6E", width=0.5)+
-              geom_text(data = dataMedian_template_h2o, aes(template, MD, label = MD),size = 3, position = position_dodge(width = 0.8), vjust = 1.5)+
-              labs(x=xtxt3.2, y= "Ratio [%]") +
-              theme_minimal()+
-              guides(colour = guide_legend(override.aes = list(size=4, alpha= 1)))+
-              scale_x_discrete(labels = wrap_format(10))+
-              theme(axis.text.x = element_text(size=8),
-                    legend.position = "right")+
-              ggtitle("Water Recovery Ratio")
-  
-  ## ---- Recovered Water per Template ---- 
-  
-  p3.2h2om <- ggplot(data=props, aes(x=template, y=recovered_water_mean))+
-              geom_point(aes(color=source), alpha=0.5, size=2, position = position_jitter())+
-              scale_colour_manual(values=source_cols, labels = source_labs, labstxt3.2)+
-              geom_boxplot(aes(group=template), varwidth= FALSE, alpha=0.5, lwd=0.25, outlier.size = 0.5, fill = "#6F6F6E", colour = "#6F6F6E", width=0.5)+
-              geom_text(data = dataMedian_template_h2om, aes(template, MD, label = MD),size = 3, position = position_dodge(width = 0.8), vjust = 1.5)+
-              labs(x=xtxt3.2, y= "Recovered Amount [kg/year*person]") +
-              theme_minimal()+
-              guides(colour = guide_legend(override.aes = list(size=4, alpha= 1)))+
-              scale_x_discrete(labels = wrap_format(10))+
-              theme(axis.text.x = element_text(size=8),
-                    legend.position = "right")+
-              ggtitle("Water Recovery Absolute")
-  
-  ## ---- Accumulated Recovery Ratio per Template ----
-  
-  p3.2acc <- ggplot(data=props, aes(x=template, y=100*recovery_ratio_accumulated_balanced_mean))+
-              geom_point(aes(color=source), alpha=0.5, size=2, position = position_jitter())+
-              scale_colour_manual(values=source_cols, labels = source_labs, labstxt3.2)+
-              geom_boxplot(aes(group=template), varwidth= FALSE, alpha=0.5, lwd=0.25, outlier.size = 0.5, fill = "#6F6F6E", colour = "#6F6F6E", width=0.5)+
-              geom_text(data = dataMedian_template_acc, aes(template, MD, label = MD),size = 3, position = position_dodge(width = 0.8), vjust = 1.5)+
-              labs(x=xtxt3.2, y= "Ratio [%]") +
-              theme_minimal()+
-              guides(colour = guide_legend(override.aes = list(size=4, alpha= 1)))+
-              scale_x_discrete(labels = wrap_format(10))+
-              theme(axis.text.x = element_text(size=8),
-                    legend.position = "right")+
-              ggtitle("Accumulated Balanced Recovery")
-  
-  ## ---- Save Plots as PDF ----
 
-ggsave(file.path(plotdir, "p3_2_template_boxplot_phosphor.pdf"), p3.2p, unit="cm", width=19, height = 24, dpi=1000, device="pdf")
-ggsave(file.path(plotdir, "p3_2_template_boxplot_nitrogen.pdf"), p3.2n, unit="cm", width=19, height = 24, dpi=1000, device="pdf")
-ggsave(file.path(plotdir, "p3_2_template_boxplot_totalsolids.pdf"), p3.2ts, unit="cm", width=19, height = 24, dpi=1000, device="pdf")
-ggsave(file.path(plotdir, "p3_2_template_boxplot_h2o_ratio.pdf"), p3.2h2o, unit="cm", width=19, height = 24, dpi=1000, device="pdf")
-ggsave(file.path(plotdir, "p3_2_template_boxplot_h2o_mass.pdf"), p3.2h2om, unit="cm", width=19, height = 24, dpi=1000, device="pdf")
-ggsave(file.path(plotdir, "p3_2_template_boxplot_accumulated.pdf"), p3.2acc, unit="cm", width=19, height = 24, dpi=1000, device="pdf")
+
+p0.1 <- ggplot(tas_components_df_long, aes(x=variable, y=value, fill=FG)) +
+  geom_boxplot(show.legend=F) +
+  scale_fill_manual(values = fgcols) +
+  facet_wrap( ~ FG, ncol=3) +
+  theme_minimal() + 
+  ggtitle("Functional Groups")+
+  guides(colour = guide_legend(override.aes = list(size=4, alpha= 1)))+
+  theme(
+    panel.grid =   element_line(colour = "#C5C5C4", size=0.25),
+    plot.title = element_text(size = 10, colour = "#1D1D1B", face = "bold"),
+    axis.title.x=element_text(size=8.5, colour = "#6F6F6E"),
+    axis.title.y=element_text(size=8.5, colour = "#6F6F6E"),
+    axis.text.x = element_text(size=8.5, colour = "#6F6F6E", angle = 60, vjust = 1, hjust=1),
+    axis.text.y = element_text(size=8.5, colour = "#6F6F6E"),
+    strip.text = element_text(size=8.5, face="bold"),
+    legend.position= "bottom",       
+    legend.title = element_text(size = 9, colour = "#1D1D1B", face = "bold"),
+    legend.text=element_text(size=8.5, colour="#6F6F6E"),
+    legend.key.size = unit(1,"line"))+
+  xlab(xtxt0.1) +
+  ylab(ytxt0.1) +
+  theme(panel.border=element_rect(colour="grey", fill=NA)) 
+
+  ## ---- Save Plot as PDF ----
+ggsave(file.path(plotdir, "p0_1_techappprofiles.pdf"), p0.1, unit="cm", width=19, height = 24, dpi=1000, device="pdf")
 
 
 
 
 
+# # ---- 0.2 All Technology Appropriatenes Scores ####
+extrema.temp = tas_components_df[,1:4] %>% group_by(tech) %>% summarise(TASmin = min(TAS),
+                                                                        TASmax = max(TAS))
 
+FG <- toupper(substr(extrema.temp[,"tech"], start = 1, stop = 1))
+extrema.temp <- cbind(extrema.temp, FG)
+remove(FG)
+
+
+p0.2 <- ggplot(tas_components_df, aes(x=tech, y=TAS, colour=FG)) +
+  geom_point(size=2, aes(colour=FG), alpha=0.8, stroke=0.5) +
+  scale_shape_manual(values=c(2, 0, 1)) +
+  theme_minimal() +
+  guides(colour = guide_legend(title="Functional group", order=1, ncol=1))+
+  theme(
+    panel.grid =   element_line(colour = "#C5C5C4", size=0.25),
+    plot.title = element_text(size = 10, colour = "#1D1D1B", face = "bold"),
+    axis.title.x=element_text(size=8.5, colour = "#6F6F6E"),
+    axis.title.y=element_text(size=8.5, colour = "#6F6F6E"),
+    axis.text.x = element_text(size=8.5, colour = "#6F6F6E",  angle = 45, hjust = 1),
+    axis.text.y = element_text(size=8.5, colour = "#6F6F6E"),
+    strip.text = element_text(size=8.5, face="bold"),
+    legend.position= "right",       
+    legend.title = element_text(size = 9, colour = "#1D1D1B", face = "bold"),
+    legend.text=element_text(size=8.5, colour="#6F6F6E"),
+    legend.key.size = unit(1,"line"))+
+  labs(x ="Technology", y = "Technology appropriateness score (TAS)")
+
+  ## ---- Save Plot as PDF ----
+ggsave(file.path(plotdir, "p0_2_allTAS.pdf"), p0.2, unit="cm", width=19, height = 12, dpi=1000, device="pdf")
+
+# # ---- 0.3 Plot Appropriateness Profiles per Technology ----
+
+xtxt0.3 <- expression(paste("Technology Appropriateness Score ", italic("TAS"), " (first box), followed by Attribute Appropriateness Scores"))
+ytxt0.3 <- expression(paste("score"))
+
+
+
+p0.3 <- ggplot(tas_components_df_long, aes(x=variable, y=value, fill=tech)) +
+  geom_boxplot(show.legend=F) +
+  scale_fill_manual(values = techcols) +
+  facet_wrap( ~ tech, ncol=5) +
+  theme_minimal() + 
+  ggtitle("Technologies")+
+  guides(colour = guide_legend(override.aes = list(size=4, alpha= 1)))+
+  theme(
+    panel.grid =   element_line(colour = "#C5C5C4", size=0.25),
+    plot.title = element_text(size = 10, colour = "#1D1D1B", face = "bold"),
+    axis.title.x=element_text(size=8.5, colour = "#6F6F6E"),
+    axis.title.y=element_text(size=8.5, colour = "#6F6F6E"),
+    axis.text.x = element_text(size=6, colour = "#6F6F6E", angle = 60, vjust = 1, hjust=1),
+    axis.text.y = element_text(size=8.5, colour = "#6F6F6E"),
+    strip.text = element_text(size=6, face="bold"),
+    legend.position= "bottom",       
+    legend.title = element_text(size = 9, colour = "#1D1D1B", face = "bold"),
+    legend.text=element_text(size=8.5, colour="#6F6F6E"),
+    legend.key.size = unit(1,"line"))+
+  xlab(xtxt0.3) +
+  ylab(ytxt0.3) +
+  theme(panel.border=element_rect(colour="grey", fill=NA)) 
+
+  ## ---- Save Plot as PDF ----
+ggsave(file.path(plotdir, "p0_3_techappprofiles.pdf"), p0.3, unit="cm", width=25, height = 30, dpi=1000, device="pdf")
 
 # # ---- 1.1.3 Recovery Ratio - Density Plot ----
 
@@ -448,6 +429,127 @@ ggsave(file.path(plotdir, "p1_3_3_sourceboxplot_ratio_h2om.pdf"), p1.3.3, unit="
 
 
 
+# # ---- 3.2 Boxplot per template coloured by source - Recovery Potentials ----
+# 
+## General Labels:
+xtxt3.2 <- expression(paste("System template"))
+labstxt3.2 <- expression(paste("Source"))
+# 
+## Preparation: Calculate Median of recovery ratios per template
+dataMedian_template_p <- summarise(group_by(props, template), MD = round(median(100*recovery_ratio_phosphor_mean),2))
+dataMedian_template_n <- summarise(group_by(props, template), MD = round(median(100*recovery_ratio_nitrogen_mean),2))
+dataMedian_template_ts <- summarise(group_by(props, template), MD = round(median(100*recovery_ratio_totalsolids_mean),2))
+dataMedian_template_h2o <- summarise(group_by(props, template), MD = round(median(100*recovery_ratio_water_mean),2))
+dataMedian_template_h2om <- summarise(group_by(props, template), MD = round(median(recovered_water_mean),2))
+dataMedian_template_acc <- summarise(group_by(props, template), MD = round(median(100*recovery_ratio_accumulated_balanced_mean),2))
+# 
+
+  ## ---- Phosphor Recovery Ratio per Template ----
+  
+  p3.2p <- ggplot(data=props, aes(x=template, y=100*recovery_ratio_phosphor_mean))+
+    geom_point(aes(color=source), alpha=0.5, size=2, position = position_jitter())+
+    scale_colour_manual(values=source_cols, labels = source_labs, labstxt3.2)+
+    geom_boxplot(aes(group=template), varwidth= FALSE, alpha=0.5, lwd=0.25, outlier.size = 0.5, fill = "#6F6F6E", colour = "#6F6F6E", width=0.5)+
+    geom_text(data = dataMedian_template_p, aes(template, MD, label = MD),size = 3, position = position_dodge(width = 0.8), vjust = 1.5)+
+    labs(x=xtxt3.2, y= "Ratio [%]") +
+    theme_minimal()+
+    guides(colour = guide_legend(override.aes = list(size=4, alpha= 1)))+
+    scale_x_discrete(labels = wrap_format(10))+
+    theme(axis.text.x = element_text(size=8),
+          legend.position = "right")+
+    ggtitle("Phosphorus Recovery")
+  
+  ## ---- Nitrogen Recovery Ratio per Template ----
+  
+  p3.2n <- ggplot(data=props, aes(x=template, y=100*recovery_ratio_nitrogen_mean))+
+    geom_point(aes(color=source), alpha=0.5, size=2, position = position_jitter())+
+    scale_colour_manual(values=source_cols, labels = source_labs, labstxt3.2)+
+    geom_boxplot(aes(group=template), varwidth= FALSE, alpha=0.5, lwd=0.25, outlier.size = 0.5, fill = "#6F6F6E", colour = "#6F6F6E", width=0.5)+
+    geom_text(data = dataMedian_template_n, aes(template, MD, label = MD),size = 3, position = position_dodge(width = 0.8), vjust = 1.5)+
+    labs(x=xtxt3.2, y= "Ratio [%]") +
+    theme_minimal()+
+    guides(colour = guide_legend(override.aes = list(size=4, alpha= 1)))+
+    scale_x_discrete(labels = wrap_format(10))+
+    theme(axis.text.x = element_text(size=8),
+          legend.position = "right")+
+    ggtitle("Nitrogen Recovery")
+  
+  ## ---- Total Solids Recovery Ratio per Template ---- 
+  
+  p3.2ts <- ggplot(data=props, aes(x=template, y=100*recovery_ratio_totalsolids_mean))+
+    geom_point(aes(color=source), alpha=0.5, size=2, position = position_jitter())+
+    scale_colour_manual(values=source_cols, labels = source_labs, labstxt3.2)+
+    geom_boxplot(aes(group=template), varwidth= FALSE, alpha=0.5, lwd=0.25, outlier.size = 0.5, fill = "#6F6F6E", colour = "#6F6F6E", width=0.5)+
+    geom_text(data = dataMedian_template_ts, aes(template, MD, label = MD),size = 3, position = position_dodge(width = 0.8), vjust = 1.5)+
+    labs(x=xtxt3.2, y= "Ratio [%]") +
+    theme_minimal()+
+    guides(colour = guide_legend(override.aes = list(size=4, alpha= 1)))+
+    scale_x_discrete(labels = wrap_format(10))+
+    theme(axis.text.x = element_text(size=8),
+          legend.position = "right")+
+    ggtitle("Total Solids Recovery")
+  
+  ## ---- Water Recovery Ratio per Template ---- 
+  
+  p3.2h2o <- ggplot(data=props, aes(x=template, y=100*recovery_ratio_water_mean))+
+    geom_point(aes(color=source), alpha=0.5, size=2, position = position_jitter())+
+    scale_colour_manual(values=source_cols, labels = source_labs, labstxt3.2)+
+    geom_boxplot(aes(group=template), varwidth= FALSE, alpha=0.5, lwd=0.25, outlier.size = 0.5, fill = "#6F6F6E", colour = "#6F6F6E", width=0.5)+
+    geom_text(data = dataMedian_template_h2o, aes(template, MD, label = MD),size = 3, position = position_dodge(width = 0.8), vjust = 1.5)+
+    labs(x=xtxt3.2, y= "Ratio [%]") +
+    theme_minimal()+
+    guides(colour = guide_legend(override.aes = list(size=4, alpha= 1)))+
+    scale_x_discrete(labels = wrap_format(10))+
+    theme(axis.text.x = element_text(size=8),
+          legend.position = "right")+
+    ggtitle("Water Recovery Ratio")
+  
+  ## ---- Recovered Water per Template ---- 
+  
+  p3.2h2om <- ggplot(data=props, aes(x=template, y=recovered_water_mean))+
+    geom_point(aes(color=source), alpha=0.5, size=2, position = position_jitter())+
+    scale_colour_manual(values=source_cols, labels = source_labs, labstxt3.2)+
+    geom_boxplot(aes(group=template), varwidth= FALSE, alpha=0.5, lwd=0.25, outlier.size = 0.5, fill = "#6F6F6E", colour = "#6F6F6E", width=0.5)+
+    geom_text(data = dataMedian_template_h2om, aes(template, MD, label = MD),size = 3, position = position_dodge(width = 0.8), vjust = 1.5)+
+    labs(x=xtxt3.2, y= "Recovered Amount [kg/year*person]") +
+    theme_minimal()+
+    guides(colour = guide_legend(override.aes = list(size=4, alpha= 1)))+
+    scale_x_discrete(labels = wrap_format(10))+
+    theme(axis.text.x = element_text(size=8),
+          legend.position = "right")+
+    ggtitle("Water Recovery Absolute")
+  
+  ## ---- Accumulated Recovery Ratio per Template ----
+  
+  p3.2acc <- ggplot(data=props, aes(x=template, y=100*recovery_ratio_accumulated_balanced_mean))+
+    geom_point(aes(color=source), alpha=0.5, size=2, position = position_jitter())+
+    scale_colour_manual(values=source_cols, labels = source_labs, labstxt3.2)+
+    geom_boxplot(aes(group=template), varwidth= FALSE, alpha=0.5, lwd=0.25, outlier.size = 0.5, fill = "#6F6F6E", colour = "#6F6F6E", width=0.5)+
+    geom_text(data = dataMedian_template_acc, aes(template, MD, label = MD),size = 3, position = position_dodge(width = 0.8), vjust = 1.5)+
+    labs(x=xtxt3.2, y= "Ratio [%]") +
+    theme_minimal()+
+    guides(colour = guide_legend(override.aes = list(size=4, alpha= 1)))+
+    scale_x_discrete(labels = wrap_format(10))+
+    theme(axis.text.x = element_text(size=8),
+          legend.position = "right")+
+    ggtitle("Accumulated Balanced Recovery")
+  
+  ## ---- Save Plots as PDF ----
+  
+  ggsave(file.path(plotdir, "p3_2_template_boxplot_phosphor.pdf"), p3.2p, unit="cm", width=19, height = 24, dpi=1000, device="pdf")
+  ggsave(file.path(plotdir, "p3_2_template_boxplot_nitrogen.pdf"), p3.2n, unit="cm", width=19, height = 24, dpi=1000, device="pdf")
+  ggsave(file.path(plotdir, "p3_2_template_boxplot_totalsolids.pdf"), p3.2ts, unit="cm", width=19, height = 24, dpi=1000, device="pdf")
+  ggsave(file.path(plotdir, "p3_2_template_boxplot_h2o_ratio.pdf"), p3.2h2o, unit="cm", width=19, height = 24, dpi=1000, device="pdf")
+  ggsave(file.path(plotdir, "p3_2_template_boxplot_h2o_mass.pdf"), p3.2h2om, unit="cm", width=19, height = 24, dpi=1000, device="pdf")
+  ggsave(file.path(plotdir, "p3_2_template_boxplot_accumulated.pdf"), p3.2acc, unit="cm", width=19, height = 24, dpi=1000, device="pdf")
+  
+  
+  
+  
+  
+  
+  
+  
 # # ---- 4.1 Recovery Ratio - Boxplots for Number of Technologies for every Substance, grouped by System Templates --------
 
 
@@ -821,5 +923,6 @@ ggsave(file.path(plotdir, "p1_3_3_sourceboxplot_ratio_h2om.pdf"), p1.3.3, unit="
     ggsave(file.path(plotdir, "p9_5_SD_ratio.pdf"), p9.5, unit="cm", width=19, height = 14, dpi=1000, device="pdf")
 
 
+    
     
     

@@ -16,6 +16,12 @@ for (i in 1:length(template_cols)) {
 }
 remove(i)
 
+## Factor FG from long tas_components dataframe for functional group colors
+fgcols <- as.factor(tas_components_df$FG)
+
+## Factor Techs from long tas_components dataframe for functional group colors
+techcols <- as.factor(tas_components_df$tech)
+
 ## Function for multiple plots with shared ledgend ------------------
   grid_arrange_shared_legend <- function(..., ncol = length(list(...)), nrow = 1, position = c("bottom", "right")) {
   plots <- list(...)
