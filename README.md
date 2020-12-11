@@ -11,11 +11,11 @@ This Repository provides a number of plots that can be used with the outputs of 
 * _Santiago-Data-Plots.R_ --> The actual plots that can be used after running the two scripts above
 
 ## Available Plots 
-###* Technology Appropriateness Assessment
+### Technology Appropriateness Assessment
 * p0.1 --> TAS - Plot Appropriateness Profiles per Functional Group
 * p0.2 --> TAS - All Technology Appropriatenes Scores
 * p0.3 --> TAS - Plot Appropriateness Profiles per Technology 
-###* Recovery Potentials
+### Recovery Potentials
 * p3.2 --> Recovery Potentials - A scatter and boxplot per template, colored by source.
 * p1.1.3 --> Recovery Potentials - A Density plot for recovery ratios
 * p1.2.1 --> Recovery Potentials - A Density plot for recovery ratios, grouped by source
