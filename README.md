@@ -11,20 +11,21 @@ This Repository provides a number of plots that can be used with the outputs of 
 * _Santiago-Data-Plots.R_ --> The actual plots that can be used after running the two scripts above
 
 ## Available Plots 
-### Technology Appropriateness Assessment
-* p0.1 --> TAS - Plot Appropriateness Profiles per Functional Group
-* p0.2 --> TAS - All Technology Appropriatenes Scores
-* p0.3 --> TAS - Plot Appropriateness Profiles per Technology 
-### Recovery Potentials
-* p3.2 --> Recovery Potentials - A scatter and boxplot per template, colored by source.
-* p1.1.3 --> Recovery Potentials - A Density plot for recovery ratios
-* p1.2.1 --> Recovery Potentials - A Density plot for recovery ratios, grouped by source
-* p1.3.3 --> Recovery Potentials and Losses - Boxplot Grouped by Source 
-* p4.1 --> Recovery Potentials - Boxplots for Number of Technologies for every Substance,               grouped by System Templates
-* p4.3.1 --> Recovery Potentials - Boxplot for Number of Technologies for accumulated                   balanced Recovery, grouped by System Templates
-* p5.1 --> Recovery Potentials - SAS, Substance Recoveries and Selected Systems
-* p5.3 --> Recovery Potentials - SAS Boxplot per Template colored by Source
-* p9.5 --> Standard Deviation against Recovery colored by System Template
+### 1 - Technology Appropriateness Assessment
+* p1.1 --> TAS - Plot Appropriateness Profiles per Functional Group
+* p1.2 --> TAS - All Technology Appropriatenes Scores
+* p1.3 --> TAS - Plot Appropriateness Profiles per Technology 
+### 2 - System Appropriateness Assessment
+* p2.1 --> Recovery Potentials - SAS, Substance Recoveries and Selected Systems
+* p2.2 --> Recovery Potentials - SAS Boxplot per Template colored by Source
+### 3 - Resource Recovery
+* p3.1 --> Recovery Potentials - A Density plot for recovery ratios
+* p3.2 --> Recovery Potentials - A Density plot for recovery ratios, grouped by source
+* p3.3 --> Recovery Potentials - A scatter and boxplot per template, colored by source.
+* p3.4 --> Recovery Potentials and Losses - Boxplot Grouped by Source 
+* p3.5 --> Recovery Potentials - Boxplots for Number of Technologies for every Substance,               grouped by System Templates
+* p3.6 --> Recovery Potentials - Boxplot for Number of Technologies for accumulated                   balanced Recovery, grouped by System Templates
+* p3.7 --> Standard Deviation against Recovery colored by System Template
 
 ## Usage:
 ### Preparation - Export CSV Files in _Santiago_:
@@ -115,7 +116,7 @@ selectedSystems <- read.csv("...selectedSys_R-Export.csv", TRUE, ",")
 After this, you should be able to run both of the scripts _Santiago-Data-Prep.R_ and _Santiago-Data-Helpers.R_ (the scripts are also called in the script _Santiago-Data-Plots.R_, but you have to change `source("Santiago-R-Plots-YYMMDD")` accordingly).
 
 ### Plot Data
-Once you prepared your data, you can go ahead and run the preimplemented plots in _Santiago-Data-Plots.R_. The plots are calculated and stored as a variable (e.g. "p3.2x") and in a later step exported as PDF. Use `view(p.3.2x)` to view the plot in your Editor. 
+Once you prepared your data, you can go ahead and run the preimplemented plots in _Santiago-Data-Plots.R_. The plots are calculated and stored as a variable (e.g. "p3.3x") and in a later step exported as PDF. Use `view(p.3.3x)` to view the plot in your Editor. 
 
 
 This Repository is in the making and constantly updated (check dates for latest version)
