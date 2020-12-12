@@ -54,7 +54,7 @@ ggsave(file.path(plotdir, "p1_1_techappprofiles.pdf"), p1.1, unit="cm", width=19
 
 
 # # ---- 1.2 All Technology Appropriatenes Scores ####
-extrema.temp = tas_components_df[,1:4] %>% group_by(tech) %>% summarise(TASmin = min(TAS),
+extrema.temp = tas_components_df %>% group_by(tech) %>% summarise(TASmin = min(TAS),
                                                                         TASmax = max(TAS))
 
 FG <- toupper(substr(extrema.temp[,"tech"], start = 1, stop = 1))
@@ -115,7 +115,7 @@ p1.3 <- ggplot(tas_components_df_long, aes(x=variable, y=value, fill=tech)) +
   theme(panel.border=element_rect(colour="grey", fill=NA)) 
 
   ## ---- Save Plot as PDF ----
-ggsave(file.path(plotdir, "p1_3_techappprofiles.pdf"), p1.3, unit="cm", width=25, height = 30, dpi=1000, device="pdf")
+ggsave(file.path(plotdir, "p1_3_alltechappprofiles.pdf"), p1.3, unit="cm", width=25, height = 30, dpi=1000, device="pdf")
 
 
 # # # ---- 2 - System Appropriateness ----
