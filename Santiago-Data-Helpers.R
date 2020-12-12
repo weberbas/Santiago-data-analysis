@@ -2,11 +2,13 @@
 
 
 ## Define Source Reference
-source_labs <- c("Cistern.flush" = "Cistern flush", "Pour.flush" = "Pour flush", 
-                 "UDDT"="UDDT", "Dry.toilet"="Dry toilet")
+source_cols <- source_labs <- subset(tas_components_df, FG == "U", select = "tech")
+
 ## Define Source colors
-source_cols <- c("Cistern.flush" = "#306CC4", "Pour.flush" = "#66CCFF", 
-                 "Dry.toilet"="#36C196",  "UDDT"="#EDE720")
+for (i in 1:length(template_cols)) {
+  source_cols[i]<-randomColor()
+}
+remove(i)
 
 ## Define Template Colors with randomly assigned colors
 template_cols <- template_names <- unique(props$template)
