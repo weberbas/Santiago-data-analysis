@@ -578,7 +578,7 @@ dataMedian_template_acc <- summarise(group_by(props, template), MD = round(media
   ## ---- Phosphor Recovery Ratio per Template ----
   
   p3.3p <- ggplot(data=props, aes(x=template, y=100*recovery_ratio_phosphor_mean))+
-    geom_point(aes(color=source), alpha=0.5, size=2, position = position_jitter())+
+    geom_point(aes(color=source), alpha=0.5, size=0.5, position = position_jitter())+
     scale_colour_manual(values=source_cols, labels = source_labs, labstxt3.3)+
     geom_boxplot(aes(group=template), varwidth= FALSE, alpha=0.5, lwd=0.25, outlier.size = 0.5, fill = "#6F6F6E", colour = "#6F6F6E", width=0.5)+
     geom_text(data = dataMedian_template_p, aes(template, MD, label = MD),size = 3, position = position_dodge(width = 0.8), vjust = 1.5)+
@@ -593,7 +593,7 @@ dataMedian_template_acc <- summarise(group_by(props, template), MD = round(media
   ## ---- Nitrogen Recovery Ratio per Template ----
   
   p3.3n <- ggplot(data=props, aes(x=template, y=100*recovery_ratio_nitrogen_mean))+
-    geom_point(aes(color=source), alpha=0.5, size=2, position = position_jitter())+
+    geom_point(aes(color=source), alpha=0.5, size=0.5, position = position_jitter())+
     scale_colour_manual(values=source_cols, labels = source_labs, labstxt3.3)+
     geom_boxplot(aes(group=template), varwidth= FALSE, alpha=0.5, lwd=0.25, outlier.size = 0.5, fill = "#6F6F6E", colour = "#6F6F6E", width=0.5)+
     geom_text(data = dataMedian_template_n, aes(template, MD, label = MD),size = 3, position = position_dodge(width = 0.8), vjust = 1.5)+
@@ -608,7 +608,7 @@ dataMedian_template_acc <- summarise(group_by(props, template), MD = round(media
   ## ---- Total Solids Recovery Ratio per Template ---- 
   
   p3.3ts <- ggplot(data=props, aes(x=template, y=100*recovery_ratio_totalsolids_mean))+
-    geom_point(aes(color=source), alpha=0.5, size=2, position = position_jitter())+
+    geom_point(aes(color=source), alpha=0.5, size=0.5, position = position_jitter())+
     scale_colour_manual(values=source_cols, labels = source_labs, labstxt3.3)+
     geom_boxplot(aes(group=template), varwidth= FALSE, alpha=0.5, lwd=0.25, outlier.size = 0.5, fill = "#6F6F6E", colour = "#6F6F6E", width=0.5)+
     geom_text(data = dataMedian_template_ts, aes(template, MD, label = MD),size = 3, position = position_dodge(width = 0.8), vjust = 1.5)+
@@ -623,7 +623,7 @@ dataMedian_template_acc <- summarise(group_by(props, template), MD = round(media
   ## ---- Water Recovery Ratio per Template ---- 
   
   p3.3h2o <- ggplot(data=props, aes(x=template, y=100*recovery_ratio_water_mean))+
-    geom_point(aes(color=source), alpha=0.5, size=2, position = position_jitter())+
+    geom_point(aes(color=source), alpha=0.5, size=0.5, position = position_jitter())+
     scale_colour_manual(values=source_cols, labels = source_labs, labstxt3.3)+
     geom_boxplot(aes(group=template), varwidth= FALSE, alpha=0.5, lwd=0.25, outlier.size = 0.5, fill = "#6F6F6E", colour = "#6F6F6E", width=0.5)+
     geom_text(data = dataMedian_template_h2o, aes(template, MD, label = MD),size = 3, position = position_dodge(width = 0.8), vjust = 1.5)+
@@ -638,7 +638,7 @@ dataMedian_template_acc <- summarise(group_by(props, template), MD = round(media
   ## ---- Recovered Water per Template ---- 
   
   p3.3h2om <- ggplot(data=props, aes(x=template, y=recovered_water_mean))+
-    geom_point(aes(color=source), alpha=0.5, size=2, position = position_jitter())+
+    geom_point(aes(color=source), alpha=0.5, size=0.5, position = position_jitter())+
     scale_colour_manual(values=source_cols, labels = source_labs, labstxt3.3)+
     geom_boxplot(aes(group=template), varwidth= FALSE, alpha=0.5, lwd=0.25, outlier.size = 0.5, fill = "#6F6F6E", colour = "#6F6F6E", width=0.5)+
     geom_text(data = dataMedian_template_h2om, aes(template, MD, label = MD),size = 3, position = position_dodge(width = 0.8), vjust = 1.5)+
@@ -653,7 +653,7 @@ dataMedian_template_acc <- summarise(group_by(props, template), MD = round(media
   ## ---- Accumulated Recovery Ratio per Template ----
   
   p3.3acc <- ggplot(data=props, aes(x=template, y=100*recovery_ratio_accumulated_balanced_mean))+
-    geom_point(aes(color=source), alpha=0.5, size=2, position = position_jitter())+
+    geom_point(aes(color=source), alpha=0.5, size=0.5, position = position_jitter())+
     scale_colour_manual(values=source_cols, labels = source_labs, labstxt3.3)+
     geom_boxplot(aes(group=template), varwidth= FALSE, alpha=0.5, lwd=0.25, outlier.size = 0.5, fill = "#6F6F6E", colour = "#6F6F6E", width=0.5)+
     geom_text(data = dataMedian_template_acc, aes(template, MD, label = MD),size = 3, position = position_dodge(width = 0.8), vjust = 1.5)+

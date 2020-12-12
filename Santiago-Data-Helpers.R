@@ -4,11 +4,14 @@
 ## Define Source Reference
 source_cols <- source_labs <- subset(tas_components_df, FG == "U", select = "tech")
 
+
 ## Define Source colors
-for (i in 1:length(template_cols)) {
-  source_cols[i]<-randomColor()
+for (i in 1:nrow(source_cols)) {
+  source_cols[i,]<-randomColor()
 }
 remove(i)
+
+source_cols <- source_cols$tech
 
 ## Define Template Colors with randomly assigned colors
 template_cols <- template_names <- unique(props$template)
