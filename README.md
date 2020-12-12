@@ -95,6 +95,24 @@ import CSV  # the package 'CSV' needs to be installed separately: ] add CSV
 CSV.write(joinpath(outputFolder, "$(runName)_selectedSys_R-Export.csv"), df)
 ```
 
+Additionally we read out the TAS and its Components as follows:
+```Julia
+# Calculate TAS and TAS Components
+
+tas, tas_components = appropriateness(input_tech_file, input_case_file);
+
+# Export TAS for R Analysis
+
+open(joinpath(outputFolder, "$(runName)_TAS_R-Export.json"), "w") do f
+    JSON3.write(f, tas)
+end
+
+# Export TAS_Components for R Analysis
+
+open(joinpath(outputFolder, "$(runName)_TAS_Components_R-Export.json"), "w") do f
+    JSON3.write(f, tas_components)
+end
+
 ### Read in Data - Santiago-Data-Prep.R
 Make sure you define your directories and file paths right in the Santiago-Data-Prep Script:
 ```R
