@@ -1,13 +1,18 @@
 ## First clear your R Memory
 rm(list=ls()) 
 
-## Set the working directory to the directory with your export files from Santiago (where your Best practice runfile.jl is)
-setwd("C:/Temp/R_Analysis/Santiago Data Analysis")
+## Save directory of R Scripts to variable (directory of where your R scripts are)
+scriptdir = getwd()
 
+## Set the working directory to the directory with your export files from Santiago (where your Best practice runfile.jl is)
+setwd( "\\\\eawag/userdata/fritscju/Desktop/Santiago VS CODE")
+
+## Set "runname" to the run name you used in Santiago.jl, this way it should automatically find your exported files
+runname = "uadd-test"
 
 ## If you are running this script for the first time, run "Santiago-Data-Prep.R" first.
 ## This will read out your Santiago output data and create a .RData File in the Santiago Output Folder for future calculations
-source("Santiago-Data-Helpers.R")
+source(file.path(scriptdir, "Santiago-Data-Helpers.R"))
 
 # # # ---- 1 - Technology Appropriateness ----
 

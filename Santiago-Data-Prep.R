@@ -55,6 +55,7 @@ props <- within(props, recovery_ratio_accumulated_balanced_mean <- (recovery_rat
 
 
 ## Save Props.RData and TAS.RData for future calculations
-save(props, file=(file.path(getwd(), "output", runname, paste(runname, "props.Rdata", sep = "_"))))
-save(tas_components_df, file=(file.path(getwd(), "output", runname, paste(runname, "tas_props.Rdata", sep = "_"))))
-save(tas_components_df_long, file=(file.path(getwd(), "output", runname, paste(runname, "tas_long_props.Rdata", sep = "_"))))
+saveRDS(props, file=(file.path(getwd(), "output", runname, paste(runname, "props.Rdata", sep = "_"))))
+saveRDS(tas_components_df, file=(file.path(getwd(), "output", runname, paste(runname, "tas_props.Rdata", sep = "_"))))
+saveRDS(tas_components_df_long, file=(file.path(getwd(), "output", runname, paste(runname, "tas_long_props.Rdata", sep = "_"))))
+
