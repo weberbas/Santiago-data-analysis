@@ -8,27 +8,26 @@ library(dplyr)
 library(reshape2)
 
 
-## Set the working directory to the directory with your export files from Santiago
-setwd("C:/Temp/R_Analysis/Santiago Data Analysis")
+## Set the working directory to the directory with your export files from Santiago (where your Best practice runfile.jl is)
+setwd("\\\\eawag/userdata/fritscju/Desktop/Santiago VS CODE")
 
-## Create an output folder for plots and save corresponding directory as variable
-dir.create(file.path(getwd(), "Santiago-R-Plots"), showWarnings = FALSE)
 
-plotdir=(file.path(getwd(),"Santiago-R-Plots"))
+## Insert the runname you used for Santiago
+runname = "uadd-test"
 
 ## read data 
   ## read in allSys
-  props <- read.csv("test/FullTest_allSys_selected_R-Export.csv", TRUE, ",")
+  props <- read.csv(file.path("output", runname, paste(runname, "_allSys_R-Export.csv", sep = "")), TRUE, ",")
   
   ## read in selectedSystems
-  selectedSystems <- read.csv("test/FullTest_selectedSys_selected_R-Export.csv", TRUE, ",")
+  selectedSystems <- read.csv(file.path("output", runname, paste(runname, "_selectedSys_R-Export.csv", sep = "")), TRUE, ",")
   
   ## read in and convert TAS
-  tas_df <- t(as.data.frame(fromJSON(file = "test/FullTest_TAS_R-Export.json")))
+  tas_df <- t(as.data.frame(fromJSON(file = file.path("output", runname, paste(runname, "_TAS_R-Export.json", sep = "")))))
   colnames(tas_df) <- "TAS"
 
   ## read in and convert TAS Components
-  tas_components_list <- fromJSON(file = "test/FullTest_TAS_Components_R-Export.json")
+  tas_components_list <- fromJSON(file = file.path("output", runname, paste(runname, "_TAS_Components_R-Export.json", sep = "")))
   melted_tas_comp <- melt(tas_components_list)
   colnames(melted_tas_comp) <- c("value", "attribute", "tech")
   tas_components_df <- dcast(melted_tas_comp, tech ~ attribute)
@@ -54,3 +53,8 @@ props$selected <- props$ID %in% selectedSystems$ID
 props <- within(props, recovery_ratio_accumulated_balanced_mean <- (recovery_ratio_phosphor_mean + recovery_ratio_nitrogen_mean +
                   recovery_ratio_water_mean + recovery_ratio_totalsolids_mean)/4)
 
+
+## Save Props.RData and TAS.RData for future calculations
+save(props, file=(file.path(getwd(), "output", runname, paste(runname, "props.Rdata", sep = "_"))))
+save(tas_components_df, file=(file.path(getwd(), "output", runname, paste(runname, "tas_props.Rdata", sep = "_"))))
+save(tas_components_df_long, file=(file.path(getwd(), "output", runname, paste(runname, "tas_long_props.Rdata", sep = "_"))))

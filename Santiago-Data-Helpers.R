@@ -1,5 +1,25 @@
 # # Helpers for Plots
 
+## Load necessary Libraries
+library(ggplot2)
+library(dplyr)
+library(stringr)
+library(scales)
+library(gridExtra)
+library(grid)
+library(reshape2)
+library(doBy)
+library(randomcoloR)
+library(ggrepel)
+
+## Load Props.RData file calculated with "Santiago-Data-Prep.R"
+XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX
+
+## Create an output folder for plots and save corresponding directory as variable
+dir.create(file.path(getwd(), "Santiago-R-Plots"), showWarnings = FALSE)
+
+plotdir=(file.path(getwd(),"Santiago-R-Plots"))
+
 
 ## Define Source Reference
 source_cols <- source_labs <- subset(tas_components_df, FG == "U", select = "tech")

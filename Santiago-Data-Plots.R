@@ -1,16 +1,12 @@
-## Load necessary Libraries
-library(ggplot2)
-library(dplyr)
-library(stringr)
-library(scales)
-library(gridExtra)
-library(grid)
-library(reshape2)
-library(doBy)
-library(randomcoloR)
-library(ggrepel)
+## First clear your R Memory
+rm(list=ls()) 
 
-source("Santiago-Data-Prep.R")
+## Set the working directory to the directory with your export files from Santiago (where your Best practice runfile.jl is)
+setwd("C:/Temp/R_Analysis/Santiago Data Analysis")
+
+
+## If you are running this script for the first time, run "Santiago-Data-Prep.R" first.
+## This will read out your Santiago output data and create a .RData File in the Santiago Output Folder for future calculations
 source("Santiago-Data-Helpers.R")
 
 # # # ---- 1 - Technology Appropriateness ----
