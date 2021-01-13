@@ -10,6 +10,13 @@ This Repository provides a number of plots that can be used with the outputs of 
 * _Santiago-Data-Helpers.R_ --> Helper functions and variables (colours, labels etc.)
 * _Santiago-Data-Plots.R_ --> The actual plots that can be used after running the two scripts above
 
+### Folder Structure
+Wheter you download the R scripts manually or clone them as a git clone, you should save the scripts in a new folder within your folder that you created for Santiago ("Santiago-Sanitation-Systems" not "Santiago.jl"). The folder structure should look as follows:  
+_"Santiago-Sanitation-Systems" > "Santiago.jl"_: this is where your Best Practice Runfile.jl is stored and the input/output folder created. 
+_"Santiago-Sanitation-Systems" > "Santiago-data-analysis"_: here you should save the R scripts.
+
+By doing so, the script _Santiago-Data-Prep.R_ should automatically find your export files that you calculated with _Santiago.jl_ (keep in mind to adapt the _runName_ to the runName that you used in Santiago). This is very practical if you calculated sanitation alternatives for several different regions (meaning you used a different run name for each of the calculations, e.g. "Woze_mc150" and "Mehalketema_mc150"). By changing the runName in the R script (either "Woze_mc150" or "Mehalketema_mc150"), you can define which set of export files should be analyzed and plotted. 
+
 ## Available Plots 
 ### 1 - Technology Appropriateness Assessment
 * p1.1 --> TAS - Plot Appropriateness Profiles per Functional Group
