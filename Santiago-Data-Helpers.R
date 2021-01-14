@@ -13,15 +13,15 @@ library(randomcoloR)
 library(ggrepel)
 
 ## Load Props.RData file and TAS files calculated with "Santiago-Data-Prep.R"
-props <- readRDS(file.path(rundir, paste(runName, "props.Rdata", sep = "_")))
-tas_components_df <- readRDS(file=(file.path(rundir, paste(runName, "tas_props.Rdata", sep = "_"))))
-tas_components_df_long <- readRDS(file=(file.path(rundir, paste(runName, "tas_long_props.Rdata", sep = "_"))))
+props <- readRDS(file.path(getwd(), "output", runname, paste(runname, "props.Rdata", sep = "_")))
+tas_components_df <- readRDS(file=(file.path(getwd(), "output", runname, paste(runname, "tas_props.Rdata", sep = "_"))))
+tas_components_df_long <- readRDS(file=(file.path(getwd(), "output", runname, paste(runname, "tas_long_props.Rdata", sep = "_"))))
 
 
 ## Create an output folder for plots and save corresponding directory as variable
-dir.create(file.path(rundir, "Santiago-R-Plots"), showWarnings = FALSE)
+dir.create(file.path(getwd(), "Santiago-R-Plots"), showWarnings = FALSE)
 
-plotdir=(file.path(rundir,"Santiago-R-Plots"))
+plotdir=(file.path(getwd(),"Santiago-R-Plots"))
 
 
 ## Define Source Reference

@@ -8,29 +8,26 @@ library(dplyr)
 library(reshape2)
 
 
-## Set the working directory to the current directory
-dir=getwd()
-setwd(dir)
+## Set the working directory to the directory with your export files from Santiago (where your Best practice runfile.jl is)
+setwd("\\\\eawag/userdata/fritscju/Desktop/Santiago VS CODE")
 
-## Specify one of the runNames you used for Santiago
-runName = "test"
 
-## Make rundir variable
-rundir <- file.path("../Santiago.jl/output", runName)
+## Insert the runname you used for Santiago
+runname = "uadd-test"
 
 ## read data 
   ## read in allSys
-  props <- read.csv(file.path(rundir, paste(runName, "_allSys_R-Export.csv", sep = "")), TRUE, ",")
+  props <- read.csv(file.path("output", runname, paste(runname, "_allSys_R-Export.csv", sep = "")), TRUE, ",")
   
   ## read in selectedSystems
-  selectedSystems <- read.csv(file.path(rundir, paste(runName, "_selectedSys_R-Export.csv", sep = "")), TRUE, ",")
+  selectedSystems <- read.csv(file.path("output", runname, paste(runname, "_selectedSys_R-Export.csv", sep = "")), TRUE, ",")
   
   ## read in and convert TAS
-  tas_df <- t(as.data.frame(fromJSON(file = file.path(rundir, paste(runName, "_TAS_R-Export.json", sep = "")))))
+  tas_df <- t(as.data.frame(fromJSON(file = file.path("output", runname, paste(runname, "_TAS_R-Export.json", sep = "")))))
   colnames(tas_df) <- "TAS"
 
   ## read in and convert TAS Components
-  tas_components_list <- fromJSON(file = file.path(rundir, paste(runName, "_TAS_Components_R-Export.json", sep = "")))
+  tas_components_list <- fromJSON(file = file.path("output", runname, paste(runname, "_TAS_Components_R-Export.json", sep = "")))
   melted_tas_comp <- melt(tas_components_list)
   colnames(melted_tas_comp) <- c("value", "attribute", "tech")
   tas_components_df <- dcast(melted_tas_comp, tech ~ attribute)
@@ -58,7 +55,7 @@ props <- within(props, recovery_ratio_accumulated_balanced_mean <- (recovery_rat
 
 
 ## Save Props.RData and TAS.RData for future calculations
-saveRDS(props, file=(file.path(rundir, paste(runName, "props.Rdata", sep = "_"))))
-saveRDS(tas_components_df, file=(file.path(rundir, paste(runName, "tas_props.Rdata", sep = "_"))))
-saveRDS(tas_components_df_long, file=(file.path(rundir, paste(runName, "tas_long_props.Rdata", sep = "_"))))
+saveRDS(props, file=(file.path(getwd(), "output", runname, paste(runname, "props.Rdata", sep = "_"))))
+saveRDS(tas_components_df, file=(file.path(getwd(), "output", runname, paste(runname, "tas_props.Rdata", sep = "_"))))
+saveRDS(tas_components_df_long, file=(file.path(getwd(), "output", runname, paste(runname, "tas_long_props.Rdata", sep = "_"))))
 
