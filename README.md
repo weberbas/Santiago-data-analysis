@@ -33,6 +33,9 @@ This repository contains three _R_ Scripts:
 * p3.7 --> RR and uncertainties - Standard deviation of recovery potentials against the recovery potentials coloured by system template
 
 ## Usage:
+## Installation
+Create on your computer a folder called __santiago-sanitation-systems__. This is ideally also the location of your Santiago-runfolder where you run the _Santiago_ runfile and package and store your _Santiago- input and output data (see below for the recommended folder structure).
+
 ### Input data
 First of all, you need the required _Santiago_ outputs. These are two csv files and two json files:
 * (runName)_allSys_R-Export.csv
@@ -44,7 +47,7 @@ How to define the runName and to export these files is explained in the best pra
 ### Scripts
 Then, you need to have all the scripts and path on your computer set correctely. We have defined the script, that they should work without mayor changes if you have the following folder structure somewhere on your computer:
 * __santiago-sanitation-systems__ (_this folder you create yourself somewhere_)
- * Santiago-data-analysis (this is the folder you downloaded from github)
+ * __Santiago-data-analysis__ (this is the folder you downloaded from github)
    * Santiago-Data-Helpers.R
    * Santiago-Data-Plots.R
    * Santiago-Data-Prep.R
