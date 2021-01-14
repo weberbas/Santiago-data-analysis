@@ -3,9 +3,9 @@
 Welcome to the _Santiago_ Data Analysis _R_-Package version 13.01.2021.
 
 ## General  
-In this repository you will find a number of scripts that can be used in combination with the newest version of [_SANitation sysTem Alternative GeneratOr (Santiago)_](https://github.com/santiago-sanitation-systems/Santiago.jl), a Julia package also available on github.
+In this repository you will find a number of scripts that can be used in combination with the newest version of the [_SANitation sysTem Alternative GeneratOr (Santiago)_](https://github.com/santiago-sanitation-systems/Santiago.jl), a Julia package also available on github.
 The aim is to provide basic support for the analysis of _Santiago_ outputs in R using ggplot2. 
-We are conitnousely updating this repository. thus, please download the newest versino frequently and contact us in case of any problem encountered.
+We are conitnousely updating this repository. Thus, please download the newest version frequently and contact us in case of any  encountered problem.
 
 ## Content
 This repository contains three _R_ Scripts:  
