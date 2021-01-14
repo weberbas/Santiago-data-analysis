@@ -3,14 +3,12 @@
 Welcome to the _Santiago_ Data Analysis _R_-Package version 13.01.2021.
 
 ## General  
-
-This Repository provides a number of scripts that can be used in combination with the newest version of [_Santiago_](https://github.com/santiago-sanitation-systems/Santiago.jl).
-The aim is to provide basic support for the analysis of _Santiago_ outputs in R using different plots. 
-we are conitnousely updating this repository. thus, please download the newest versino frequently and contact us in case of any problem encountered.
+In this repository you will find a number of scripts that can be used in combination with the newest version of [_Santiago_](https://github.com/santiago-sanitation-systems/Santiago.jl).
+The aim is to provide basic support for the analysis of _Santiago_ outputs in R using ggplot2. 
+We are conitnousely updating this repository. thus, please download the newest versino frequently and contact us in case of any problem encountered.
 
 ## Content
 This repository contains three _R_ Scripts:  
-
 * _Santiago-Data-Prep.R_ --> This script helps you to load the data outputs from _Santiago_ and to convert it into a a dataframe for easy handling in _R_. You only need to do this once for new data or when the outputs from your _Santiago_ run have been updated. After using this script. The dataframew are stored as RData and can be loaded directly.
 * _Santiago-Data-Helpers.R_ --> This scripts contains helper functions and variables (colours, labels etc.) for plotting. It is called from the third script.
 * _Santiago-Data-Plots.R_ --> This script contains the code for the different plots.
@@ -33,7 +31,7 @@ This repository contains three _R_ Scripts:
 * p3.7 --> RR and uncertainties - Standard deviation of recovery potentials against the recovery potentials coloured by system template
 
 ## Usage:
-## Installation
+### Installation
 Create on your computer a folder called __santiago-sanitation-systems__. This is ideally also the location of your Santiago-runfolder where you run the _Santiago_ runfile and package and store your _Santiago- input and output data (see below for the recommended folder structure).
 
 ### Input data
