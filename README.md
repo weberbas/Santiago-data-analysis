@@ -33,13 +33,16 @@ This repository contains three _R_ Scripts:
 * p3.7 --> RR and uncertainties - Standard deviation of recovery potentials against the recovery potentials coloured by system template
 
 ## Usage:
+### Input data
 First of all, you need the required _Santiago_ outputs. These are two csv files and two json files:
 * (runName)_allSys_R-Export.csv
 * (runName)_selectedSys_R-Export.cs
 * (runName)_TAS_R-Export.json
 * (runName)_TAS_Components_R-Export.json
 How to define the runName and to export these files is explained in the best practice runfile in the [Santiago Wiki](https://github.com/santiago-sanitation-systems/Santiago.jl/wiki).
-Ideally you have the following folder structure somewhere on your computer:
+
+### Scripts
+Then, you need to have all the scripts and path on your computer set correctely. We have defined the script, that they should work without mayor changes if you have the following folder structure somewhere on your computer:
 * __santiago-sanitation-systems__ (_this folder you create yourself somewhere_)
  * Santiago-data-analysis (this is the folder you downloaded from github)
    * Santiago-Data-Helpers.R
@@ -53,9 +56,10 @@ Ideally you have the following folder structure somewhere on your computer:
      * test (_generated when you run the runfile_)
    * Project.toml (_generated when you run the runfile_)
 
+### Using the data and the scripts
 The usage is then as follows:
 
-1) Run once the code in _Santiago-Data-Prep.R_ and store the prepared data as RData files in your runfolder. You only need to do this again if oyu change anything in the _Santiago_ output
+1) Run once the code in _Santiago-Data-Prep.R_ and store the resulting dataframes as RData files in your runfolder. You only need to do this if you use the data for the first time or if your _Santiago_ output data have been changed (e.g. changes in appropriatness scores). If you data remain the same, you will whenever you start a R session just load the saved Rfiles using the helper script.
 
 2) Use _Santiago-Data-Plots.R_. This file automatically calls the helper file.  The plots are calculated and stored as a variable (e.g. "p3.3x") and in a later step exported as PDF also in the runfolder. Use `view(p.3.3x)` to view the plot in your Editor. 
 
