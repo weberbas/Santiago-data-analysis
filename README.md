@@ -65,4 +65,4 @@ The usage is then as follows:
 2) Use _Santiago-Data-Plots.R_. This file automatically calls the helper file.  The plots are calculated and stored as a variable (e.g. "p3.3x") and in a later step exported as PDF also in the runfolder. Use `view(p.3.3x)` to view the plot in your Editor. 
 
 
-###Have Fun!
+### Have Fun!
