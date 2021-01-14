@@ -40,17 +40,18 @@ First of all, you need the required _Santiago_ outputs. These are two csv files 
 * (runName)_TAS_Components_R-Export.json
 How to define the runName and to export these files is explained in the best practice runfile in the [Santiago Wiki](https://github.com/santiago-sanitation-systems/Santiago.jl/wiki).
 Ideally you have the following folder structure somewhere on your computer:
-* santiago-sanitation-systems
-** Santiago-data-analysis
-*** Santiago-Data-Helpers.R
-*** Santiago-Data-Plots.R
-*** Santiago-Data-Prep.R
-** Santiago-runfolder
-*** 3.1-Best-Practice-Runfile.jl
-*** input
-*** Manifest.toml
-*** output
-*** Project.toml
+* __santiago-sanitation-systems__ (_this folder you create yourself somewhere_)
+ * Santiago-data-analysis (this is the folder you downloaded from github)
+   * Santiago-Data-Helpers.R
+   * Santiago-Data-Plots.R
+   * Santiago-Data-Prep.R
+ * __Santiago-runfolder__ (_this folder you have created when you started to work with Santiago_)
+   * 3.1-Best-Practice-Runfile.jl (-this file you have downloaded from the wiki-)
+   * input (_generated when you run the runfile_)
+   * Manifest.toml (_generated when you run the runfile_)
+   * output (_generated when you run the runfile_)
+     * test (_generated when you run the runfile_)
+   * Project.toml (_generated when you run the runfile_)
 
 The usage is then as follows:
 
