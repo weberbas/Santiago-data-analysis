@@ -5,7 +5,7 @@ Welcome to the _Santiago_ Data Analysis _R_-Package version 13.01.2021.
 ## General  
 In this repository you will find a number of scripts that can be used in combination with the newest version of the [_SANitation sysTem Alternative GeneratOr (Santiago)_](https://github.com/santiago-sanitation-systems/Santiago.jl), a Julia package also available on github.
 The aim is to provide basic support for the analysis of _Santiago_ outputs in R using ggplot2. 
-We are conitnousely updating this repository. Thus, please download the newest version frequently and contact us in case of any  encountered problem.
+We are conitnousely updating this repository. Thus, please download the newest version frequently and contact us in case of any encountered problem.
 
 ## Content
 This repository contains three _R_ Scripts:  
@@ -46,16 +46,16 @@ How to define the runName and to export these files is explained in the best pra
 Then, you need to have all the scripts and path on your computer set correctly. We wrote the scripts in a way, that they should run automatically without mayor changes if you have the following folder structure somewhere on your computer:
 * __santiago-sanitation-systems__ (_create this folder yourself somewhere_)
  > * __Santiago-data-analysis__ (this is the folder you downloaded from github)
-   > * Santiago-Data-Helpers.R
-   > * Santiago-Data-Plots.R
-   > * Santiago-Data-Prep.R
+   > * >Santiago-Data-Helpers.R
+   > * >Santiago-Data-Plots.R
+   > * >Santiago-Data-Prep.R
  > * __Santiago-runfolder__ (_this is the folder you created when you started working with Santiago_)
-   > * 3.1-Best-Practice-Runfile.jl (_this file was initially downloaded from the Santiago Wiki_)
-   > * input (_generated when you run the runfile_)
-   > * Manifest.toml (_generated when you run the runfile_)
-   > * output (_generated when you run the runfile_)
-   >   * test (_generated when you run the runfile_)
-   > * Project.toml (_generated when you run the runfile_)
+   > * >3.1-Best-Practice-Runfile.jl (_this file was initially downloaded from the Santiago Wiki_)
+   > * >input (_generated when you run the runfile_)
+   > * >Manifest.toml (_generated when you run the runfile_)
+   > * >output (_generated when you run the runfile_)
+   >   * >test (_generated when you run the runfile_)
+   > * >Project.toml (_generated when you run the runfile_)
 
 ### Using the data and the scripts
 The usage is then as follows:
