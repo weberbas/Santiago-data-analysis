@@ -32,7 +32,7 @@ This repository contains three _R_ Scripts:
 
 ## Usage:
 ### Installation
-Create a folder on your computer called __santiago-sanitation-systems__. This is ideally also the location of your Santiago-runfolder where you run the _Santiago_ runfile and package and store your _Santiago- input and output data (see below for the recommended folder structure).
+Create a folder on your computer called __santiago-sanitation-systems__. This is ideally also the root folder of your _Santiago-runfolder_ where you run the _Santiago_ runfile/package and stored your _Santiago_ input and output data (see below for the recommended folder structure).
 
 ### Input data
 First of all, you need the required _Santiago_ outputs. These are two csv files and two json files:
@@ -40,16 +40,16 @@ First of all, you need the required _Santiago_ outputs. These are two csv files 
 * (runName)_selectedSys_R-Export.cs
 * (runName)_TAS_R-Export.json
 * (runName)_TAS_Components_R-Export.json
-How to define the runName and to export these files is explained in the best practice runfile in the [Santiago Wiki](https://github.com/santiago-sanitation-systems/Santiago.jl/wiki).
+How to define the runName and to export these files is explained in the best practice runfile in the [Santiago Wiki > Data Analysis with R](https://github.com/santiago-sanitation-systems/Santiago.jl/wiki).
 
 ### Scripts
-Then, you need to have all the scripts and path on your computer set correctly. We wrote the scripts in a way, that they should run automatically without mayor changes if you have the following folder structure somewhere on your computer:
-* __santiago-sanitation-systems__ (_create this folder yourself somewhere_)
- > * __Santiago-data-analysis__ (this is the folder you downloaded from github)
+Then, you need to have all the scripts and paths on your computer set correctly. We wrote the scripts in a way, that they should run automatically without mayor changes if you have the following folder structure somewhere on your computer:
+* __santiago-sanitation-systems__ (_ROOT FOLDER - create this folder yourself somewhere_)
+ > * __Santiago-data-analysis__ (_SUBFOLDER1 - this is the folder you downloaded from github_)
    > * >Santiago-Data-Helpers.R
    > * >Santiago-Data-Plots.R
    > * >Santiago-Data-Prep.R
- > * __Santiago-runfolder__ (_this is the folder you created when you started working with Santiago_)
+ > * __Santiago-runfolder__ (_SUBFOLDER2 - this is the folder you created when you started working with Santiago_)
    > * >3.1-Best-Practice-Runfile.jl (_this file was initially downloaded from the Santiago Wiki_)
    > * >input (_generated when you run the runfile_)
    > * >Manifest.toml (_generated when you run the runfile_)
@@ -60,7 +60,7 @@ Then, you need to have all the scripts and path on your computer set correctly. 
 ### Using the data and the scripts
 The usage is then as follows:
 
-1) Run the script _Santiago-Data-Prep.R_ once and store the resulting dataframes as RData files in your runfolder. You only need to do this if you use the data for the first time or if your _Santiago_ output data have been changed (e.g. changes in appropriatness scores). If you data remains the same, you can just load the Rdata files previously created with the _Santiago-Data-Helpers.R_ script. 
+1) Run the script _Santiago-Data-Prep.R_ once and store the resulting dataframes as RData files in your runfolder. You only need to do this if you use the data for the first time or if your _Santiago_ output data has been changed (e.g. changes in appropriatness scores). If your data remains the same, you can just use the _Santiago-Data-Helpers.R_ script to load the previously calculated Rdata files (calculated with _Santiago-Data-Prep.R_ in a previous step). 
 
 2) Use _Santiago-Data-Plots.R_. This file automatically calls the helper file.  The plots are calculated and stored as a variable (e.g. "p3.3x") and in a later step also exported as PDF in the runfolder. Use `view(p.3.3x)` to view the plot in your Editor. 
 
