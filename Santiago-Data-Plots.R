@@ -10,39 +10,39 @@ runname = "test"
 ### define the path to your output folder from this run
 rundir<-file.path("../Santiago-runfolder/output", runname)
 
-## Run the helpers file. It defines important variables and also loads the data you are going to lot.
+## Run the helpers script. It defines important variables and also loads the prepared data from the _Prep_ script.
 source("Santiago-Data-Helpers.R")
 
 ##########################################################################
-## ---- Basics -----
-# number of SanSys within source within a template ------------------------
-n_tem_source=NULL
-for (template in levels(props$template)) {
-  for (source in levels(props$source)) {
-    n <- sum(props$source == source & props$template == template)
-    #sum(props$source == levels(props$source)[1] & props$template == levels(props$template)[1])
-    n_tem_source = rbind(n_tem_source, data.frame(template, source, n))
+# # # ---- Basics ----
+# # Number of SanSys within Source within a Template ------------------------
+  n_tem_source=NULL
+  for (template in levels(props$template)) {
+    for (source in levels(props$source)) {
+      n <- sum(props$source == source & props$template == template)
+      #sum(props$source == levels(props$source)[1] & props$template == levels(props$template)[1])
+      n_tem_source = rbind(n_tem_source, data.frame(template, source, n))
+    }
   }
-}
-write.table(n_tem_source, file.path(plotdir, "n_tem_source.csv"), sep = ";", row.names=F)
+  write.table(n_tem_source, file.path(plotdir, "n_tem_source.csv"), sep = ";", row.names=F)
 
-# dataframe with selected systems ----  
-props_selected = props[props$selected == "TRUE", ]
-props_selected_melted<-data.frame(props_selected$template, props_selected$ID, props_selected$source, props_selected$sysappscore,
-                                  props_selected$recovery_ratio_phosphor_mean,  props_selected$recovery_ratio_phosphor_sd, 
-                                  props_selected$recovery_ratio_nitrogen_mean,  props_selected$recovery_ratio_nitrogen_sd,
-                                  props_selected$recovery_ratio_totalsolids_mean,  props_selected$recovery_ratio_totalsolids_sd,
-                                  props_selected$recovery_ratio_water_mean,  props_selected$recovery_ratio_water_sd,
-                                                                    props_selected$recovered_water_mean,  props_selected$recovered_water_sd)
-write.table(props_selected_melted, file.path(plotdir, "props_selected_melted.csv"), sep = ";", row.names=F)
+  # dataframe with selected systems ----  
+  props_selected = props[props$selected == "TRUE", ]
+  props_selected_melted<-data.frame(props_selected$template, props_selected$ID, props_selected$source, props_selected$sysappscore,
+                                    props_selected$recovery_ratio_phosphor_mean,  props_selected$recovery_ratio_phosphor_sd, 
+                                    props_selected$recovery_ratio_nitrogen_mean,  props_selected$recovery_ratio_nitrogen_sd,
+                                    props_selected$recovery_ratio_totalsolids_mean,  props_selected$recovery_ratio_totalsolids_sd,
+                                    props_selected$recovery_ratio_water_mean,  props_selected$recovery_ratio_water_sd,
+                                                                      props_selected$recovered_water_mean,  props_selected$recovered_water_sd)
+  write.table(props_selected_melted, file.path(plotdir, "props_selected_melted.csv"), sep = ";", row.names=F)
 
-#  mean length per template ----
-l_temp=NULL
-for (template in levels(props$template)) {
-  n <- round(mean(props$ntechs[props$template == template]),1)
-  l_temp = rbind(l_temp, data.frame(template, n))
-}
-write.table(l_temp, file.path(plotdir, "l_temp.csv"), sep = ";", row.names=F)
+  #  mean length per template ----
+  l_temp=NULL
+  for (template in levels(props$template)) {
+    n <- round(mean(props$ntechs[props$template == template]),1)
+    l_temp = rbind(l_temp, data.frame(template, n))
+  }
+  write.table(l_temp, file.path(plotdir, "l_temp.csv"), sep = ";", row.names=F)
 
 ##########################################################################
 # # # ---- 1 - Technology Appropriateness ----
