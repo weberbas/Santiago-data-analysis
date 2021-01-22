@@ -234,7 +234,7 @@ p2.1h2o <- ggplot(data=props, aes(x=sysappscore, y=recovery_ratio_water_mean )) 
   labs(x = "System Appropriateness Score (SAS)", y="ratio [-]")+
   ggtitle("Water Recovery Ratio")
 
-p2.1h2om <- ggplot(data=props, aes(x=sysappscore, y=recovered_water_mean/1000 )) +
+p2.1h2om <- ggplot(data=props, aes(x=sysappscore, y=recovered_water_mean)) +
   geom_point(alpha=0.5, size=1.2, position = position_jitter(), color="#B1B1B1")+
   geom_point(data = props[props$selected,], aes(fill= template), size=3.5, shape=21, stroke=0, show.legend = TRUE)+
   scale_fill_manual(values=template_cols, labels = template_names_short, str_wrap("Templates of selected systems", 20)) +
@@ -658,7 +658,7 @@ dataMedian_template_acc <- summarise(group_by(props, template), MD = round(media
   
 ## recovered Water per Template 
   
-  p3.3h2om <- ggplot(data=props, aes(x=template, y=recovered_water_mean/1000))+
+  p3.3h2om <- ggplot(data=props, aes(x=template, y=recovered_water_mean))+
     geom_point(aes(color=source), alpha=0.5, size=0.5, position = position_jitter())+
     scale_colour_manual(values=source_cols, labels = source_labs, labstxt3.3)+
     geom_boxplot(aes(group=template), varwidth= FALSE, alpha=0.5, lwd=0.25, outlier.size = 0.5, fill = "#6F6F6E", colour = "#6F6F6E", width=0.5)+
@@ -721,10 +721,10 @@ dataMedian_template_acc <- summarise(group_by(props, template), MD = round(media
                                    "recovery_ratio_nitrogen_mean", "lost_nitrogen_air.loss_mean", "lost_nitrogen_water.loss_mean", "lost_nitrogen_soil.loss_mean",
                                    "recovery_ratio_totalsolids_mean", "lost_totalsolids_air.loss_mean", "lost_totalsolids_water.loss_mean", "lost_totalsolids_soil.loss_mean",
                                    "recovered_water_mean", "lost_water_air.loss_mean", "lost_water_water.loss_mean", "lost_water_soil.loss_mean")]
-  dt_source_absolute3$recovered_water_mean <- dt_source_absolute3$recovered_water_mean/1000
-  dt_source_absolute3$lost_water_air.loss_mean <- dt_source_absolute3$lost_water_air.loss_mean/1000
-  dt_source_absolute3$lost_water_water.loss_mean <- dt_source_absolute3$lost_water_water.loss_mean/1000
-  dt_source_absolute3$lost_water_soil.loss_mean <- dt_source_absolute3$lost_water_soil.loss_mean/1000
+  dt_source_absolute3$recovered_water_mean <- dt_source_absolute3$recovered_water_mean
+  dt_source_absolute3$lost_water_air.loss_mean <- dt_source_absolute3$lost_water_air.loss_mean
+  dt_source_absolute3$lost_water_water.loss_mean <- dt_source_absolute3$lost_water_water.loss_mean
+  dt_source_absolute3$lost_water_soil.loss_mean <- dt_source_absolute3$lost_water_soil.loss_mean
   
   dtmelt_source_absolute3 <- melt(dt_source_absolute3, id=c("source"))
   dtmelt_source_absolute3$variable <- factor(dtmelt_source_absolute3$variable , labels = c("TP~recovered~('%')","TP~lost~to~air~('%')","TP~lost~to~water~('%')","TP~lost~to~soil~('%')",
@@ -827,7 +827,7 @@ ggsave(file.path(plotdir, "p3_4_sourceboxplot_ratio_h2om.pdf"), p3.4, unit="cm",
     ggtitle("H2O Recovery")
   
   
-  p3.5h2om <- ggplot(data=props, aes(x=ntechs, y=recovered_water_mean/1000))+
+  p3.5h2om <- ggplot(data=props, aes(x=ntechs, y=recovered_water_mean))+
     geom_point(aes(color=template), position = "jitter", alpha=0.8, size=1.1)+
     geom_boxplot(aes(group=ntechs), varwidth=TRUE, alpha=0, lwd=0.25)+
     scale_colour_manual(values = template_cols, labels = str_wrap(template_names, 25), labstxt3.5)+
@@ -941,7 +941,7 @@ ggsave(file.path(plotdir, "p3_4_sourceboxplot_ratio_h2om.pdf"), p3.4, unit="cm",
             legend.text=element_text(size=8, colour="#B1B1B1"), legend.position= "right",       
             legend.title = element_text(size=9, face = "bold"), legend.key.size = unit(1,"line"))
     
-    p3.7h2om <- ggplot(data=props, aes(x=recovered_water_mean/1000, y=recovered_water_sd))+
+    p3.7h2om <- ggplot(data=props, aes(x=recovered_water_mean, y=recovered_water_sd))+
       geom_point(aes(colour=template), alpha=0.5, size=0.6, position = position_jitter())+
       scale_colour_manual(values=template_cols, labels = template_names, "System templates")+
       labs(x="kg/person*year",y="Standard Deviation [m3/person*year]")+
