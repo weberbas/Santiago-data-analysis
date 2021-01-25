@@ -15,20 +15,20 @@ This repository contains three _R_ Scripts:
 
 ## Available Plots 
 ### 1 - Plotting Technology Appropriateness Scores (TAS)
-* p1.1 --> TAS - Boxplot of TAS and criteria scores of all technologies grouped by functional group
-* p1.2 --> TAS - Overview on all TAS
-* p1.3 --> TAS - Detailes on TAS and criteria scores for all technologies
+* p1.1 --> TAS - Influence of criteria on TAS, boxplot of TAS and criteria scores grouped by functional group
+* p1.2 --> TAS - Overview on all TAS per technology
+* p1.3 --> TAS - Detailed appropraiteness profiles for all technologies
 ### 2 - Plotting System Appropriateness Scores (SAS)
-* p2.1 --> SAS - Plot of the sytem appropritenss versus the resource recovery potentials and selected systems
-* p2.2 --> SAS - Overview of all system appropriatenss scores and selected systems grouped by templates
+* p2.1 --> SAS - Boxplot of all SAS grouped by templates and selected systems
+* p2.2 --> SAS - Jitterplot of SAS versus resource recovery per substance and selected sytems
 ### 3 - Plotting Resource Recovery (RR) potentials
-* p3.1 --> RR - A Density plot for recovery ratios for all four substances: total phosphosrus (TP), total nitrogen (TN), total solids (TS), and water (H2O)
-* p3.2 --> RR - A Density plot for recovery ratios, grouped by source
-* p3.3 --> RR - A scatter and boxplot per template, colored by source.
-* p3.4 --> RR and losses - Boxplot Grouped by Source 
-* p3.5 --> RR - Boxplots for length of systems for all substance, grouped by system templates
-* p3.6 --> RR - Boxplot for length of systems against accumulated recovery coloured by system template
-* p3.7 --> RR and uncertainties - Standard deviation of recovery potentials against the recovery potentials coloured by system template
+* p3.1 --> RR - Density plot for recovery for all four substances: total phosphosrus (TP), total nitrogen (TN), total solids (TS), and water (H2O)
+* p3.2 --> RR - Density plot for recovery for all four substances, grouped by source
+* p3.3 --> RR - Boxplot of recovery for all substances grouped per template, colored by source.
+* p3.4 --> RR - Boxplot of all recovery ratio and losses grouped by source 
+* p3.5 --> RR - Recovery versus length of systems for all substance, grouped by system templates
+* p3.6 --> RR - Accumulated revoery versus length of systems, coloured by system template
+* p3.7 --> RR - Standard deviation of recovery against recovery, coloured by system template
 
 ## Usage:
 ### Installation

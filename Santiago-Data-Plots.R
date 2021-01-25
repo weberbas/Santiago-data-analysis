@@ -1,20 +1,19 @@
+## clear memory
 rm(list=ls()) 
 
 ## Set the working directory to the current directory
 sourcedir=dirname(rstudioapi::getSourceEditorContext()$path)
 setwd=sourcedir
-
 ## Insert the runname you used for Santiago
 runname = "test"
 ### define the path to your output folder from this run
 rundir<-file.path("../Santiago-runfolder/output", runname)
-
 ## Run the helpers script. It defines important variables and also loads the prepared data from the _Prep_ script.
 source("Santiago-Data-Helpers.R")
 
 ##########################################################################
-# # # ---- Basics ----
-# # Number of SanSys within Source within a Template ------------------------
+### ---- Basics ----
+## Number of SanSys within Source within a Template ------------------------
   n_tem_source=NULL
   for (template in levels(props$template)) {
     for (source in levels(props$source)) {
@@ -44,8 +43,8 @@ source("Santiago-Data-Helpers.R")
   write.table(l_temp, file.path(plotdir, "l_temp.csv"), sep = ";", row.names=F)
 
 ##########################################################################
-# # # ---- 1 - Technology Appropriateness ----
-# # ---- 1.1 Plot Appropriateness Profiles per Functional Group  #### 
+### ---- 1 - Plotting Technology Appropriateness Scores (TAS) ----
+## ---- p1.1 --> TAS - Influence of criteria on TAS, boxplot of TAS and criteria scores grouped by functional group  #### 
 
 ## General Labels
 xtxt1.1 <- expression(paste("distribution of appropraiteness score, single attribute scores and aggregated technology appropriateness score (TAS)"))
@@ -75,10 +74,12 @@ p1.1 <- ggplot(tas_components_df_long, aes(x=variable, y=value, fill=FG)) +
   theme(panel.border=element_rect(colour="grey", fill=NA)) 
 p1.1
 
-##  Save Plot as PDF 
-ggsave(file.path(plotdir, "p1_1_techappprofiles.pdf"), p1.1, unit="cm", width=19, height = 24, dpi=1000, device="pdf")
+## save for screen view and ppt
+ggsave(file.path(plotdir, "p1_1_techappprofiles.png"), p1.1, unit="cm", width=19, height = 24, dpi=1000, device="png")
+## save high res for print
+#ggsave(file.path(plotdir, "p1_1_techappprofiles.pdf"), p1.1, unit="cm", width=19, height = 24, dpi=1000, device="pdf")
 
-# # ---- 1.2 All Technology Appropriatenes Scores ####
+## ---- p1.2 --> TAS - Overview on all TAS per technology ####
 
 ## factor fgs for setting order
 tas_components_df$FG <- factor(tas_components_df$FG, levels=c('U','S','C','T','D'))
@@ -102,10 +103,13 @@ p1.2 <- ggplot(tas_components_df, aes(x=tech,y=TAS) )+
     legend.key.size = unit(1,"line"))+
   labs(x ="Technology", y = "Technology appropriateness score (TAS)")
 p1.2
-## Save Plot as PDF 
-ggsave(file.path(plotdir, "p1_2_allTAS.pdf"), p1.2, unit="cm", width=19, height = 12, dpi=1000, device="pdf")
 
-# # ---- 1.3 Plot Appropriateness Profiles per Technology ----
+## save for screen view and ppt
+ggsave(file.path(plotdir, "p1_2_allTAS.png"), p1.2, unit="cm", width=19, height = 12, dpi=1000, device="png")
+## save high res for print
+#ggsave(file.path(plotdir, "p1_2_allTAS.pdf"), p1.2, unit="cm", width=19, height = 12, dpi=1000, device="pdf")
+
+## ---- p1.3 --> TAS - Detailed appropraiteness profiles for all technologies ----
 
 xtxt1.3 <- expression(paste("Technology Appropriateness Score ", italic("TAS"), " (first box), followed by Attribute Appropriateness Scores"))
 ytxt1.3 <- expression(paste("score"))
@@ -133,149 +137,23 @@ p1.3 <- ggplot(tas_components_df_long, aes(x=variable, y=value, fill=tech)) +
   ylab(ytxt1.3) +
   theme(panel.border=element_rect(colour="grey", fill=NA)) 
 p1.3
-  ##  Save Plot as PDF 
-ggsave(file.path(plotdir, "p1_3_alltechappprofiles.pdf"), p1.3, unit="cm", width=25, height = 30, dpi=1000, device="pdf")
+
+## save for screen view and ppt
+ggsave(file.path(plotdir, "p1_3_alltechappprofiles.png"), p1.3, unit="cm", width=25, height = 30, dpi=1000, device="png")
+## save high res for print
+#ggsave(file.path(plotdir, "p1_3_alltechappprofiles.pdf"), p1.3, unit="cm", width=25, height = 30, dpi=1000, device="pdf")
 
 
 ##########################################################################
-# # # ---- 2 - System Appropriateness ----
-# # ---- 2.1  Recovery Ratio - SAS, Substance Recoveries & Selected Systems ----
-
-p2.1p <- ggplot(data=props, aes(x=sysappscore, y= recovery_ratio_phosphor_mean)) +
-  geom_point(alpha=0.5, size=1.2, position = position_jitter(), color="#B1B1B1")+
-  geom_point(data = props[props$selected,], aes(fill= template), size=3.5, shape=21, stroke=0, show.legend = TRUE)+
-  scale_fill_manual(values=template_cols, labels = template_names_short, str_wrap("Templates of Selected Systems", 20)) +
-  geom_text_repel(data = props[props$selected,], aes(label=ID),position = "jitter", segment.size = 0.2, 
-                  arrow = arrow(length = unit(0.03, "npc"), type = "open", ends = "last"), size=2) +
-  guides(colour = guide_legend(override.aes = list(size=2, alpha= 1)), fill=guide_legend(nrow=2,byrow=FALSE))+
-  theme_minimal() +
-  theme(#text=element_text(family="Arial"),
-    panel.grid =   element_line(colour = "#C5C5C4", size=0.25),
-    plot.title = element_text(size = 10, colour = "#1D1D1B", face = "bold"),
-    axis.title.x=element_text(size=8.5, colour = "#6F6F6E"),
-    axis.title.y=element_text(size=8.5, colour = "#6F6F6E"),
-    axis.text.x = element_text(size=8.5, colour = "#6F6F6E"),
-    axis.text.y = element_text(size=8.5, colour = "#6F6F6E"),
-    strip.text = element_text(size=8.5, face="bold"),
-    legend.position= "bottom",       
-    legend.title = element_text(size = 9, colour = "#1D1D1B", face = "bold"),
-    legend.text=element_text(size=8.5, colour="#6F6F6E"),
-    legend.key.size = unit(1,"line"))+
-  labs(x = "System Appropriateness Score (SAS)", y="ratio [-]")+
-  ggtitle("Phosphorus Recovery")
-
-p2.1n <- ggplot(data=props, aes(x=sysappscore, y=recovery_ratio_nitrogen_mean )) +
-  geom_point(alpha=0.5, size=1.2, position = position_jitter(), color="#B1B1B1")+
-  geom_point(data = props[props$selected,], aes(fill= template), size=3.5, shape=21, stroke=0, show.legend = TRUE)+
-  scale_fill_manual(values=template_cols, labels = template_names_short, str_wrap("Templates of selected systems", 20)) +
-  geom_text_repel(data = props[props$selected,], aes(label=ID),position = "jitter", segment.size = 0.2, 
-                  arrow = arrow(length = unit(0.03, "npc"), type = "open", ends = "last"),  size=2) +
-  guides(colour = guide_legend(override.aes = list(size=2, alpha= 1)), fill=guide_legend(nrow=2,byrow=FALSE))+
-  theme_minimal() +
-  theme(#text=element_text(family="Arial"),
-    panel.grid =   element_line(colour = "#C5C5C4", size=0.25),
-    plot.title = element_text(size = 10, colour = "#1D1D1B", face = "bold"),
-    axis.title.x=element_text(size=8.5, colour = "#6F6F6E"),
-    axis.title.y=element_text(size=8.5, colour = "#6F6F6E"),
-    axis.text.x = element_text(size=8.5, colour = "#6F6F6E"),
-    axis.text.y = element_text(size=8.5, colour = "#6F6F6E"),
-    strip.text = element_text(size=8.5, face="bold"),
-    legend.position= "bottom",       
-    legend.title = element_text(size = 9, colour = "#1D1D1B", face = "bold"),
-    legend.text=element_text(size=8.5, colour="#6F6F6E"),
-    legend.key.size = unit(1,"line"))+
-  labs(x = "System Appropriateness Score (SAS)", y="ratio [-]")+
-  ggtitle("Nitrogen Recovery")
-
-p2.1ts <- ggplot(data=props, aes(x=sysappscore, y=recovery_ratio_totalsolids_mean )) +
-  geom_point(alpha=0.5, size=1.2, position = position_jitter(), color="#B1B1B1")+
-  geom_point(data = props[props$selected,], aes(fill= template), size=3.5, shape=21, stroke=0, show.legend = TRUE)+
-  scale_fill_manual(values=template_cols, labels = template_names_short, str_wrap("Templates of selected systems", 20)) +
-  geom_text_repel(data = props[props$selected,], aes(label=ID),position = "jitter", segment.size = 0.2, 
-                  arrow = arrow(length = unit(0.03, "npc"), type = "open", ends = "last"),  size=2) +
-  guides(colour = guide_legend(override.aes = list(size=4, alpha= 1)), fill=guide_legend(nrow=3,byrow=FALSE))+
-  theme_minimal() +
-  theme(#text=element_text(family="Arial"),
-    panel.grid =   element_line(colour = "#C5C5C4", size=0.25),
-    plot.title = element_text(size = 10, colour = "#1D1D1B", face = "bold"),
-    axis.title.x=element_text(size=8.5, colour = "#6F6F6E"),
-    axis.title.y=element_text(size=8.5, colour = "#6F6F6E"),
-    axis.text.x = element_text(size=8.5, colour = "#6F6F6E"),
-    axis.text.y = element_text(size=8.5, colour = "#6F6F6E"),
-    strip.text = element_text(size=8.5, face="bold"),
-    legend.position= "bottom",       
-    legend.title = element_text(size = 9, colour = "#1D1D1B", face = "bold"),
-    legend.text=element_text(size=8.5, colour="#6F6F6E"),
-    legend.key.size = unit(1,"line"))+
-  labs(x = "System Appropriateness Score (SAS)", y="ratio [-]")+
-  ggtitle("Total Solids Recovery")
-
-p2.1h2o <- ggplot(data=props, aes(x=sysappscore, y=recovery_ratio_water_mean )) +
-  geom_point(alpha=0.5, size=1.2, position = position_jitter(), color="#B1B1B1")+
-  geom_point(data = props[props$selected,], aes(fill= template), size=3.5, shape=21, stroke=0, show.legend = TRUE)+
-  scale_fill_manual(values=template_cols, labels = template_names_short, str_wrap("Templates of selected systems", 20)) +
-  geom_text_repel(data = props[props$selected,], aes(label=ID),position = "jitter", segment.size = 0.2, 
-                  arrow = arrow(length = unit(0.03, "npc"), type = "open", ends = "last"),  size=2) +
-  guides(colour = guide_legend(override.aes = list(size=4, alpha= 1)), fill=guide_legend(nrow=3,byrow=FALSE))+
-  theme_minimal() +
-  theme(#text=element_text(family="Arial"),
-    panel.grid =   element_line(colour = "#C5C5C4", size=0.25),
-    plot.title = element_text(size = 10, colour = "#1D1D1B", face = "bold"),
-    axis.title.x=element_text(size=8.5, colour = "#6F6F6E"),
-    axis.title.y=element_text(size=8.5, colour = "#6F6F6E"),
-    axis.text.x = element_text(size=8.5, colour = "#6F6F6E"),
-    axis.text.y = element_text(size=8.5, colour = "#6F6F6E"),
-    strip.text = element_text(size=8.5, face="bold"),
-    legend.position= "bottom",       
-    legend.title = element_text(size = 9, colour = "#1D1D1B", face = "bold"),
-    legend.text=element_text(size=8.5, colour="#6F6F6E"),
-    legend.key.size = unit(1,"line"))+
-  labs(x = "System Appropriateness Score (SAS)", y="ratio [-]")+
-  ggtitle("Water Recovery Ratio")
-
-p2.1h2om <- ggplot(data=props, aes(x=sysappscore, y=recovered_water_mean)) +
-  geom_point(alpha=0.5, size=1.2, position = position_jitter(), color="#B1B1B1")+
-  geom_point(data = props[props$selected,], aes(fill= template), size=3.5, shape=21, stroke=0, show.legend = TRUE)+
-  scale_fill_manual(values=template_cols, labels = template_names_short, str_wrap("Templates of selected systems", 20)) +
-  geom_text_repel(data = props[props$selected,], aes(label=ID),position = "jitter", segment.size = 0.2, 
-                  arrow = arrow(length = unit(0.03, "npc"), type = "open", ends = "last"), size=2) +
-  guides(colour = guide_legend(override.aes = list(size=4, alpha= 1)), fill=guide_legend(nrow=3,byrow=FALSE))+
-  theme_minimal() +
-  theme(#text=element_text(family="Arial"),
-    panel.grid =   element_line(colour = "#C5C5C4", size=0.25),
-    plot.title = element_text(size = 10, colour = "#1D1D1B", face = "bold"),
-    axis.title.x=element_text(size=8.5, colour = "#6F6F6E"),
-    axis.title.y=element_text(size=8.5, colour = "#6F6F6E"),
-    axis.text.x = element_text(size=8.5, colour = "#6F6F6E"),
-    axis.text.y = element_text(size=8.5, colour = "#6F6F6E"),
-    strip.text = element_text(size=8.5, face="bold"),
-    legend.position= "bottom",       
-    legend.title = element_text(size = 9, colour = "#1D1D1B", face = "bold"),
-    legend.text=element_text(size=8.5, colour="#6F6F6E"),
-    legend.key.size = unit(1,"line"))+
-  labs(x = "System Appropriateness Score (SAS)", y="m3/year*person")+
-  ggtitle("Water Recovery Volume")
-
-## Create one Plot with shared legends from all plots 
-## Use `p2.1` if you want to plot water recovery ratios
-## If you want to plot water recovery volumes use `p2.1_h2om`
-#p2.1 <-  grid_arrange_shared_legend(p2.1p, p2.1n, p2.1ts, p2.1h2o, ncol= 2, nrow=2, position="bottom")
-p2.1_h2om <-  grid_arrange_shared_legend(p2.1p, p2.1n, p2.1ts, p2.1h2om, ncol= 2, nrow=2, position="bottom")
-
-## Save Plot as PDF 
-ggsave(file.path(plotdir, "p2_1_SAS_recovery.pdf"), p2.1_h2om, unit="cm", width=19, height = 14, dpi=1000, device="pdf")
-
-
-
-
-# # ---- 2.2 Recovery Ratio - SAS Boxplot per Template colored by Source ----
+### ---- 2 - Plotting System Appropriateness Scores (SAS) ----
+## ---- p2.1 --> SAS - Boxplot of all SAS grouped by templates and selected systems ----
 
 ## Calculate Median of System Appropriateness Score
 dataMedian_sysappscore <- summaryBy(sysappscore ~ template, data = props, FUN = list(median))
 dataMedian_sysappscore$sysappscore.median <- round(dataMedian_sysappscore$sysappscore.median,2)
 
 ## Comment: You might have run this plot a few times to get a position of labels without overlap
-p2.2 <- ggplot(data=props, aes(x=template, y=sysappscore))+
+p2.1 <- ggplot(data=props, aes(x=template, y=sysappscore))+
   geom_point(aes(color=source), alpha=0.5, size=1.2, position = position_jitter())+
   scale_colour_manual(values=source_cols, labels = source_labs, "Source", 
                       guide=guide_legend(override.aes = list(size=2, alpha= 1), nrow=4,byrow=FALSE))+
@@ -304,15 +182,146 @@ p2.2 <- ggplot(data=props, aes(x=template, y=sysappscore))+
   theme(axis.title.x=element_blank())+
   scale_x_discrete(labels=template_names_short) +
   ggtitle("System appropriantess overview per template") 
-p2.2
-## save as PDF
-ggsave(file.path(plotdir, "p2_2_SAS_template.pdf"), p2.2, unit="cm", width=19, height = 14, dpi=1000, device="pdf")
+p2.1
+
+## save for screen view and ppt
+ggsave(file.path(plotdir, "p2_1_SAS_template.png"), p2.1, unit="cm", width=19, height = 14, dpi=1000, device="png")
+## save high res for print
+#ggsave(file.path(plotdir, "p2_1_SAS_template.pdf"), p2.2, unit="cm", width=19, height = 14, dpi=1000, device="pdf")
 
 
+## ---- p2.2 --> SAS - Jitterplot of SAS versus resource recovery per substance and selected sytems ----
+
+p2.2p <- ggplot(data=props, aes(x=sysappscore, y= recovery_ratio_phosphor_mean)) +
+  geom_point(alpha=0.5, size=1.2, position = position_jitter(), color="#B1B1B1")+
+  geom_point(data = props[props$selected,], aes(fill= template), size=3.5, shape=21, stroke=0, show.legend = TRUE)+
+  scale_fill_manual(values=template_cols, labels = template_names_short, str_wrap("Templates of Selected Systems", 20)) +
+  geom_text_repel(data = props[props$selected,], aes(label=ID),position = "jitter", segment.size = 0.2, 
+                  arrow = arrow(length = unit(0.03, "npc"), type = "open", ends = "last"), size=2) +
+  guides(colour = guide_legend(override.aes = list(size=2, alpha= 1)), fill=guide_legend(nrow=2,byrow=FALSE))+
+  theme_minimal() +
+  theme(#text=element_text(family="Arial"),
+    panel.grid =   element_line(colour = "#C5C5C4", size=0.25),
+    plot.title = element_text(size = 10, colour = "#1D1D1B", face = "bold"),
+    axis.title.x=element_text(size=8.5, colour = "#6F6F6E"),
+    axis.title.y=element_text(size=8.5, colour = "#6F6F6E"),
+    axis.text.x = element_text(size=8.5, colour = "#6F6F6E"),
+    axis.text.y = element_text(size=8.5, colour = "#6F6F6E"),
+    strip.text = element_text(size=8.5, face="bold"),
+    legend.position= "bottom",       
+    legend.title = element_text(size = 9, colour = "#1D1D1B", face = "bold"),
+    legend.text=element_text(size=8.5, colour="#6F6F6E"),
+    legend.key.size = unit(1,"line"))+
+  labs(x = "System Appropriateness Score (SAS)", y="ratio [-]")+
+  ggtitle("Phosphorus Recovery")
+
+p2.2n <- ggplot(data=props, aes(x=sysappscore, y=recovery_ratio_nitrogen_mean )) +
+  geom_point(alpha=0.5, size=1.2, position = position_jitter(), color="#B1B1B1")+
+  geom_point(data = props[props$selected,], aes(fill= template), size=3.5, shape=21, stroke=0, show.legend = TRUE)+
+  scale_fill_manual(values=template_cols, labels = template_names_short, str_wrap("Templates of selected systems", 20)) +
+  geom_text_repel(data = props[props$selected,], aes(label=ID),position = "jitter", segment.size = 0.2, 
+                  arrow = arrow(length = unit(0.03, "npc"), type = "open", ends = "last"),  size=2) +
+  guides(colour = guide_legend(override.aes = list(size=2, alpha= 1)), fill=guide_legend(nrow=2,byrow=FALSE))+
+  theme_minimal() +
+  theme(#text=element_text(family="Arial"),
+    panel.grid =   element_line(colour = "#C5C5C4", size=0.25),
+    plot.title = element_text(size = 10, colour = "#1D1D1B", face = "bold"),
+    axis.title.x=element_text(size=8.5, colour = "#6F6F6E"),
+    axis.title.y=element_text(size=8.5, colour = "#6F6F6E"),
+    axis.text.x = element_text(size=8.5, colour = "#6F6F6E"),
+    axis.text.y = element_text(size=8.5, colour = "#6F6F6E"),
+    strip.text = element_text(size=8.5, face="bold"),
+    legend.position= "bottom",       
+    legend.title = element_text(size = 9, colour = "#1D1D1B", face = "bold"),
+    legend.text=element_text(size=8.5, colour="#6F6F6E"),
+    legend.key.size = unit(1,"line"))+
+  labs(x = "System Appropriateness Score (SAS)", y="ratio [-]")+
+  ggtitle("Nitrogen Recovery")
+
+p2.2ts <- ggplot(data=props, aes(x=sysappscore, y=recovery_ratio_totalsolids_mean )) +
+  geom_point(alpha=0.5, size=1.2, position = position_jitter(), color="#B1B1B1")+
+  geom_point(data = props[props$selected,], aes(fill= template), size=3.5, shape=21, stroke=0, show.legend = TRUE)+
+  scale_fill_manual(values=template_cols, labels = template_names_short, str_wrap("Templates of selected systems", 20)) +
+  geom_text_repel(data = props[props$selected,], aes(label=ID),position = "jitter", segment.size = 0.2, 
+                  arrow = arrow(length = unit(0.03, "npc"), type = "open", ends = "last"),  size=2) +
+  guides(colour = guide_legend(override.aes = list(size=4, alpha= 1)), fill=guide_legend(nrow=3,byrow=FALSE))+
+  theme_minimal() +
+  theme(#text=element_text(family="Arial"),
+    panel.grid =   element_line(colour = "#C5C5C4", size=0.25),
+    plot.title = element_text(size = 10, colour = "#1D1D1B", face = "bold"),
+    axis.title.x=element_text(size=8.5, colour = "#6F6F6E"),
+    axis.title.y=element_text(size=8.5, colour = "#6F6F6E"),
+    axis.text.x = element_text(size=8.5, colour = "#6F6F6E"),
+    axis.text.y = element_text(size=8.5, colour = "#6F6F6E"),
+    strip.text = element_text(size=8.5, face="bold"),
+    legend.position= "bottom",       
+    legend.title = element_text(size = 9, colour = "#1D1D1B", face = "bold"),
+    legend.text=element_text(size=8.5, colour="#6F6F6E"),
+    legend.key.size = unit(1,"line"))+
+  labs(x = "System Appropriateness Score (SAS)", y="ratio [-]")+
+  ggtitle("Total Solids Recovery")
+
+p2.2h2o <- ggplot(data=props, aes(x=sysappscore, y=recovery_ratio_water_mean )) +
+  geom_point(alpha=0.5, size=1.2, position = position_jitter(), color="#B1B1B1")+
+  geom_point(data = props[props$selected,], aes(fill= template), size=3.5, shape=21, stroke=0, show.legend = TRUE)+
+  scale_fill_manual(values=template_cols, labels = template_names_short, str_wrap("Templates of selected systems", 20)) +
+  geom_text_repel(data = props[props$selected,], aes(label=ID),position = "jitter", segment.size = 0.2, 
+                  arrow = arrow(length = unit(0.03, "npc"), type = "open", ends = "last"),  size=2) +
+  guides(colour = guide_legend(override.aes = list(size=4, alpha= 1)), fill=guide_legend(nrow=3,byrow=FALSE))+
+  theme_minimal() +
+  theme(#text=element_text(family="Arial"),
+    panel.grid =   element_line(colour = "#C5C5C4", size=0.25),
+    plot.title = element_text(size = 10, colour = "#1D1D1B", face = "bold"),
+    axis.title.x=element_text(size=8.5, colour = "#6F6F6E"),
+    axis.title.y=element_text(size=8.5, colour = "#6F6F6E"),
+    axis.text.x = element_text(size=8.5, colour = "#6F6F6E"),
+    axis.text.y = element_text(size=8.5, colour = "#6F6F6E"),
+    strip.text = element_text(size=8.5, face="bold"),
+    legend.position= "bottom",       
+    legend.title = element_text(size = 9, colour = "#1D1D1B", face = "bold"),
+    legend.text=element_text(size=8.5, colour="#6F6F6E"),
+    legend.key.size = unit(1,"line"))+
+  labs(x = "System Appropriateness Score (SAS)", y="ratio [-]")+
+  ggtitle("Water Recovery Ratio")
+
+p2.2h2om <- ggplot(data=props, aes(x=sysappscore, y=recovered_water_mean)) +
+  geom_point(alpha=0.5, size=1.2, position = position_jitter(), color="#B1B1B1")+
+  geom_point(data = props[props$selected,], aes(fill= template), size=3.5, shape=21, stroke=0, show.legend = TRUE)+
+  scale_fill_manual(values=template_cols, labels = template_names_short, str_wrap("Templates of selected systems", 20)) +
+  geom_text_repel(data = props[props$selected,], aes(label=ID),position = "jitter", segment.size = 0.2, 
+                  arrow = arrow(length = unit(0.03, "npc"), type = "open", ends = "last"), size=2) +
+  guides(colour = guide_legend(override.aes = list(size=4, alpha= 1)), fill=guide_legend(nrow=3,byrow=FALSE))+
+  theme_minimal() +
+  theme(#text=element_text(family="Arial"),
+    panel.grid =   element_line(colour = "#C5C5C4", size=0.25),
+    plot.title = element_text(size = 10, colour = "#1D1D1B", face = "bold"),
+    axis.title.x=element_text(size=8.5, colour = "#6F6F6E"),
+    axis.title.y=element_text(size=8.5, colour = "#6F6F6E"),
+    axis.text.x = element_text(size=8.5, colour = "#6F6F6E"),
+    axis.text.y = element_text(size=8.5, colour = "#6F6F6E"),
+    strip.text = element_text(size=8.5, face="bold"),
+    legend.position= "bottom",       
+    legend.title = element_text(size = 9, colour = "#1D1D1B", face = "bold"),
+    legend.text=element_text(size=8.5, colour="#6F6F6E"),
+    legend.key.size = unit(1,"line"))+
+  labs(x = "System Appropriateness Score (SAS)", y="m3/year*person")+
+  ggtitle("Water Recovery Volume")
+
+## Create one Plot with shared legends from all plots 
+## Use `p2.2` if you want to plot water recovery ratios
+## If you want to plot water recovery volumes use `p2.2_h2om`
+#p2.2 <-  grid_arrange_shared_legend(p2.2p, p2.2n, p2.2ts, p2.2h2o, ncol= 2, nrow=2, position="bottom")
+p2.2_h2om <-  grid_arrange_shared_legend(p2.2p, p2.2n, p2.2ts, p2.2h2om, ncol= 2, nrow=2, position="bottom")
+
+## save for screen view and ppt
+ggsave(file.path(plotdir, "p2_2_SAS_recovery.png"), p2.2_h2om, unit="cm", width=19, height = 14, dpi=1000, device="png")
+## save high res for print
+#ggsave(file.path(plotdir, "p2_2_SAS_recovery.pdf"), p2.2_h2om, unit="cm", width=19, height = 14, dpi=1000, device="pdf")
 
 
-# # # ---- 3 - Resource Recovery ----
-# # ---- 3.1 Recovery Ratio - Density Plot ----
+##########################################################################
+### ---- 3 - Plotting Resource Recovery (RR) potentials ----
+## ---- p3.1 --> RR - Density plot for recovery for all four substances: total phosphosrus (TP), total nitrogen (TN), total solids (TS), and water (H2O) ----
 
 ## Labels
 labstxt3.1<- expression(paste("Substance"))
@@ -425,12 +434,15 @@ p3.1acc <- ggplot(props, aes(x=recovery_ratio_accumulated_balanced_mean)) +
 p3.1_h2om <-  grid.arrange(p3.1p, p3.1n, p3.1ts, p3.1h2om, ncol= 2, nrow=2)
 p3.1_full<-  grid.arrange(p3.1p, p3.1n, p3.1ts, p3.1h2o, p3.1h2om, p3.1acc, ncol= 3, nrow=2)
 
-## Save Plots as PDF
-ggsave(file.path(plotdir, "p3_1_recovery_densityplot.pdf"), p3.1_h2om , unit="cm", width=19, height = 14, dpi=1000, device="pdf")
-ggsave(file.path(plotdir, "p3_1_recovery_densityplot_full.pdf"), p3.1_full , unit="cm", width=19, height = 14, dpi=1000, device="pdf")
+## save for screen view and ppt
+ggsave(file.path(plotdir, "p3_1_recovery_densityplot.png"), p3.1_h2om , unit="cm", width=19, height = 14, dpi=1000, device="png")
+ggsave(file.path(plotdir, "p3_1_recovery_densityplot_full.png"), p3.1_full , unit="cm", width=19, height = 14, dpi=1000, device="png")
+## save high res for print
+#ggsave(file.path(plotdir, "p3_1_recovery_densityplot.pdf"), p3.1_h2om , unit="cm", width=19, height = 14, dpi=1000, device="pdf")
+#ggsave(file.path(plotdir, "p3_1_recovery_densityplot_full.pdf"), p3.1_full , unit="cm", width=19, height = 14, dpi=1000, device="pdf")
 
 
-# # ---- 3.2 Recovery Ratio - Density Plot by Source ----------
+## ---- p3.2 --> RR - Density plot for recovery for all four substances, grouped by source ----------
 
 # Label
 labstxt3.2<- expression(paste("Substance"))
@@ -542,12 +554,17 @@ p3.2acc <- ggplot(props, aes(x=recovery_ratio_accumulated_balanced_mean)) +
 
 p3.2_h2om <-  grid_arrange_shared_legend(p3.2p, p3.2n, p3.2ts, p3.2h2om, ncol= 2, nrow=2, position= "bottom")
 p3.2_full<- grid_arrange_shared_legend(p3.2p, p3.2n, p3.2ts, p3.2h2o, p3.2h2om, p3.2acc, ncol= 3, nrow=2)
-## Save Plots as PDF
-ggsave(file.path(plotdir, "p3_2_recovery_densityplot_sources.pdf"), p3.2_h2om , unit="cm", width=19, height = 14, dpi=1000, device="pdf")
-ggsave(file.path(plotdir, "p3_2_recovery_densityplot_sources_full.pdf"), p3.2_full , unit="cm", width=19, height = 14, dpi=1000, device="pdf")
 
 
-# # ---- 3.3 Boxplot per template coloured by source - Recovery Potentials ----
+## save for screen view and ppt
+ggsave(file.path(plotdir, "p3_2_recovery_densityplot_sources.png"), p3.2_h2om , unit="cm", width=19, height = 14, dpi=1000, device="png")
+ggsave(file.path(plotdir, "p3_2_recovery_densityplot_sources_full.png"), p3.2_full , unit="cm", width=19, height = 14, dpi=1000, device="png")
+## save high res for print
+#ggsave(file.path(plotdir, "p3_2_recovery_densityplot_sources.pdf"), p3.2_h2om , unit="cm", width=19, height = 14, dpi=1000, device="pdf")
+#ggsave(file.path(plotdir, "p3_2_recovery_densityplot_sources_full.pdf"), p3.2_full , unit="cm", width=19, height = 14, dpi=1000, device="pdf")
+
+
+## ---- p3.3 --> RR - Boxplot of recovery for all substances grouped per template, colored by source ----
 # 
 ## General Labels:
 xtxt3.3 <- expression(paste("System template"))
@@ -559,7 +576,7 @@ dataMedian_template_n <- summarise(group_by(props, template), MD = round(median(
 dataMedian_template_ts <- summarise(group_by(props, template), MD = round(median(100*recovery_ratio_totalsolids_mean),2))
 dataMedian_template_h2o <- summarise(group_by(props, template), MD = round(median(100*recovery_ratio_water_mean),2))
 dataMedian_template_h2om <- summarise(group_by(props, template), MD = round(median(recovered_water_mean),2))
-dataMedian_template_acc <- summarise(group_by(props, template), MD = round(median(100*recovery_ratio_accumulated_balanced_mean),2))
+dataMedian_template_acc <- summarise(group_by(props, template), MD = round(median(100*recovery_ratio_accumulated_mean),2))
 # 
 
 ## Phosphor Recovery Ratio per Template
@@ -661,7 +678,7 @@ dataMedian_template_acc <- summarise(group_by(props, template), MD = round(media
     geom_point(aes(color=source), alpha=0.5, size=0.5, position = position_jitter())+
     scale_colour_manual(values=source_cols, labels = source_labs, labstxt3.3)+
     geom_boxplot(aes(group=template), varwidth= FALSE, alpha=0.5, lwd=0.25, outlier.size = 0.5, fill = "#6F6F6E", colour = "#6F6F6E", width=0.5)+
-    geom_text(data = dataMedian_template_h2om, aes(template, MD, label = MD),size = 3, position = position_dodge(width = 0.8), vjust = 1.5)+
+    geom_text(data = dataMedian_template_h2om, aes(template, MD, label = MD), size = 3, position = position_dodge(width = 0.9), vjust = -0.25)+
     labs(x=xtxt3.3, y= "Recovered Amount [m3/year*person]") +
     theme_minimal()+
     theme(#text=element_text(family="Arial"),
@@ -672,16 +689,15 @@ dataMedian_template_acc <- summarise(group_by(props, template), MD = round(media
           strip.text = element_text(size=8, face="bold"),
           legend.text=element_text(size=8, colour="#B1B1B1"), legend.position= "bottom",       
           legend.title = element_text(size=9, face = "bold"), legend.key.size = unit(1,"line"))+
-    ylim(0,100)+
     guides(colour = guide_legend(override.aes = list(size=4, alpha= 1)))+
     scale_x_discrete(labels = template_names_short)+
     theme(axis.text.x = element_text(size=8),
           legend.position = "right")+
-    ggtitle("Water Recovery Absolute")
+    ggtitle("Water Recovery Volume")
   
 ##  Accumulated Recovery Ratio per Template 
   
-  p3.3acc <- ggplot(data=props, aes(x=template, y=100*recovery_ratio_accumulated_balanced_mean))+
+  p3.3acc <- ggplot(data=props, aes(x=template, y=100*recovery_ratio_accumulated_mean))+
     geom_point(aes(color=source), alpha=0.5, size=0.5, position = position_jitter())+
     scale_colour_manual(values=source_cols, labels = source_labs, labstxt3.3)+
     geom_boxplot(aes(group=template), varwidth= FALSE, alpha=0.5, lwd=0.25, outlier.size = 0.5, fill = "#6F6F6E", colour = "#6F6F6E", width=0.5)+
@@ -696,23 +712,25 @@ dataMedian_template_acc <- summarise(group_by(props, template), MD = round(media
           strip.text = element_text(size=8, face="bold"),
           legend.text=element_text(size=8, colour="#B1B1B1"), legend.position= "bottom",       
           legend.title = element_text(size=9, face = "bold"), legend.key.size = unit(1,"line"))+
-    ylim(0,100)+
     guides(colour = guide_legend(override.aes = list(size=4, alpha= 1)))+
     scale_x_discrete(labels = template_names_short)+
     theme(axis.text.x = element_text(size=8),
           legend.position = "right")+
-    ggtitle("Accumulated Balanced Recovery")
+    ggtitle("Accumulated Recovery")
   
-  ##  Save Plots as PDF 
-  
+  ## combine multiple plots
   p3.3_h2om <-  grid_arrange_shared_legend(p3.3p, p3.3n, p3.3ts, p3.3h2om, ncol= 1, nrow=4, position= "bottom")
   p3.3_full <-  grid_arrange_shared_legend(p3.3p, p3.3n, p3.3ts, p3.3h2o, p3.3h2om, p3.3acc, ncol= 1, nrow=6, position= "bottom")
-   ## Save Plots as PDF
-  ggsave(file.path(plotdir, "p3_3_recovery_per_template_boxplot.pdf"), p3.3_h2om , unit="cm", width=19, height = 14, dpi=1000, device="pdf")
-  ggsave(file.path(plotdir, "p3_3_recovery_per_template_boxplot_full.pdf"), p3.3_full , unit="cm", width=19, height = 14, dpi=1000, device="pdf")
+ 
+  ## save for screen view and ppt
+  ggsave(file.path(plotdir, "p3_3_recovery_per_template_boxplot.png"), p3.3_h2om , unit="cm", width=19, height = 14, dpi=1000, device="png")
+  ggsave(file.path(plotdir, "p3_3_recovery_per_template_boxplot_full.png"), p3.3_full , unit="cm", width=19, height = 14, dpi=1000, device="png")
+  ## save high res for print
+  #ggsave(file.path(plotdir, "p3_3_recovery_per_template_boxplot.pdf"), p3.3_h2om , unit="cm", width=19, height = 14, dpi=1000, device="pdf")
+  #ggsave(file.path(plotdir, "p3_3_recovery_per_template_boxplot_full.pdf"), p3.3_full , unit="cm", width=19, height = 14, dpi=1000, device="pdf")
   
   
-# # ---- 3.4 Recovery and losses - Boxplot grouped by Sources ----- -----
+## ---- p3.4 --> RR - Boxplot of all recovery ratio and losses grouped by source ----- -----
   
 ## Preparation for Plots: Melt dataframe and factor
   
@@ -757,11 +775,13 @@ dataMedian_template_acc <- summarise(group_by(props, template), MD = round(media
       legend.text=element_text(size=7, colour="#B1B1B1"), legend.position= "bottom",       
       legend.title = element_text(size=9, face = "bold"), legend.key.size = unit(1,"line"))
   
-##  Save Plot as PDF 
-ggsave(file.path(plotdir, "p3_4_sourceboxplot_ratio_h2om.pdf"), p3.4, unit="cm", width=19, height = 16, dpi=1000, device="pdf")
+  ## save for screen view and ppt
+  ggsave(file.path(plotdir, "p3_4_sourceboxplot_ratio_h2om.png"), p3.4, unit="cm", width=19, height = 16, dpi=1000, device="png")
+  ## save high res for print
+  #ggsave(file.path(plotdir, "p3_4_sourceboxplot_ratio_h2om.pdf"), p3.4, unit="cm", width=19, height = 16, dpi=1000, device="pdf")
   
  
-# # ---- 3.5 Recovery Ratio - Boxplots for Number of Technologies for every Substance, grouped by System Templates --------
+## ---- p3.5 --> RR - Recovery versus length of systems for all substance, grouped by system templates --------
 
 ##  Labels
   xtxt3.5 <- expression(paste("Number of technologies in SanSys"))
@@ -865,13 +885,16 @@ ggsave(file.path(plotdir, "p3_4_sourceboxplot_ratio_h2om.pdf"), p3.4, unit="cm",
     p3.5 <- grid_arrange_shared_legend(p3.5p, p3.5n,  p3.5ts, p3.5h2o, nrow=2, ncol=2)
     p3.5_h2om <- grid_arrange_shared_legend(p3.5p, p3.5n,  p3.5ts, p3.5h2om, nrow=2, ncol=2)
   
-##  Save Plots as PDF 
-  
-    ggsave(file.path(plotdir, "p3_5_ntech_templates_substance.pdf"), p3.5, unit="cm", width=19, height = 19, dpi=1000, device="pdf")
-    ggsave(file.path(plotdir, "p3_5_ntech_templates_substance_h20m.pdf"), p3.5_h2om, unit="cm", width=19, height = 19, dpi=1000, device="pdf")
+    ## save for screen view and ppt
+    ggsave(file.path(plotdir, "p3_5_ntech_templates_substance.png"), p3.5, unit="cm", width=19, height = 19, dpi=1000, device="png")
+    ggsave(file.path(plotdir, "p3_5_ntech_templates_substance_h20m.png"), p3.5_h2om, unit="cm", width=19, height = 19, dpi=1000, device="png")
+    
+    ## save high res for print
+    #ggsave(file.path(plotdir, "p3_5_ntech_templates_substance.pdf"), p3.5, unit="cm", width=19, height = 19, dpi=1000, device="pdf")
+    #ggsave(file.path(plotdir, "p3_5_ntech_templates_substance_h20m.pdf"), p3.5_h2om, unit="cm", width=19, height = 19, dpi=1000, device="pdf")
   
 
-# # ---- 3.6 Recovery Ratio - Boxplots for Number of Technologies for accumulated Recovery, grouped by System Templates----
+## ---- p3.6 --> RR - Accumulated revoery versus length of systems, coloured by system template ----
 
 ##  Labels
     xtxt3.6 <- expression(paste("Length (Number of Technologies within the System)"))
@@ -880,7 +903,7 @@ ggsave(file.path(plotdir, "p3_4_sourceboxplot_ratio_h2om.pdf"), p3.4, unit="cm",
       geom_point(aes(color=template), alpha=0.5, size=1.2, position = position_jitter())+
       scale_colour_manual(values=template_cols, labels = str_wrap(template_names, 15), "System templates")+
       geom_boxplot(aes(group=ntechs), varwidth= FALSE, alpha=0.5, lwd=0.25, outlier.size = 0.5, fill = "#6F6F6E", colour = "#6F6F6E", width=0.5)+
-      labs(x=xtxt3.6, y= "Accumulated Recovery Ratio (sum of ratio for all four substances) [-]") +
+      labs(x=xtxt3.6, y= str_wrap("Accumulated Recovery Ratio (sum of ratio for all four substances) [-]",15)) +
       guides(colour = guide_legend(override.aes = list(size=4, alpha= 1), nrow=2))+
       scale_fill_manual(values=template_cols, labels = str_wrap(template_names, 25)) +
       theme_minimal()+
@@ -897,12 +920,14 @@ ggsave(file.path(plotdir, "p3_4_sourceboxplot_ratio_h2om.pdf"), p3.4, unit="cm",
             legend.key.size = unit(1,"line"))
     p3.6
     
-    ## Create PDF of Plot 
-    ggsave(file.path(plotdir, "p3_6_accumultedrecovery_ntech.pdf"), p3.6, unit="cm", width=19, height = 10, dpi=1000, device="pdf")
+    ## save for screen view and ppt
+    ggsave(file.path(plotdir, "p3_6_accumultedrecovery_ntech.png"), p3.6, unit="cm", width=19, height = 10, dpi=1000, device="png")
+    ## save high res for print
+    #ggsave(file.path(plotdir, "p3_6_accumultedrecovery_ntech.pdf"), p3.6, unit="cm", width=19, height = 10, dpi=1000, device="pdf")
 
     
     
-# # ---- 3.7 SD against Recovery colored by System Template ----
+## ---- p3.7 --> RR - Standard deviation of recovery against recovery, coloured by system template ----
     
     ## Select upper limit of y-axis by maximum value (+0.01) of standart deviation:
     ylim3.7 <- 0.01 + max(props$recovery_ratio_nitrogen_sd, 
@@ -974,9 +999,11 @@ ggsave(file.path(plotdir, "p3_4_sourceboxplot_ratio_h2om.pdf"), p3.4, unit="cm",
     
     ## Create one Plot with shared legends from all plots 
     p3.7 <- grid_arrange_shared_legend(p3.7p, p3.7n, p3.7ts, p3.7h2om, nrow=2, ncol=2)
-    
-    ## Save Plots as PDF 
-    ggsave(file.path(plotdir, "p3_7_SD_ratio.pdf"), p3.7, unit="cm", width=19, height = 14, dpi=1000, device="pdf")
+  
+    ## save for screen view and ppt
+    ggsave(file.path(plotdir, "p3_7_SD_ratio.png"), p3.7, unit="cm", width=19, height = 14, dpi=1000, device="png")
+    ## save high res for print
+    #ggsave(file.path(plotdir, "p3_7_SD_ratio.pdf"), p3.7, unit="cm", width=19, height = 14, dpi=1000, device="pdf")
 
 
     
