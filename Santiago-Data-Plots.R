@@ -1,4 +1,3 @@
-## First clear your R Memory
 rm(list=ls()) 
 
 ## Set the working directory to the current directory
@@ -59,7 +58,7 @@ p1.1 <- ggplot(tas_components_df_long, aes(x=variable, y=value, fill=FG)) +
   theme_minimal() + 
   ggtitle("Functional Groups")+
   guides(colour = guide_legend(override.aes = list(size=4, alpha= 15)))+
-  theme(
+  theme(#text=element_text(family="Arial"),
     panel.grid =   element_line(colour = "#C5C5C4", size=0.25),
     plot.title = element_text(size = 10, colour = "#1D1D1B", face = "bold"),
     axis.title.x=element_text(size=8.5, colour = "#6F6F6E"),
@@ -89,7 +88,7 @@ p1.2 <- ggplot(tas_components_df, aes(x=tech,y=TAS) )+
   scale_shape_manual(values=c(2, 0, 1))+#,fill=fgcol) +
   theme_minimal() +
   guides(colour = guide_legend(title="Functional group", order=1, ncol=1))+
-  theme(
+  theme(#text=element_text(family="Arial"),
     panel.grid =   element_line(colour = "#C5C5C4", size=0.25),
     plot.title = element_text(size = 10, colour = "#1D1D1B", face = "bold"),
     axis.title.x=element_text(size=8.5, colour = "#6F6F6E"),
@@ -118,7 +117,7 @@ p1.3 <- ggplot(tas_components_df_long, aes(x=variable, y=value, fill=tech)) +
   theme_minimal() + 
   ggtitle("Technologies")+
   guides(colour = guide_legend(override.aes = list(size=4, alpha= 1)))+
-  theme(
+  theme(#text=element_text(family="Arial"),
     panel.grid =   element_line(colour = "#C5C5C4", size=0.25),
     plot.title = element_text(size = 10, colour = "#1D1D1B", face = "bold"),
     axis.title.x=element_text(size=8.5, colour = "#6F6F6E"),
@@ -150,7 +149,7 @@ p2.1p <- ggplot(data=props, aes(x=sysappscore, y= recovery_ratio_phosphor_mean))
                   arrow = arrow(length = unit(0.03, "npc"), type = "open", ends = "last"), size=2) +
   guides(colour = guide_legend(override.aes = list(size=2, alpha= 1)), fill=guide_legend(nrow=2,byrow=FALSE))+
   theme_minimal() +
-  theme(
+  theme(#text=element_text(family="Arial"),
     panel.grid =   element_line(colour = "#C5C5C4", size=0.25),
     plot.title = element_text(size = 10, colour = "#1D1D1B", face = "bold"),
     axis.title.x=element_text(size=8.5, colour = "#6F6F6E"),
@@ -173,7 +172,7 @@ p2.1n <- ggplot(data=props, aes(x=sysappscore, y=recovery_ratio_nitrogen_mean ))
                   arrow = arrow(length = unit(0.03, "npc"), type = "open", ends = "last"),  size=2) +
   guides(colour = guide_legend(override.aes = list(size=2, alpha= 1)), fill=guide_legend(nrow=2,byrow=FALSE))+
   theme_minimal() +
-  theme(
+  theme(#text=element_text(family="Arial"),
     panel.grid =   element_line(colour = "#C5C5C4", size=0.25),
     plot.title = element_text(size = 10, colour = "#1D1D1B", face = "bold"),
     axis.title.x=element_text(size=8.5, colour = "#6F6F6E"),
@@ -196,7 +195,7 @@ p2.1ts <- ggplot(data=props, aes(x=sysappscore, y=recovery_ratio_totalsolids_mea
                   arrow = arrow(length = unit(0.03, "npc"), type = "open", ends = "last"),  size=2) +
   guides(colour = guide_legend(override.aes = list(size=4, alpha= 1)), fill=guide_legend(nrow=3,byrow=FALSE))+
   theme_minimal() +
-  theme(
+  theme(#text=element_text(family="Arial"),
     panel.grid =   element_line(colour = "#C5C5C4", size=0.25),
     plot.title = element_text(size = 10, colour = "#1D1D1B", face = "bold"),
     axis.title.x=element_text(size=8.5, colour = "#6F6F6E"),
@@ -219,7 +218,7 @@ p2.1h2o <- ggplot(data=props, aes(x=sysappscore, y=recovery_ratio_water_mean )) 
                   arrow = arrow(length = unit(0.03, "npc"), type = "open", ends = "last"),  size=2) +
   guides(colour = guide_legend(override.aes = list(size=4, alpha= 1)), fill=guide_legend(nrow=3,byrow=FALSE))+
   theme_minimal() +
-  theme(
+  theme(#text=element_text(family="Arial"),
     panel.grid =   element_line(colour = "#C5C5C4", size=0.25),
     plot.title = element_text(size = 10, colour = "#1D1D1B", face = "bold"),
     axis.title.x=element_text(size=8.5, colour = "#6F6F6E"),
@@ -242,7 +241,7 @@ p2.1h2om <- ggplot(data=props, aes(x=sysappscore, y=recovered_water_mean)) +
                   arrow = arrow(length = unit(0.03, "npc"), type = "open", ends = "last"), size=2) +
   guides(colour = guide_legend(override.aes = list(size=4, alpha= 1)), fill=guide_legend(nrow=3,byrow=FALSE))+
   theme_minimal() +
-  theme(
+  theme(#text=element_text(family="Arial"),
     panel.grid =   element_line(colour = "#C5C5C4", size=0.25),
     plot.title = element_text(size = 10, colour = "#1D1D1B", face = "bold"),
     axis.title.x=element_text(size=8.5, colour = "#6F6F6E"),
@@ -290,7 +289,7 @@ p2.2 <- ggplot(data=props, aes(x=template, y=sysappscore))+
                   arrow = arrow(length = unit(0.03, "npc"), type = "open", ends = "last"), size=3) +
   labs(x="Template", y= "SAS") +
   theme_minimal()+
-  theme(
+  theme(#text=element_text(family="Arial"),
     panel.grid =   element_line(colour = "#C5C5C4", size=0.25),
     plot.title = element_text(size = 10, colour = "#1D1D1B", face = "bold"),
     axis.title.x=element_text(size=8.5, colour = "#6F6F6E"),
@@ -323,7 +322,7 @@ p3.1p <- ggplot(props, aes(x=recovery_ratio_phosphor_mean)) +
   scale_fill_manual(labstxt3.1)+
   scale_x_continuous(breaks = seq(0, 1, 0.2))+
   theme_minimal()+
-  theme(text=element_text(family="Arial"),
+  theme(#text=element_text(family="Arial"),
         panel.grid =   element_line(colour = "#ECECEC", size=0.25),
         plot.title = element_text(size = 9, face = "bold"),
         axis.title.x=element_text(size=7, colour="#B1B1B1"), axis.title.y=element_text(size=7, colour="#B1B1B1"),
@@ -340,7 +339,7 @@ p3.1n <- ggplot(props, aes(x=recovery_ratio_nitrogen_mean)) +
   scale_fill_manual(labstxt3.1)+
   scale_x_continuous(breaks = seq(0, 1, 0.2))+
   theme_minimal()+
-  theme(text=element_text(family="Arial"),
+  theme(#text=element_text(family="Arial"),
         panel.grid =   element_line(colour = "#ECECEC", size=0.25),
         plot.title = element_text(size = 9, face = "bold"),
         axis.title.x=element_text(size=7, colour="#B1B1B1"), axis.title.y=element_text(size=7, colour="#B1B1B1"),
@@ -357,7 +356,7 @@ p3.1ts <- ggplot(props, aes(x=recovery_ratio_totalsolids_mean)) +
   scale_fill_manual(labstxt3.1)+
   scale_x_continuous(breaks = seq(0, 1, 0.2))+
   theme_minimal()+
-  theme(text=element_text(family="Arial"),
+  theme(#text=element_text(family="Arial"),
         panel.grid =   element_line(colour = "#ECECEC", size=0.25),
         plot.title = element_text(size = 9, face = "bold"),
         axis.title.x=element_text(size=7, colour="#B1B1B1"), axis.title.y=element_text(size=7, colour="#B1B1B1"),
@@ -374,7 +373,7 @@ p3.1h2o <- ggplot(props, aes(x=recovery_ratio_water_mean)) +
   scale_fill_manual(labstxt3.1)+
   scale_x_continuous(breaks = seq(0, 1, 0.2))+
   theme_minimal()+
-  theme(text=element_text(family="Arial"),
+  theme(#text=element_text(family="Arial"),
         panel.grid =   element_line(colour = "#ECECEC", size=0.25),
         plot.title = element_text(size = 9, face = "bold"),
         axis.title.x=element_text(size=7, colour="#B1B1B1"), axis.title.y=element_text(size=7, colour="#B1B1B1"),
@@ -393,7 +392,7 @@ p3.1h2om <- ggplot(props, aes(x=recovered_water_mean)) +
   # coord_cartesian(ylim=c(0,0.0075))+
   #  scale_x_continuous(breaks = seq(0, 1, 0.2))+
   theme_minimal()+
-  theme(text=element_text(family="Arial"),
+  theme(#text=element_text(family="Arial"),
         panel.grid =   element_line(colour = "#ECECEC", size=0.25),
         plot.title = element_text(size = 9, face = "bold"),
         axis.title.x=element_text(size=7, colour="#B1B1B1"), axis.title.y=element_text(size=7, colour="#B1B1B1"),
@@ -411,7 +410,7 @@ p3.1acc <- ggplot(props, aes(x=recovery_ratio_accumulated_balanced_mean)) +
   # coord_cartesian(ylim=c(0,0.0075))+
   #  scale_x_continuous(breaks = seq(0, 1, 0.2))+
   theme_minimal()+
-  theme(text=element_text(family="Arial"),
+  theme(#text=element_text(family="Arial"),
         panel.grid =   element_line(colour = "#ECECEC", size=0.25),
         plot.title = element_text(size = 9, face = "bold"),
         axis.title.x=element_text(size=7, colour="#B1B1B1"), axis.title.y=element_text(size=7, colour="#B1B1B1"),
@@ -441,7 +440,7 @@ p3.2p <- ggplot(props, aes(x=recovery_ratio_phosphor_mean)) +
   scale_fill_manual(values = source_cols, labstxt3.2)+
   scale_x_continuous(breaks = seq(0, 1, 0.2))+
   theme_minimal()+
-  theme(text=element_text(family="Arial"),
+  theme(#text=element_text(family="Arial"),
         panel.grid =   element_line(colour = "#ECECEC", size=0.25),
         plot.title = element_text(size = 9, face = "bold"),
         axis.title.x=element_text(size=7, colour="#B1B1B1"), axis.title.y=element_text(size=7, colour="#B1B1B1"),
@@ -458,7 +457,7 @@ p3.2n <- ggplot(props, aes(x=recovery_ratio_nitrogen_mean)) +
   scale_fill_manual(values = source_cols, labstxt3.2)+
   scale_x_continuous(breaks = seq(0, 1, 0.2))+
   theme_minimal()+
-  theme(text=element_text(family="Arial"),
+  theme(#text=element_text(family="Arial"),
         panel.grid =   element_line(colour = "#ECECEC", size=0.25),
         plot.title = element_text(size = 9, face = "bold"),
         axis.title.x=element_text(size=7, colour="#B1B1B1"), axis.title.y=element_text(size=7, colour="#B1B1B1"),
@@ -475,7 +474,7 @@ p3.2ts <- ggplot(props, aes(x=recovery_ratio_totalsolids_mean)) +
   scale_fill_manual(values = source_cols, labstxt3.2)+
   scale_x_continuous(breaks = seq(0, 1, 0.2))+
   theme_minimal()+
-  theme(text=element_text(family="Arial"),
+  theme(#text=element_text(family="Arial"),
         panel.grid =   element_line(colour = "#ECECEC", size=0.25),
         plot.title = element_text(size = 9, face = "bold"),
         axis.title.x=element_text(size=7, colour="#B1B1B1"), axis.title.y=element_text(size=7, colour="#B1B1B1"),
@@ -492,7 +491,7 @@ p3.2h2o <- ggplot(props, aes(x=recovery_ratio_water_mean)) +
   scale_fill_manual(values = source_cols, labstxt3.2)+
   scale_x_continuous(breaks = seq(0, 1, 0.2))+
   theme_minimal()+
-  theme(text=element_text(family="Arial"),
+  theme(#text=element_text(family="Arial"),
         panel.grid =   element_line(colour = "#ECECEC", size=0.25),
         plot.title = element_text(size = 9, face = "bold"),
         axis.title.x=element_text(size=7, colour="#B1B1B1"), axis.title.y=element_text(size=7, colour="#B1B1B1"),
@@ -510,7 +509,7 @@ p3.2h2om <- ggplot(props, aes(x=recovered_water_mean)) +
   # coord_cartesian(ylim=c(0,0.0075))+
   #  scale_x_continuous(breaks = seq(0, 1, 0.2))+
   theme_minimal()+
-  theme(text=element_text(family="Arial"),
+  theme(#text=element_text(family="Arial"),
         panel.grid =   element_line(colour = "#ECECEC", size=0.25),
         plot.title = element_text(size = 9, face = "bold"),
         axis.title.x=element_text(size=7, colour="#B1B1B1"), axis.title.y=element_text(size=7, colour="#B1B1B1"),
@@ -528,7 +527,7 @@ p3.2acc <- ggplot(props, aes(x=recovery_ratio_accumulated_balanced_mean)) +
   # coord_cartesian(ylim=c(0,0.0075))+
   #  scale_x_continuous(breaks = seq(0, 1, 0.2))+
   theme_minimal()+
-  theme(text=element_text(family="Arial"),
+  theme(#text=element_text(family="Arial"),
         panel.grid =   element_line(colour = "#ECECEC", size=0.25),
         plot.title = element_text(size = 9, face = "bold"),
         axis.title.x=element_text(size=7, colour="#B1B1B1"), axis.title.y=element_text(size=7, colour="#B1B1B1"),
@@ -571,7 +570,7 @@ dataMedian_template_acc <- summarise(group_by(props, template), MD = round(media
     geom_text(data = dataMedian_template_p, aes(template, MD, label = MD),size = 3, position = position_dodge(width = 0.8), vjust = 1.5)+
     labs(x=xtxt3.3, y= "Ratio [%]") +
     theme_minimal()+
-    theme(text=element_text(family="Arial"),
+    theme(#text=element_text(family="Arial"),
           panel.grid =   element_line(colour = "#ECECEC", size=0.25),
           plot.title = element_text(size = 9, face = "bold"),
           axis.title.x=element_text(size=7, colour="#B1B1B1"), axis.title.y=element_text(size=7, colour="#B1B1B1"),
@@ -594,7 +593,7 @@ dataMedian_template_acc <- summarise(group_by(props, template), MD = round(media
     geom_text(data = dataMedian_template_n, aes(template, MD, label = MD),size = 3, position = position_dodge(width = 0.8), vjust = 1.5)+
     labs(x=xtxt3.3, y= "Ratio [%]") +
     theme_minimal()+
-    theme(text=element_text(family="Arial"),
+    theme(#text=element_text(family="Arial"),
           panel.grid =   element_line(colour = "#ECECEC", size=0.25),
           plot.title = element_text(size = 9, face = "bold"),
           axis.title.x=element_text(size=7, colour="#B1B1B1"), axis.title.y=element_text(size=7, colour="#B1B1B1"),
@@ -617,7 +616,7 @@ dataMedian_template_acc <- summarise(group_by(props, template), MD = round(media
     geom_text(data = dataMedian_template_ts, aes(template, MD, label = MD),size = 3, position = position_dodge(width = 0.8), vjust = 1.5)+
     labs(x=xtxt3.3, y= "Ratio [%]") +
     theme_minimal()+
-    theme(text=element_text(family="Arial"),
+    theme(#text=element_text(family="Arial"),
           panel.grid =   element_line(colour = "#ECECEC", size=0.25),
           plot.title = element_text(size = 9, face = "bold"),
           axis.title.x=element_text(size=7, colour="#B1B1B1"), axis.title.y=element_text(size=7, colour="#B1B1B1"),
@@ -641,7 +640,7 @@ dataMedian_template_acc <- summarise(group_by(props, template), MD = round(media
     geom_text(data = dataMedian_template_h2o, aes(template, MD, label = MD),size = 3, position = position_dodge(width = 0.8), vjust = 1.5)+
     labs(x=xtxt3.3, y= "Ratio [%]") +
     theme_minimal()+
-    theme(text=element_text(family="Arial"),
+    theme(#text=element_text(family="Arial"),
           panel.grid =   element_line(colour = "#ECECEC", size=0.25),
           plot.title = element_text(size = 9, face = "bold"),
           axis.title.x=element_text(size=7, colour="#B1B1B1"), axis.title.y=element_text(size=7, colour="#B1B1B1"),
@@ -665,7 +664,7 @@ dataMedian_template_acc <- summarise(group_by(props, template), MD = round(media
     geom_text(data = dataMedian_template_h2om, aes(template, MD, label = MD),size = 3, position = position_dodge(width = 0.8), vjust = 1.5)+
     labs(x=xtxt3.3, y= "Recovered Amount [m3/year*person]") +
     theme_minimal()+
-    theme(text=element_text(family="Arial"),
+    theme(#text=element_text(family="Arial"),
           panel.grid =   element_line(colour = "#ECECEC", size=0.25),
           plot.title = element_text(size = 9, face = "bold"),
           axis.title.x=element_text(size=7, colour="#B1B1B1"), axis.title.y=element_text(size=7, colour="#B1B1B1"),
@@ -689,7 +688,7 @@ dataMedian_template_acc <- summarise(group_by(props, template), MD = round(media
     geom_text(data = dataMedian_template_acc, aes(template, MD, label = MD),size = 3, position = position_dodge(width = 0.8), vjust = 1.5)+
     labs(x=xtxt3.3, y= "Ratio [%]") +
     theme_minimal()+
-    theme(text=element_text(family="Arial"),
+    theme(#text=element_text(family="Arial"),
           panel.grid =   element_line(colour = "#ECECEC", size=0.25),
           plot.title = element_text(size = 9, face = "bold"),
           axis.title.x=element_text(size=7, colour="#B1B1B1"), axis.title.y=element_text(size=7, colour="#B1B1B1"),
@@ -713,7 +712,7 @@ dataMedian_template_acc <- summarise(group_by(props, template), MD = round(media
   ggsave(file.path(plotdir, "p3_3_recovery_per_template_boxplot_full.pdf"), p3.3_full , unit="cm", width=19, height = 14, dpi=1000, device="pdf")
   
   
-# # ---- 3.4 Recovery Ratio - Boxplot grouped by Sources ----- -----
+# # ---- 3.4 Recovery and losses - Boxplot grouped by Sources ----- -----
   
 ## Preparation for Plots: Melt dataframe and factor
   
@@ -749,7 +748,7 @@ dataMedian_template_acc <- summarise(group_by(props, template), MD = round(media
     labs(color=labstxt3.4, x= xtxt3.4, y ="substance recoverd/lost")+
     guides(colour = guide_legend(override.aes = list(size=4, alpha= 1)))+
     theme_minimal()+
-    theme(
+    theme(#text=element_text(family="Arial"),
       panel.grid =   element_line(colour = "#ECECEC", size=0.25),
       plot.title = element_text(size = 9, face = "bold"),
       axis.title.x=element_text(size=7, colour="#B1B1B1"), axis.title.y=element_text(size=7, colour="#B1B1B1"),
@@ -777,10 +776,15 @@ ggsave(file.path(plotdir, "p3_4_sourceboxplot_ratio_h2om.pdf"), p3.4, unit="cm",
     labs(x=xtxt3.5, y= "Recovery ratio [-]") +
     theme_minimal()+
     guides(colour = guide_legend(override.aes = list(size=4, alpha= 1)))+
-    theme(axis.title.x=element_text(size=8), 
-          plot.title = element_text(size = 8),
-          legend.key.size = unit(1,"line"), 
-          legend.position= "bottom")+
+    theme_minimal()+
+    theme(#text=element_text(family="Arial"),
+      panel.grid =   element_line(colour = "#ECECEC", size=0.25),
+      plot.title = element_text(size = 9, face = "bold"),
+      axis.title.x=element_text(size=7, colour="#B1B1B1"), axis.title.y=element_text(size=7, colour="#B1B1B1"),
+      axis.text.x = element_text(size=7, colour="#B1B1B1"), axis.text.y = element_text(size=7, colour="#B1B1B1"),
+      strip.text = element_text(size=8, face="bold"),
+      legend.text=element_text(size=8, colour="#B1B1B1"), legend.position= "bottom",       
+      legend.title = element_text(size=9, face = "bold"), legend.key.size = unit(1,"line"))+
     ggtitle("TP Recovery")
   
   
@@ -790,12 +794,16 @@ ggsave(file.path(plotdir, "p3_4_sourceboxplot_ratio_h2om.pdf"), p3.4, unit="cm",
     geom_boxplot(aes(group=ntechs), varwidth=TRUE, alpha=0, lwd=0.25)+
     ylim(0,1)+
     labs(x=xtxt3.5, y= "Recovery ratio [-]") +
-    theme_minimal()+
     guides(colour = guide_legend(override.aes = list(size=4, alpha= 1)))+
-    theme(axis.title.x=element_text(size=8), 
-          plot.title = element_text(size = 8),
-          legend.key.size = unit(1,"line"), 
-          legend.position= "bottom")+
+    theme_minimal()+
+    theme(#text=element_text(family="Arial"),
+      panel.grid =   element_line(colour = "#ECECEC", size=0.25),
+      plot.title = element_text(size = 9, face = "bold"),
+      axis.title.x=element_text(size=7, colour="#B1B1B1"), axis.title.y=element_text(size=7, colour="#B1B1B1"),
+      axis.text.x = element_text(size=7, colour="#B1B1B1"), axis.text.y = element_text(size=7, colour="#B1B1B1"),
+      strip.text = element_text(size=8, face="bold"),
+      legend.text=element_text(size=8, colour="#B1B1B1"), legend.position= "bottom",       
+      legend.title = element_text(size=9, face = "bold"), legend.key.size = unit(1,"line"))+
     ggtitle("TN Recovery")
   
   p3.5ts<- ggplot(data=props, aes(x=ntechs, y=recovery_ratio_totalsolids_mean))+
@@ -804,26 +812,34 @@ ggsave(file.path(plotdir, "p3_4_sourceboxplot_ratio_h2om.pdf"), p3.4, unit="cm",
     geom_boxplot(aes(group=ntechs), varwidth=TRUE, alpha=0, lwd=0.25)+
     ylim(0,1)+
     labs(x=xtxt3.5, y= "Recovery ratio [-]") +
-    theme_minimal()+
     guides(colour = guide_legend(override.aes = list(size=4, alpha= 1)))+
-    theme(axis.title.x=element_text(size=8), 
-          plot.title = element_text(size = 8),
-          legend.key.size = unit(1,"line"), 
-          legend.position= "bottom")+
+    theme_minimal()+
+    theme(#text=element_text(family="Arial"),
+      panel.grid =   element_line(colour = "#ECECEC", size=0.25),
+      plot.title = element_text(size = 9, face = "bold"),
+      axis.title.x=element_text(size=7, colour="#B1B1B1"), axis.title.y=element_text(size=7, colour="#B1B1B1"),
+      axis.text.x = element_text(size=7, colour="#B1B1B1"), axis.text.y = element_text(size=7, colour="#B1B1B1"),
+      strip.text = element_text(size=8, face="bold"),
+      legend.text=element_text(size=8, colour="#B1B1B1"), legend.position= "bottom",       
+      legend.title = element_text(size=9, face = "bold"), legend.key.size = unit(1,"line"))+
     ggtitle("TS Recovery")
   
   p3.5h2o <- ggplot(data=props, aes(x=ntechs, y=recovery_ratio_water_mean))+
     geom_point(aes(color=template), position = "jitter", alpha=0.8, size=1.1)+
-    scale_colour_manual(values = template_cols, labels = str_wrap(template_names, 25), labstxt3.5)+
     geom_boxplot(aes(group=ntechs), varwidth=TRUE, alpha=0, lwd=0.25)+
+    scale_colour_manual(values = template_cols, labels = str_wrap(template_names, 25), labstxt3.5)+
     ylim(0,1)+
     labs(x=xtxt3.5, y= "Recovery ratio [-]") +
-    theme_minimal()+
     guides(colour = guide_legend(override.aes = list(size=4, alpha= 1)))+
-    theme(axis.title.x=element_text(size=8),
-          plot.title = element_text(size = 8),
-          legend.key.size = unit(1,"line"), 
-          legend.position= "bottom")+
+    theme_minimal()+
+    theme(#text=element_text(family="Arial"),
+      panel.grid =   element_line(colour = "#ECECEC", size=0.25),
+      plot.title = element_text(size = 9, face = "bold"),
+      axis.title.x=element_text(size=7, colour="#B1B1B1"), axis.title.y=element_text(size=7, colour="#B1B1B1"),
+      axis.text.x = element_text(size=7, colour="#B1B1B1"), axis.text.y = element_text(size=7, colour="#B1B1B1"),
+      strip.text = element_text(size=8, face="bold"),
+      legend.text=element_text(size=8, colour="#B1B1B1"), legend.position= "bottom",       
+      legend.title = element_text(size=9, face = "bold"), legend.key.size = unit(1,"line"))+
     ggtitle("H2O Recovery")
   
   
@@ -832,12 +848,16 @@ ggsave(file.path(plotdir, "p3_4_sourceboxplot_ratio_h2om.pdf"), p3.4, unit="cm",
     geom_boxplot(aes(group=ntechs), varwidth=TRUE, alpha=0, lwd=0.25)+
     scale_colour_manual(values = template_cols, labels = str_wrap(template_names, 25), labstxt3.5)+
     labs(x=xtxt3.5, y= "Recovered water mean [m3/year*person]") +
-    theme_minimal()+
     guides(colour = guide_legend(override.aes = list(size=4, alpha= 1)))+
-    theme(axis.title.x=element_text(size=8), 
-          plot.title = element_text(size = 8),
-          legend.key.size = unit(1,"line"), 
-          legend.position= "bottom")+
+    theme_minimal()+
+    theme(#text=element_text(family="Arial"),
+      panel.grid =   element_line(colour = "#ECECEC", size=0.25),
+      plot.title = element_text(size = 9, face = "bold"),
+      axis.title.x=element_text(size=7, colour="#B1B1B1"), axis.title.y=element_text(size=7, colour="#B1B1B1"),
+      axis.text.x = element_text(size=7, colour="#B1B1B1"), axis.text.y = element_text(size=7, colour="#B1B1B1"),
+      strip.text = element_text(size=8, face="bold"),
+      legend.text=element_text(size=8, colour="#B1B1B1"), legend.position= "bottom",       
+      legend.title = element_text(size=9, face = "bold"), legend.key.size = unit(1,"line"))+
     ggtitle("H2O Recovery")
 
 ##  Create one plot with shared legend from multiple Plots 
@@ -850,23 +870,19 @@ ggsave(file.path(plotdir, "p3_4_sourceboxplot_ratio_h2om.pdf"), p3.4, unit="cm",
     ggsave(file.path(plotdir, "p3_5_ntech_templates_substance.pdf"), p3.5, unit="cm", width=19, height = 19, dpi=1000, device="pdf")
     ggsave(file.path(plotdir, "p3_5_ntech_templates_substance_h20m.pdf"), p3.5_h2om, unit="cm", width=19, height = 19, dpi=1000, device="pdf")
   
-  
-  
-  
-    
+
 # # ---- 3.6 Recovery Ratio - Boxplots for Number of Technologies for accumulated Recovery, grouped by System Templates----
 
 ##  Labels
     xtxt3.6 <- expression(paste("Length (Number of Technologies within the System)"))
     
-    p3.6 <- ggplot(data=props, aes(x=factor(ntechs), y=recovery_ratio_accumulated_balanced_mean))+
+    p3.6 <- ggplot(data=props, aes(x=factor(ntechs), y=recovery_ratio_accumulated_mean))+
       geom_point(aes(color=template), alpha=0.5, size=1.2, position = position_jitter())+
-      scale_colour_manual(values=template_cols, labels = str_wrap(template_names, 25), "System templates")+
+      scale_colour_manual(values=template_cols, labels = str_wrap(template_names, 15), "System templates")+
       geom_boxplot(aes(group=ntechs), varwidth= FALSE, alpha=0.5, lwd=0.25, outlier.size = 0.5, fill = "#6F6F6E", colour = "#6F6F6E", width=0.5)+
-      labs(x=xtxt3.6, y= "Accumulated Balanced Recovery Ratio [-]") +
+      labs(x=xtxt3.6, y= "Accumulated Recovery Ratio (sum of ratio for all four substances) [-]") +
       guides(colour = guide_legend(override.aes = list(size=4, alpha= 1), nrow=2))+
       scale_fill_manual(values=template_cols, labels = str_wrap(template_names, 25)) +
-      ylim(0,1)+
       theme_minimal()+
       theme(
             plot.title = element_text(size = 9, face = "bold"),
@@ -879,7 +895,8 @@ ggsave(file.path(plotdir, "p3_4_sourceboxplot_ratio_h2om.pdf"), p3.4, unit="cm",
             legend.position= "bottom",       
             legend.title = element_text(size=9, face = "bold"), 
             legend.key.size = unit(1,"line"))
-
+    p3.6
+    
     ## Create PDF of Plot 
     ggsave(file.path(plotdir, "p3_6_accumultedrecovery_ntech.pdf"), p3.6, unit="cm", width=19, height = 10, dpi=1000, device="pdf")
 
