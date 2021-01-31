@@ -180,7 +180,7 @@ p2.1 <- ggplot(data=props, aes(x=template, y=sysappscore))+
     legend.key.size = unit(1,"line"))+
   theme(axis.title.x=element_blank())+
   scale_x_discrete(labels=template_names_short) +
-  ggtitle("System appropriantess overview per template") 
+  ggtitle("System appropriateness overview per template") 
 p2.1
 
 ## save for screen view and ppt
