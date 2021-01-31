@@ -161,10 +161,9 @@ p2.1 <- ggplot(data=props, aes(x=template, y=sysappscore))+
   geom_text(data = dataMedian_sysappscore, aes(template, sysappscore.median, label = sysappscore.median), size = 3, 
             position = position_dodge(width = 0.2), vjust = -0.75, check_overlap = TRUE)+
   geom_point(data = props[props$selected,], aes(fill= template), size=3.5, shape=21, stroke=0, show.legend = TRUE, alpha=1)+
-  scale_fill_manual(values=template_cols, labels = template_names_short, "Selected systems", 
-                    guide=guide_legend(override.aes = list(size=2, alpha= 1), nrow=4,byrow=FALSE)) +
   geom_text_repel(data = props[props$selected,], aes(label=ID),position = "jitter", segment.size = 0.2, 
                   arrow = arrow(length = unit(0.03, "npc"), type = "open", ends = "last"), size=3) +
+  guides(fill=guide_legend(ncol=4))+
   labs(x="Template", y= "SAS") +
   theme_minimal()+
   theme(#text=element_text(family="Arial"),
@@ -177,7 +176,7 @@ p2.1 <- ggplot(data=props, aes(x=template, y=sysappscore))+
     strip.text = element_text(size=8.5, face="bold"),
     legend.position= "bottom",       
     legend.title = element_text(size = 9, colour = "#1D1D1B", face = "bold"),
-    legend.text=element_text(size=8.5, colour="#6F6F6E"),
+    legend.text=element_text(size=6, colour="#6F6F6E"),
     legend.key.size = unit(1,"line"))+
   theme(axis.title.x=element_blank())+
   scale_x_discrete(labels=template_names_short) +
