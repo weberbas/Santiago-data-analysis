@@ -54,7 +54,7 @@ Then, you need to have all the scripts and paths on your computer set correctly.
    > * >input (_generated when you run the runfile_)
    > * >Manifest.toml (_generated when you run the runfile_)
    > * >output (_generated when you run the runfile_)
-   >   * >test (_generated when you run the runfile_)
+   >   * >runname (_generated when you run the runfile_)
    > * >Project.toml (_generated when you run the runfile_)
 
 ### Using the data and the scripts
