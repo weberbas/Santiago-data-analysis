@@ -19,17 +19,17 @@ rundir<-file.path("../Santiago-runfolder/output", runname)
 
 ## read data 
   ## read in allSys
-  props <- read.csv(file.path(rundir, paste(runname, "_allSys_R-Export.csv", sep = "")), sep=",", header=T)
+  props <- read.csv(file.path(rundir, paste(runname, "_allSys.csv", sep = "")), sep=",", header=T)
   
   ## read in selectedSystems
-  selectedSystems <- read.csv(file.path(rundir, paste(runname, "_selectedSys_R-Export.csv", sep = "")), sep=",", header=T)
+  selectedSystems <- read.csv(file.path(rundir, paste(runname, "_selectedSys.csv", sep = "")), sep=",", header=T)
   
   ## read in and convert TAS
-  tas_df <- t(as.data.frame(fromJSON(file = file.path(rundir, paste(runname, "_TAS_R-Export.json", sep = "")))))
+  tas_df <- t(as.data.frame(fromJSON(file = file.path(rundir, paste(runname, "_TAS.json", sep = "")))))
   colnames(tas_df) <- "TAS"
 
   ## read in and convert TAS Components
-  tas_components_list <- fromJSON(file = file.path(rundir, paste(runname, "_TAS_Components_R-Export.json", sep = "")))
+  tas_components_list <- fromJSON(file = file.path(rundir, paste(runname, "_TAS_Components.json", sep = "")))
   melted_tas_comp <- melt(tas_components_list)
   colnames(melted_tas_comp) <- c("value", "attribute", "tech")
   tas_components_df <- dcast(melted_tas_comp, tech ~ attribute)
