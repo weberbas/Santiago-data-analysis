@@ -36,10 +36,10 @@ Create a folder on your computer called __santiago-sanitation-systems__. This is
 
 ### Input data
 First of all, you need the required _Santiago_ outputs. These are two csv files and two json files:
-* (runName)_allSys_R-Export.csv
-* (runName)_selectedSys_R-Export.cs
-* (runName)_TAS_R-Export.json
-* (runName)_TAS_Components_R-Export.json
+* (runName)_allSys.csv
+* (runName)_selectedSys.csv
+* (runName)_TAS.json
+* (runName)_TAS_Components.json
 How to define the runName and to export these files is explained in the best practice runfile in the [Santiago Wiki > Data Analysis with R](https://github.com/santiago-sanitation-systems/Santiago.jl/wiki).
 
 ### Scripts
