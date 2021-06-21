@@ -19,7 +19,7 @@ rundir<-file.path("../Santiago-runfolder/output", runname)
 
 ## read data 
   ## read in allSys
-  props <- read.csv(file.path(rundir, paste(runname, "_allSys.csv", sep = "")), sep=",", header=T)
+  props <- read.csv(file.path(rundir, paste(runname, "_properties_allSys.csv", sep = "")), sep=",", header=T)
   
   ## read in selectedSystems
   selectedSystems <- read.csv(file.path(rundir, paste(runname, "_selectedSys.csv", sep = "")), sep=",", header=T)
