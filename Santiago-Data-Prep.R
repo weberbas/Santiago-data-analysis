@@ -25,8 +25,10 @@ rundir<-file.path("../Santiago-runfolder/output", runname)
   selectedSystems <- read.csv(file.path(rundir, paste(runname, "_selectedSys.csv", sep = "")), sep=",", header=T)
   
   ## read in and convert TAS
-  tas_df <- t(as.data.frame(fromJSON(file = file.path(rundir, paste(runname, "_TAS.json", sep = "")))))
-  colnames(tas_df) <- "TAS"
+  tas_fg <- fromJSON(file = file.path(rundir, paste(runname, "_TAS_FG.json", sep = "")))
+  tas_df <- as.data.frame(t(rbind(as.data.frame(tas_fg$tas), as.data.frame(tas_fg$FG))))
+  colnames(tas_df) <- c("TAS", "FG")
+  tas_df$TAS <- as.numeric(tas_df$TAS)
 
   ## read in and convert TAS Components
   tas_components_list <- fromJSON(file = file.path(rundir, paste(runname, "_TAS_Components.json", sep = "")))
