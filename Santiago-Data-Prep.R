@@ -37,11 +37,6 @@ rundir<-file.path("../Santiago-runfolder/output", runname)
   tas_components_df <- dcast(melted_tas_comp, tech ~ attribute)
   remove(tas_components_list, melted_tas_comp)
   
-  # read out functional group and store them as column
-  FG <- toupper(substr(tas_components_df[,"tech"], start = 1, stop = 1))
-  tas_components_df <- cbind(tas_components_df, FG)
-  remove(FG)
-  
   ## Merge TAS and TAS Components
   tas_components_df <- merge(tas_components_df, tas_df, by.x = "tech", by.y = 0)
   
