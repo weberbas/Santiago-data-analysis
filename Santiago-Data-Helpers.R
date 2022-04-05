@@ -32,7 +32,7 @@ for (i in 1:length(source_cols)) {
 remove(i)
 ## define source names
 source_labs=levels(props$source)
-source_namess=levels(props$source)
+source_names=levels(props$source)
 
 ## define template colors with randomly assigned colors
 #template_cols <- levels(props$template)

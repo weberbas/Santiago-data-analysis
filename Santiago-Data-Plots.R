@@ -444,7 +444,7 @@ ggsave(file.path(plotdir, "p3_1_recovery_densityplot_full.png"), p3.1_full , uni
 ## ---- p3.2 --> RR - Density plot for recovery for all four substances, grouped by source ----------
 
 # Label
-labstxt3.2<- expression(paste("Substance"))
+labstxt3.2<- expression(paste("Source"))
 
 p3.2p <- ggplot(props, aes(x=recovery_ratio_phosphor_mean)) + 
   geom_density(aes(fill=source), size=0.25, alpha=.6)+
